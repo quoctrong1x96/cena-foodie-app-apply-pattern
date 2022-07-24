@@ -1,0 +1,19 @@
+{
+    "uidAddress": -1,
+    "typePayment": "CASH PAYMENT",
+    "total": 54000.0,
+    "products": [
+        {
+            "store_id": 1,
+            "uidProduct": "17",
+            "price": 29000.0,
+            "quantity": 1
+        },
+        {
+            "store_id": 1,
+            "uidProduct": "18",
+            "price": 25000.0,
+            "quantity": 3
+        }
+    ]
+}
