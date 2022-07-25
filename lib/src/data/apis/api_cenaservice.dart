@@ -4,6 +4,13 @@ class CenaServiceAPI {
   static const String _apiPathVersion1 = "/api/v1";
   static const String _scheme = "http";
 
+  const CenaServiceAPI._internal();
+
+  // ignore: prefer_const_constructors
+  static final CenaServiceAPI _instance = CenaServiceAPI._internal();
+
+  static CenaServiceAPI get instance => _instance;
+
   /// ==================[AUTHENTICATION]========================================
   /// Feature Authentication of Cena Foodie
   /// Login with email function

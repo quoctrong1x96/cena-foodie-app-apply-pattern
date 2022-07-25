@@ -1,5 +1,4 @@
 // A network service contract [Usage: API Calls]
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/entities/address/address.dart';
@@ -9,6 +8,7 @@ import '../../models/entities/delivery/delivery.dart';
 import '../../models/entities/order/order.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
+import '../../models/entities/user/user.dart';
 import '../../models/entities/user/user_request.dart';
 import '../../models/networks/api_response/api_response.dart';
 
