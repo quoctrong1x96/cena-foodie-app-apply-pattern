@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../utils/internet_utils.dart';
 import '../app_locator.dart';
 import '../services/base_service.dart';
-import '../services/cena_service/cena_service.dart';
+import '../services/cena/cena_service.dart';
 import '../services/local/database_service.dart';
 import '../services/local/storage_service.dart';
 

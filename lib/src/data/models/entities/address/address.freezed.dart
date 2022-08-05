@@ -24,7 +24,7 @@ class _$AddressTearOff {
       {required int id,
       @JsonKey(name: 'address') String? detail,
       Receiver? receiver,
-      int? type,
+      String? type,
       String? latitude,
       String? longitude,
       String? note,
@@ -55,7 +55,7 @@ mixin _$Address {
   @JsonKey(name: 'address')
   String? get detail => throw _privateConstructorUsedError;
   Receiver? get receiver => throw _privateConstructorUsedError;
-  int? get type => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   String? get latitude => throw _privateConstructorUsedError;
   String? get longitude => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
@@ -74,7 +74,7 @@ abstract class $AddressCopyWith<$Res> {
       {int id,
       @JsonKey(name: 'address') String? detail,
       Receiver? receiver,
-      int? type,
+      String? type,
       String? latitude,
       String? longitude,
       String? note,
@@ -118,7 +118,7 @@ class _$AddressCopyWithImpl<$Res> implements $AddressCopyWith<$Res> {
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ abstract class _$AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
       {int id,
       @JsonKey(name: 'address') String? detail,
       Receiver? receiver,
-      int? type,
+      String? type,
       String? latitude,
       String? longitude,
       String? note,
@@ -205,7 +205,7 @@ class __$AddressCopyWithImpl<$Res> extends _$AddressCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ class _$_Address implements _Address {
   @override
   final Receiver? receiver;
   @override
-  final int? type;
+  final String? type;
   @override
   final String? latitude;
   @override
@@ -318,7 +318,7 @@ abstract class _Address implements Address {
       {required int id,
       @JsonKey(name: 'address') String? detail,
       Receiver? receiver,
-      int? type,
+      String? type,
       String? latitude,
       String? longitude,
       String? note,
@@ -334,7 +334,7 @@ abstract class _Address implements Address {
   @override
   Receiver? get receiver => throw _privateConstructorUsedError;
   @override
-  int? get type => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   @override
   String? get latitude => throw _privateConstructorUsedError;
   @override

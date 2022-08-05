@@ -14,7 +14,7 @@ class Address with _$Address implements IModel {
     required int id,
     @JsonKey(name: 'address') String? detail,
     Receiver? receiver,
-    int? type,
+    String? type,
     String? latitude,
     String? longitude,
     String? note,

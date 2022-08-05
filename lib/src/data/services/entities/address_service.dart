@@ -19,5 +19,9 @@ abstract class IAddressService {
   });
 
   /// Add address for user
-  Future<UiResponse<Address>> add({required Address address});
+  Future<UiResponse<Address>> add(
+      {required int userId, required Address address});
+
+  /// get first address for user
+  Future<UiResponse<Address>> first({required int userId});
 }

@@ -21,18 +21,24 @@ class _$UserTearOff {
   const _$UserTearOff();
 
   _User call(
-      {required String firstName,
+      {required int id,
+      required String firstName,
       required String lastName,
       required String image,
       required String email,
+      required String phone,
+      required String notificationToken,
       int rolId = 2,
       String? address,
       String? reference}) {
     return _User(
+      id: id,
       firstName: firstName,
       lastName: lastName,
       image: image,
       email: email,
+      phone: phone,
+      notificationToken: notificationToken,
       rolId: rolId,
       address: address,
       reference: reference,
@@ -49,10 +55,13 @@ const $User = _$UserTearOff();
 
 /// @nodoc
 mixin _$User {
+  int get id => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String get notificationToken => throw _privateConstructorUsedError;
   int get rolId => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get reference => throw _privateConstructorUsedError;
@@ -67,10 +76,13 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
-      {String firstName,
+      {int id,
+      String firstName,
       String lastName,
       String image,
       String email,
+      String phone,
+      String notificationToken,
       int rolId,
       String? address,
       String? reference});
@@ -86,15 +98,22 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? image = freezed,
     Object? email = freezed,
+    Object? phone = freezed,
+    Object? notificationToken = freezed,
     Object? rolId = freezed,
     Object? address = freezed,
     Object? reference = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -110,6 +129,14 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      notificationToken: notificationToken == freezed
+          ? _value.notificationToken
+          : notificationToken // ignore: cast_nullable_to_non_nullable
               as String,
       rolId: rolId == freezed
           ? _value.rolId
@@ -133,10 +160,13 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String firstName,
+      {int id,
+      String firstName,
       String lastName,
       String image,
       String email,
+      String phone,
+      String notificationToken,
       int rolId,
       String? address,
       String? reference});
@@ -153,15 +183,22 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? image = freezed,
     Object? email = freezed,
+    Object? phone = freezed,
+    Object? notificationToken = freezed,
     Object? rolId = freezed,
     Object? address = freezed,
     Object? reference = freezed,
   }) {
     return _then(_User(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       firstName: firstName == freezed
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -177,6 +214,14 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      notificationToken: notificationToken == freezed
+          ? _value.notificationToken
+          : notificationToken // ignore: cast_nullable_to_non_nullable
               as String,
       rolId: rolId == freezed
           ? _value.rolId
@@ -198,10 +243,13 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_User implements _User {
   _$_User(
-      {required this.firstName,
+      {required this.id,
+      required this.firstName,
       required this.lastName,
       required this.image,
       required this.email,
+      required this.phone,
+      required this.notificationToken,
       this.rolId = 2,
       this.address,
       this.reference});
@@ -210,6 +258,8 @@ class _$_User implements _User {
       _$_$_UserFromJson(json);
 
   @override
+  final int id;
+  @override
   final String firstName;
   @override
   final String lastName;
@@ -217,6 +267,10 @@ class _$_User implements _User {
   final String image;
   @override
   final String email;
+  @override
+  final String phone;
+  @override
+  final String notificationToken;
   @JsonKey(defaultValue: 2)
   @override
   final int rolId;
@@ -227,13 +281,15 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(firstName: $firstName, lastName: $lastName, image: $image, email: $email, rolId: $rolId, address: $address, reference: $reference)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, image: $image, email: $email, phone: $phone, notificationToken: $notificationToken, rolId: $rolId, address: $address, reference: $reference)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _User &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.firstName, firstName) ||
                 const DeepCollectionEquality()
                     .equals(other.firstName, firstName)) &&
@@ -244,6 +300,11 @@ class _$_User implements _User {
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.phone, phone) ||
+                const DeepCollectionEquality().equals(other.phone, phone)) &&
+            (identical(other.notificationToken, notificationToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.notificationToken, notificationToken)) &&
             (identical(other.rolId, rolId) ||
                 const DeepCollectionEquality().equals(other.rolId, rolId)) &&
             (identical(other.address, address) ||
@@ -257,10 +318,13 @@ class _$_User implements _User {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(firstName) ^
       const DeepCollectionEquality().hash(lastName) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(phone) ^
+      const DeepCollectionEquality().hash(notificationToken) ^
       const DeepCollectionEquality().hash(rolId) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(reference);
@@ -278,16 +342,21 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   factory _User(
-      {required String firstName,
+      {required int id,
+      required String firstName,
       required String lastName,
       required String image,
       required String email,
+      required String phone,
+      required String notificationToken,
       int rolId,
       String? address,
       String? reference}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
+  @override
+  int get id => throw _privateConstructorUsedError;
   @override
   String get firstName => throw _privateConstructorUsedError;
   @override
@@ -296,6 +365,10 @@ abstract class _User implements User {
   String get image => throw _privateConstructorUsedError;
   @override
   String get email => throw _privateConstructorUsedError;
+  @override
+  String get phone => throw _privateConstructorUsedError;
+  @override
+  String get notificationToken => throw _privateConstructorUsedError;
   @override
   int get rolId => throw _privateConstructorUsedError;
   @override

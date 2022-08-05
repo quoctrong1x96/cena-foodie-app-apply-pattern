@@ -10,10 +10,13 @@ part 'user.g.dart';
 @freezed
 class User with _$User implements IModel {
   factory User({
+    required int id,
     required String firstName,
     required String lastName,
     required String image,
     required String email,
+    required String phone,
+    required String notificationToken,
     @Default(2) int rolId,
     String? address,
     String? reference,

@@ -1,7 +1,9 @@
 // A network service contract [Usage: API Calls]
+import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/entities/address/address.dart';
+import '../../models/entities/auth/auth_response.dart';
 import '../../models/entities/cart/cart.dart';
 import '../../models/entities/category/category.dart';
 import '../../models/entities/delivery/delivery.dart';
@@ -16,10 +18,10 @@ abstract class ICenaService {
   /// #region [Authentication_API]
 
   /// Check token
-  Future<ApiResponse<User>> renewToken(UserRequest? userRequest);
+  Future<ApiResponse<AuthResponse>> renewToken();
 
   ///Login with email and password
-  Future<ApiResponse<User>> loginWithEmail(UserRequest? userRequest);
+  Future<ApiResponse<AuthResponse>> loginWithEmail(UserRequest? userRequest);
 
   ///Login with phone number
   Future<ApiResponse<User>> loginWithPhone(UserRequest? userRequest);
@@ -107,7 +109,8 @@ abstract class ICenaService {
       {required int userId, required int addressId});
 
   /// Add address for user
-  Future<ApiResponse<Address>> addAddress({required Address address});
+  Future<ApiResponse<Address>> addAddress(
+      {required int userId, required Address address});
 
   // #endregion
 
@@ -117,8 +120,7 @@ abstract class ICenaService {
   Future<ApiResponse<List<Category>>> fetchAllCategory({required int storeId});
 
   /// Add category to store
-  Future<ApiResponse<Category>> addCategory(
-      {required int storeId, required Category category});
+  Future<ApiResponse<Category>> addCategory({required Category category});
 
   ///Update category
   Future<ApiResponse<String>> updateCategory(
@@ -142,10 +144,7 @@ abstract class ICenaService {
 
   /// Get all delivery of store
   Future<ApiResponse<List<Order>>> addOrder(
-      {required int addressId,
-      required double total,
-      required String typePayment,
-      required List<Cart> carts});
+      {required OrderRequestAdd orderRequestAdd});
 
   //Get all order for store by status
   Future<ApiResponse<List<Order>>> fetChAllOrderByStatusForStore(

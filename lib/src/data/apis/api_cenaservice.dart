@@ -186,7 +186,7 @@ class CenaServiceAPI {
         parameterBuilder: () => {},
       );
 
-  Uri userGetAllAddAddresses({
+  Uri userGetAllAddresses({
     required int userId,
   }) =>
       _buildUri(
@@ -194,6 +194,16 @@ class CenaServiceAPI {
         endpoint: "$userId/addresses",
         parameterBuilder: () => {},
       );
+
+  Uri userAddAddresses({
+    required int userId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "users",
+        endpoint: "$userId/addresses",
+        parameterBuilder: () => {},
+      );
+
   Uri userDeleteAddress({
     required int userId,
     required int addressId,
@@ -263,6 +273,132 @@ class CenaServiceAPI {
       _buildUri(
         groupEndpoint: "users",
         endpoint: "$userId/reference",
+        parameterBuilder: () => {},
+      );
+
+  ///==========================[ORDERs]=========================================
+
+  Uri orderAdd() => _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "",
+        parameterBuilder: () => {},
+      );
+  Uri orderById({
+    required int orderId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId",
+        parameterBuilder: () => {},
+      );
+  Uri orderToDispatch({
+    required int orderId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId/to-dispatch",
+        parameterBuilder: () => {},
+      );
+
+  Uri orderToOnWay({
+    required int orderId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId/to-on-way",
+        parameterBuilder: () => {},
+      );
+
+  Uri orderToDelivered({
+    required int orderId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId/to-delivered",
+        parameterBuilder: () => {},
+      );
+  Uri orderToCancelled({
+    required int orderId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId/to-cancelled",
+        parameterBuilder: () => {},
+      );
+
+  Uri orderGet({
+    required String status,
+    required String typeObject,
+    required int objectId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "",
+        parameterBuilder: () => filterOrder(
+          status: status,
+          typeObject: typeObject,
+          objectId: objectId,
+        ),
+      );
+
+  ///==========================[ORDERs]=========================================
+
+  Uri productAdd({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "stores",
+        endpoint: "/$storeId/products",
+        parameterBuilder: () => {},
+      );
+
+  Uri productUpdate({
+    required int orderId,
+    required int productId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$orderId/products/$productId",
+        parameterBuilder: () => {},
+      );
+
+  Uri productGetAllForStore({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$storeId/products",
+        parameterBuilder: () => {},
+      );
+
+  Uri productGetImages({
+    required int storeId,
+    required int productId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "orders",
+        endpoint: "$storeId/products/$productId",
+        parameterBuilder: () => {},
+      );
+
+  Uri productSearchByName({required int productName}) => _buildUri(
+        groupEndpoint: "products",
+        endpoint: "search-product-for-name/$productName",
+        parameterBuilder: () => {},
+      );
+
+  Uri productSearchByCategory({required int categoryName}) => _buildUri(
+        groupEndpoint: "products",
+        endpoint: "search-product-for-category/$categoryName",
+        parameterBuilder: () => {},
+      );
+  Uri productDelete({
+    required int storeId,
+    required int productId,
+  }) =>
+      _buildUri(
+        groupEndpoint: "stores",
+        endpoint: "$storeId/products/$productId",
         parameterBuilder: () => {},
       );
 
@@ -379,5 +515,16 @@ class CenaServiceAPI {
         "limit": limit,
         "lat": lat,
         "lng": lng,
+      };
+
+  Map<String, dynamic>? filterOrder({
+    required String status,
+    required String typeObject,
+    required int objectId,
+  }) =>
+      {
+        "status": status,
+        "type": typeObject,
+        "object_id": objectId,
       };
 }

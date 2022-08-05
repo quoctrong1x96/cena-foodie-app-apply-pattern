@@ -13,7 +13,7 @@ _$_Address _$_$_AddressFromJson(Map<String, dynamic> json) {
     receiver: json['receiver'] == null
         ? null
         : Receiver.fromJson(json['receiver'] as Map<String, dynamic>),
-    type: json['type'] as int?,
+    type: json['type'] as String?,
     latitude: json['latitude'] as String?,
     longitude: json['longitude'] as String?,
     note: json['note'] as String?,

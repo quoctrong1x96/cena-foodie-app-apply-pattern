@@ -1,3 +1,5 @@
+import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
+import 'package:cenafoodie/src/data/models/entities/product/product_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -8,16 +10,19 @@ import '../../app_locator.dart';
 import '../../enums/network_request_type.dart';
 import '../../enums/network_response_type.dart';
 import '../../models/entities/address/address.dart';
-import '../../models/entities/cart/cart.dart';
+import '../../models/entities/auth/auth_response.dart';
 import '../../models/entities/category/category.dart';
+import '../../models/entities/category/category_response.dart';
 import '../../models/entities/delivery/delivery.dart';
 import '../../models/entities/order/order.dart';
+import '../../models/entities/order/order_response.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
+import '../../models/entities/product/product_image_response.dart';
 import '../../models/entities/user/user.dart';
 import '../../models/entities/user/user_request.dart';
 import '../../models/networks/api_response/api_response.dart';
-import '../../services/cena_service/cena_service.dart';
+import '../../services/cena/cena_service.dart';
 import '../../services/local/storage_service.dart';
 import 'network_client.dart';
 
@@ -25,11 +30,14 @@ class CenaRepository implements ICenaService {
   final _storageService = locator<IStorageService>();
 
   @override
-  Future<ApiResponse<Address>> addAddress({required Address address}) async {
+  Future<ApiResponse<Address>> addAddress({
+    required int userId,
+    required Address address,
+  }) async {
     final token = await _storageService.getAccessToken();
     final response = await NetworkClient.instance.request(
       NetworkRequestType.post,
-      uri: CenaServiceAPI.instance.authOnEmail(),
+      uri: CenaServiceAPI.instance.userAddAddresses(userId: userId),
       token: token,
       body: address.toJson(),
     );
@@ -40,19 +48,34 @@ class CenaRepository implements ICenaService {
 
   @override
   Future<ApiResponse<Category>> addCategory(
-      {required int storeId, required Category category}) {
-    // TODO: implement addCategory
-    throw UnimplementedError();
+      {required Category category}) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.post,
+      uri: CenaServiceAPI.instance.storeAddCategory(storeId: category.storeId),
+      token: token,
+      body: category.toJson(),
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Category.fromJson(data) : null;
+    });
   }
 
   @override
   Future<ApiResponse<List<Order>>> addOrder(
-      {required int addressId,
-      required double total,
-      required String typePayment,
-      required List<Cart> carts}) {
-    // TODO: implement addOrder
-    throw UnimplementedError();
+      {required OrderRequestAdd orderRequestAdd}) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.post,
+      uri: CenaServiceAPI.instance.orderAdd(),
+      token: token,
+      body: orderRequestAdd.toJson(),
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? OrderFetchResponse.fromJson(data).orders : null;
+    });
   }
 
   @override
@@ -131,17 +154,37 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<String>> deleteAddress(
-      {required int userId, required int addressId}) {
-    // TODO: implement deleteAddress
-    throw UnimplementedError();
+  Future<ApiResponse<String>> deleteAddress({
+    required int userId,
+    required int addressId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.delete,
+      uri: CenaServiceAPI.instance
+          .userDeleteAddress(userId: userId, addressId: addressId),
+      token: token,
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? "Success" : null;
+    });
   }
 
   @override
-  Future<ApiResponse<String>> deleteCategory(
-      {required int storeId, required int categoryId}) {
-    // TODO: implement deleteCategory
-    throw UnimplementedError();
+  Future<ApiResponse<String>> deleteCategory({
+    required int storeId,
+    required int categoryId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.delete,
+      uri: CenaServiceAPI.instance
+          .storeDeleteCategory(storeId: storeId, categoryId: categoryId),
+      token: token,
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? "Success" : null;
+    });
   }
 
   @override
@@ -159,36 +202,107 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<List<Order>>> fetChAllOrderByStatusForStore(
-      {required int storeId, required String status}) {
-    // TODO: implement fetChAllOrderByStatusForStore
-    throw UnimplementedError();
+  Future<ApiResponse<List<Order>>> fetChAllOrderByStatusForStore({
+    required int storeId,
+    required String status,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.orderGet(
+        status: status,
+        typeObject: "store",
+        objectId: storeId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? OrderFetchResponse.fromJson(data).orders : null;
+    });
   }
 
   @override
-  Future<ApiResponse<List<Address>>> fetchAllAddress({required int userId}) {
-    // TODO: implement fetchAllAddress
-    throw UnimplementedError();
+  Future<ApiResponse<List<Address>>> fetchAllAddress({
+    required int userId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.userGetAllAddresses(userId: userId),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Address.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<List<Order>>> fetchAllByStatusForClient(
-      {required int clientId, required String status}) {
-    // TODO: implement fetchAllByStatusForClient
-    throw UnimplementedError();
+  Future<ApiResponse<List<Order>>> fetchAllByStatusForClient({
+    required int clientId,
+    required String status,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.orderGet(
+        status: status,
+        typeObject: "client",
+        objectId: clientId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? OrderFetchResponse.fromJson(data).orders : null;
+    });
   }
 
   @override
-  Future<ApiResponse<List<Order>>> fetchAllByStatusForDelivery(
-      {required int deliveryId, required String status}) {
-    // TODO: implement fetchAllByStatusForDelivery
-    throw UnimplementedError();
+  Future<ApiResponse<List<Order>>> fetchAllByStatusForDelivery({
+    required int deliveryId,
+    required String status,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.orderGet(
+        status: status,
+        typeObject: "delivery",
+        objectId: deliveryId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? OrderFetchResponse.fromJson(data).orders : null;
+    });
   }
 
   @override
-  Future<ApiResponse<List<Category>>> fetchAllCategory({required int storeId}) {
-    // TODO: implement fetchAllCategory
-    throw UnimplementedError();
+  Future<ApiResponse<List<Category>>> fetchAllCategory({
+    required int storeId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.storeAddCategory(
+        storeId: storeId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null
+          ? CategoryFetchResponse.fromJson(data).categories
+          : null;
+    });
   }
 
   @override
@@ -198,29 +312,81 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<List<Product>>> fetchAllProduct({required int storeId}) {
-    // TODO: implement fetchAllProduct
-    throw UnimplementedError();
+  Future<ApiResponse<List<Product>>> fetchAllProduct({
+    required int storeId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.productGetAllForStore(
+        storeId: storeId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? ProductFetchResponse.fromJson(data).products : null;
+    });
   }
 
   @override
-  Future<ApiResponse<Address>> getAddressById(
-      {required int userId, required int addressId}) {
-    // TODO: implement getAddressById
-    throw UnimplementedError();
+  Future<ApiResponse<Address>> getAddressById({
+    required int userId,
+    required int addressId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.userGetAddressById(
+        userId: userId,
+        addressId: addressId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Address.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<Order>> getOrderDetail({required int orderId}) {
-    // TODO: implement getOrderDetail
-    throw UnimplementedError();
+  Future<ApiResponse<Order>> getOrderDetail({
+    required int orderId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.orderById(
+        orderId: orderId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Order.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<List<ProductImage>>> getProductImages(
-      {required int storeId, required int productId}) {
-    // TODO: implement getProductImages
-    throw UnimplementedError();
+  Future<ApiResponse<List<ProductImage>>> getProductImages({
+    required int storeId,
+    required int productId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance
+          .productGetImages(storeId: storeId, productId: productId),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? ImagesProductsResponse.fromJson(data).images : null;
+    });
   }
 
   @override
@@ -230,20 +396,32 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<User>> getUserById({required int userID}) {
-    // TODO: implement getUserById
-    throw UnimplementedError();
+  Future<ApiResponse<User>> getUserById({
+    required int userID,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.userById(userId: userID),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? User.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<User>> loginWithEmail(UserRequest? userRequest) async {
+  Future<ApiResponse<AuthResponse>> loginWithEmail(
+      UserRequest? userRequest) async {
     final response = await NetworkClient.instance.request(
       NetworkRequestType.post,
       uri: CenaServiceAPI.instance.authOnEmail(),
       body: userRequest?.toJson(),
     );
-    return _getApiResponse<User>(response, (data) {
-      return data != null ? User.fromJson(data) : null;
+    return _getApiResponse<AuthResponse>(response, (data) {
+      return data != null ? AuthResponse.fromJson(data) : null;
     });
   }
 
@@ -260,23 +438,32 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<User>> registerUser(
-      {required User user, required String password}) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ApiResponse<User>> renewToken(UserRequest? userRequest) async {
+  Future<ApiResponse<User>> registerUser({
+    required User user,
+    required String password,
+  }) async {
     final token = await _storageService.getAccessToken();
     final response = await NetworkClient.instance.request(
       NetworkRequestType.post,
       uri: CenaServiceAPI.instance.authOnEmail(),
       token: token,
-      body: userRequest?.toJson(),
+      body: user.toJson(),
     );
     return _getApiResponse<User>(response, (data) {
       return data != null ? User.fromJson(data) : null;
+    });
+  }
+
+  @override
+  Future<ApiResponse<AuthResponse>> renewToken() async {
+    final token = await _storageService.getAccessToken();
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPI.instance.authOnEmail(),
+      token: token,
+    );
+    return _getApiResponse<AuthResponse>(response, (data) {
+      return data != null ? AuthResponse.fromJson(data) : null;
     });
   }
 
@@ -294,35 +481,93 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<String>> setOrderToCancelled({required String orderId}) {
-    // TODO: implement setOrderToCancelled
-    throw UnimplementedError();
+  Future<ApiResponse<String>> setOrderToCancelled({
+    required String orderId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.patch,
+      uri: CenaServiceAPI.instance.orderToCancelled(
+        orderId: int.parse(orderId),
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Order.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<String>> setOrderToDelivered({required String orderId}) {
-    // TODO: implement setOrderToDelivered
-    throw UnimplementedError();
+  Future<ApiResponse<String>> setOrderToDelivered({
+    required String orderId,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.patch,
+      uri: CenaServiceAPI.instance.orderToDelivered(
+        orderId: int.parse(orderId),
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Order.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<String>> setOrderToDispatch(
-      {required String orderId,
-      required String deliveryId,
-      required int storeId,
-      required String storeLat,
-      required String storeLng}) {
-    // TODO: implement setOrderToDispatch
-    throw UnimplementedError();
+  Future<ApiResponse<String>> setOrderToDispatch({
+    required String orderId,
+    required String deliveryId,
+    required int storeId,
+    required String storeLat,
+    required String storeLng,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.patch,
+      uri: CenaServiceAPI.instance.orderToDispatch(
+        orderId: int.parse(orderId),
+      ),
+      token: token,
+      body: {
+        'idDelivery': deliveryId,
+        'store_id': storeId.toString(),
+        'store_latitude': storeLat,
+        'store_longitude': storeLng,
+      },
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Order.fromJson(data) : null;
+    });
   }
 
   @override
-  Future<ApiResponse<String>> setOrderToOnWay(
-      {required String orderId,
-      required String desLat,
-      required String desLng}) {
-    // TODO: implement setOrderToOnWay
-    throw UnimplementedError();
+  Future<ApiResponse<String>> setOrderToOnWay({
+    required String orderId,
+    required String desLat,
+    required String desLng,
+  }) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.patch,
+      uri: CenaServiceAPI.instance.orderToOnWay(
+        orderId: int.parse(orderId),
+      ),
+      token: token,
+      body: {
+        'latitude': desLat,
+        'longitude': desLng,
+      },
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? Order.fromJson(data) : null;
+    });
   }
 
   @override
