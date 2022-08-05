@@ -22,10 +22,10 @@ import 'src/blocs/product/product_bloc.dart';
 import 'src/blocs/store/store_bloc.dart';
 import 'src/blocs/user/user_bloc.dart';
 import 'src/configs/cena_themes.dart';
+import 'src/data/services/google/push_notification.dart';
 import 'src/generated/l10n.dart';
 import 'src/getx_services/getx_settings_service.dart';
 import 'src/screens/intro/checking_login_page.dart';
-import 'src/services/push_notification.dart';
 import 'src/themes/theme_maps.dart';
 
 PushNotification pushNotification = PushNotification();

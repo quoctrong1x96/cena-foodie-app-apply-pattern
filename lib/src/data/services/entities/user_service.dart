@@ -60,13 +60,13 @@ abstract class IUserService {
 
   //Update notification token
   Future<UiResponse<String>> updateNotifyToken({
-    required User user,
-    required String password,
+    required int userId,
+    required String notifyToken,
   });
 
   ///Enter reference code
   Future<UiResponse<String>> enterReferenceCode({
-    required User user,
+    required int userId,
     required String code,
   });
 }
