@@ -16,11 +16,7 @@ import '../Admin/delivery/list_delivery_page.dart';
 import '../Admin/store/store_edit_page.dart';
 import '../app/app_privacy_policy.dart';
 import '../app/app_terms_conditions.dart';
-import '../home/select_role_page.dart';
 import '../intro/checking_login_page.dart';
-import '../profile/change_languages_page.dart';
-import '../profile/change_password_page.dart';
-import '../profile/edit_profile_page.dart';
 import 'marketing/admin_marketing_page.dart';
 import 'orders_admin/orders_admin_page.dart';
 
@@ -145,9 +141,9 @@ class AdminHomePage extends StatelessWidget {
                       child: BlocBuilder<UserBloc, UserState>(
                           builder: (_, state) => CenaTextDescription(
                                 text: (state.user != null)
-                                    ? state.user!.firstName!.toUpperCase() +
+                                    ? state.user!.firstName.toUpperCase() +
                                         ' ' +
-                                        state.user!.lastName!.toUpperCase()
+                                        state.user!.lastName.toUpperCase()
                                     : '',
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -159,7 +155,7 @@ class AdminHomePage extends StatelessWidget {
                       child: BlocBuilder<UserBloc, UserState>(
                           builder: (_, state) => CenaTextDescription(
                                 text: (state.user != null)
-                                    ? state.user!.email!
+                                    ? state.user!.email
                                     : '',
                                 fontSize: 20,
                               ))),
@@ -207,7 +203,7 @@ class AdminHomePage extends StatelessWidget {
                         context,
                         routeCena(
                             page: CategoriesAdminPage(
-                                storeBloc.state.store!.id!))),
+                                storeBloc.state.store!.id))),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_foods_and_drinks,

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../data/models/entities/delivery/delivery.dart';
-import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../../utils/configs/cena_colors.dart';
@@ -73,6 +72,7 @@ class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
   }
 }
 
+// ignore: unused_element
 class _ListDelivery extends StatelessWidget {
   final List<Delivery> listDelivery;
 

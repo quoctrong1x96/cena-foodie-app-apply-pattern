@@ -2,12 +2,10 @@ import 'package:cenafoodie/src/utils/extensions/date_time_extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../data/models/entities/order/order.dart';
 import '../../../../data/models/entities/pay_type.dart';
 import '../../../../utils/helpers/cena_indicator.dart';
-import '../../../../utils/helpers/date.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../resources/generated/l10n.dart';
@@ -140,6 +138,7 @@ class OrdersAdminPage extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _ListOrders extends StatelessWidget {
   final List<Order> listOrders;
 
@@ -147,7 +146,7 @@ class _ListOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    listOrders.sort((a, b) => b.id!.compareTo(a.id!));
+    listOrders.sort((a, b) => b.id.compareTo(a.id));
     return Container(
       margin: const EdgeInsets.only(top: 10.0, bottom: 5),
       child: ListView.builder(

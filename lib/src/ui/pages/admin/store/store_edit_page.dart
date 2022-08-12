@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../blocs/store/store_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/row/cena_row_store.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
@@ -24,8 +22,7 @@ class _EditStorePageState extends State<EditStorePage> {
   late TextEditingController _phoneController;
   late TextEditingController _emailController;
 
-  final ImagePicker _picker = ImagePicker();
-
+  // ignore: unused_field
   final _keyForm = GlobalKey<FormState>();
 
   Future<void> getPersonalInformation() async {
@@ -59,8 +56,8 @@ class _EditStorePageState extends State<EditStorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final storeBloc = BlocProvider.of<StoreBloc>(context);
-    final store = storeBloc.state.store!;
+    // final storeBloc = BlocProvider.of<StoreBloc>(context);
+    // final store = storeBloc.state.store!;
     final lang = S.of(context);
 
     return BlocListener<StoreBloc, StoreState>(

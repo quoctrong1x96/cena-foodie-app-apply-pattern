@@ -1,8 +1,6 @@
 part of 'helpers.dart';
 
 void modalSelectionCategory(BuildContext ctx, int storeId) {
-  final productBloc = BlocProvider.of<ProductsBloc>(ctx);
-
   showModalBottomSheet(
     context: ctx,
     barrierColor: Colors.black26,

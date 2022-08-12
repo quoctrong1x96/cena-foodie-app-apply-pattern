@@ -5,10 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 
 import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
-import '../../widgets/animation_route.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
-import '../client/client_get_current_address_page.dart';
 
 class EnterReferencePage extends StatelessWidget {
   const EnterReferencePage({Key? key}) : super(key: key);

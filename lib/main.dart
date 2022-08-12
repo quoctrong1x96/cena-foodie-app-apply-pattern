@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'src/data/app_locator.dart';
 import 'src/data/services/google/push_notification.dart';
 import 'src/ui/blocs/auth/auth_bloc.dart';
 import 'src/ui/blocs/cart/cart_bloc.dart';
@@ -26,6 +27,7 @@ import 'src/ui/pages/intro/checking_login_page.dart';
 import 'src/ui/resources/generated/l10n.dart';
 import 'src/utils/configs/cena_themes.dart';
 import 'src/utils/getx_services/getx_settings_service.dart';
+import 'src/utils/log_utils.dart';
 import 'src/utils/themes/theme_maps.dart';
 
 PushNotification pushNotification = PushNotification();
@@ -37,6 +39,9 @@ Future<void> _firebaseMessagingBackground(RemoteMessage message) async {
 Future initServices() async {
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
+
+  initLocator();
+  LogUtils.init();
   await Get.putAsync(() => SettingService().init());
 }
 

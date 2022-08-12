@@ -1,6 +1,5 @@
 // A network service contract [Usage: API Calls]
 import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../models/entities/address/address.dart';
 import '../../models/entities/auth/auth_response.dart';
