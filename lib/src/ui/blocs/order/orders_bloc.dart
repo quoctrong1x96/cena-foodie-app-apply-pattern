@@ -9,7 +9,6 @@ import '../../../data/app_locator.dart';
 import '../../../data/models/entities/cart/cart.dart';
 import '../../../data/services/entities/order_service.dart';
 import '../../../data/services/entities/store_service.dart';
-import '../../../data/services/entities/user_service.dart';
 import '../../../data/services/google/push_notification.dart';
 
 part 'orders_event.dart';
@@ -17,7 +16,6 @@ part 'orders_state.dart';
 
 class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   final _orderService = locator<IOrderService>();
-  final _userService = locator<IUserService>();
   final _storeService = locator<IStoreService>();
 
   OrdersBloc() : super(OrdersState()) {

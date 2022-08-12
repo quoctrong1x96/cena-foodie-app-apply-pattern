@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../data/models/ui/page_arguments.dart';
-import 'constants/app_constants.dart';
-import 'constants/route_constants.dart';
 import 'log_utils.dart';
 
 class RouteUtils {
@@ -20,6 +18,7 @@ class RouteUtils {
       'generateRoute',
       '$route, ${args?.toJson()}',
     );
+    return null;
 
     // if (route == RouteConstants.home) {
     //   // Initial route doesn't requires transition
@@ -71,6 +70,7 @@ class RouteUtils {
     // }
   }
 
+  // ignore: unused_element
   static PageTransition<dynamic> _getPageRoute(
     Widget page, {
     PageTransitionType? transitionType,

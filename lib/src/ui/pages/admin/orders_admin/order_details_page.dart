@@ -227,6 +227,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _ListProductsDetails extends StatelessWidget {
   final List<Order> listProductDetails;
 

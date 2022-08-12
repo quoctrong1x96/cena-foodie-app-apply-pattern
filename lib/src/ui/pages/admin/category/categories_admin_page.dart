@@ -36,7 +36,7 @@ class CategoriesAdminPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
           physics: const BouncingScrollPhysics(),
-          children: [
+          children: const [
             // FutureBuilder<List<Category>>(
             //     future: categoryController.getAllCategories(storeId),
             //     builder: (context, snapshot) => !snapshot.hasData
@@ -57,6 +57,7 @@ class CategoriesAdminPage extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _ListCategories extends StatelessWidget {
   final List<Category> listCategory;
 

@@ -220,7 +220,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       ]),
                   child: InkWell(
                     onTap: () => modalSelectionCategory(
-                        context, storeBloc.state.store!.id!),
+                        context, storeBloc.state.store!.id),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

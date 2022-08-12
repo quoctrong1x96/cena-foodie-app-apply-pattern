@@ -76,6 +76,7 @@ void modalSelectDelivery(BuildContext context, String idOrder, Store store) {
   );
 }
 
+// ignore: unused_element
 class _ListDeliveryModal extends StatelessWidget {
   final List<Delivery> listDelivery;
 

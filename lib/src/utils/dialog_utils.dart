@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'configs/cena_colors.dart';
 import 'navigation_utils.dart';

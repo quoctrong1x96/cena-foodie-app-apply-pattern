@@ -58,7 +58,7 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
 
         emit(SuccessStoreState());
 
-        emit(state.copyWith(store: store!.data));
+        emit(state.copyWith(store: store.data));
       } else {
         emit(FailureStoreState(uiResponse.errorMessage!));
       }

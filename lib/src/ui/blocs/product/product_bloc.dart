@@ -130,7 +130,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     try {
       emit(LoadingProductsState());
 
-      List<String> images = [];
+      // List<String> images = [];
 
       final uiResponse = await _productService.update(
           storeId: event.store.id,

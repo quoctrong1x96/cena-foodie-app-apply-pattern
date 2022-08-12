@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import '../../../../data/models/entities/response/products_top_home_response.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
 import '../../../blocs/product/product_bloc.dart';
-import '../../../blocs/store/store_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../resources/generated/l10n.dart';
@@ -70,6 +69,7 @@ class _ListProductsPageState extends State<ListProductsPage> {
   }
 }
 
+// ignore: unused_element
 class _GridViewListProduct extends StatelessWidget {
   final List<FoodAndDrink> listProducts;
 

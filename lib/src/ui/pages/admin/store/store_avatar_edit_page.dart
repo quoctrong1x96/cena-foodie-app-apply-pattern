@@ -83,7 +83,7 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
               source: ImageSource.gallery, imageQuality: 50);
           if (imagePath != null) {
             userBloc.add(OnChangeImageStoreEvent(
-                BlocProvider.of<StoreBloc>(context).state.store!.id!,
+                BlocProvider.of<StoreBloc>(context).state.store!.id,
                 imagePath.path));
           }
         },
@@ -93,7 +93,7 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
               source: ImageSource.camera, imageQuality: 50);
           if (photoPath != null) {
             userBloc.add(OnChangeImageStoreEvent(
-                BlocProvider.of<StoreBloc>(context).state.store!.id!,
+                BlocProvider.of<StoreBloc>(context).state.store!.id,
                 photoPath.path));
           }
         });
