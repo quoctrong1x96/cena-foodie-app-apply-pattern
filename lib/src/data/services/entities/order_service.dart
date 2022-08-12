@@ -16,7 +16,7 @@ abstract class IOrderService {
   });
 
   /// Get all delivery of store
-  Future<UiResponse<List<Order>>> add({
+  Future<UiResponse<Order>> add({
     required int addressId,
     required double total,
     required String typePayment,

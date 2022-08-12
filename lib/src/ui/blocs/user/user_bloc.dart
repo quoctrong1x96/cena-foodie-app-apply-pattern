@@ -12,9 +12,7 @@ import '../../../data/models/entities/user/user.dart';
 import '../../../data/services/entities/address_service.dart';
 import '../../../data/services/entities/user_service.dart';
 import '../../../data/services/google/push_notification.dart';
-import '../../../data/services/local/storage_service.dart';
-import '../../../helpers/geolocator_util.dart';
-import '../../../services/push_notification.dart';
+import '../../../utils/helpers/geolocator_util.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
@@ -115,7 +113,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(LoadingUserState());
 
       final uiResponse = await _userService.changeFirstName(
-          userId: event.userId, lastName: event.firstName);
+          userId: event.userId, firstName: event.firstName);
 
       if (!uiResponse.hasError) {
         final data = await _userService.byId(userID: event.userId);
@@ -447,11 +445,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(FailureUserState(error));
       });
 
-      if (address.addressDetail.isNotEmpty) {
-        var data = await _userService.getAddresses(event.userId);
+      if (address.detail == null) {
+        var data = await _addressService.fetchAll(userId: event.userId);
         var count = 0;
-        if (data!.isNotEmpty) {
-          for (var item in data) {
+        if (data.data == null) {
+          for (var item in data.data!) {
             var distance = Geolocator.distanceBetween(
                 double.parse(item.latitude!),
                 double.parse(item.longitude!),
@@ -459,22 +457,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
                 location.longitude);
             if (distance < 20) {
               count++;
-              address.id = item.id!;
-              address.receiver = item.receiver!;
-              address.phone = item.phone!;
-              address.typeAddress = item.type!;
-              address.addressDetail = item.addressDetail!;
-              address.latitude = item.latitude!;
-              address.longitude = item.longitude!;
+              address = item;
               break;
             }
           }
         }
         if (count == 0) {
-          address.id = -1;
-          address.receiver = event.userFullName;
-          address.phone = event.phoneNumber;
-          address.typeAddress = 1;
+          address.copyWith(
+              id: -1,
+              receiver: Receiver(
+                  name: event.userFullName,
+                  phoneNumber: event.phoneNumber,
+                  isFemale: 1),
+              type: "1");
         }
 
         // emit(SuccessUserState());

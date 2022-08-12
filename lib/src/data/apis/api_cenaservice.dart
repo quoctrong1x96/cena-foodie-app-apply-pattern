@@ -1,35 +1,37 @@
-class CenaServiceAPI {
-  static const String _apiBaseUrl = "108.135.103.56";
-  static const int _port = 7070;
-  static const String _apiPathVersion1 = "/api/v1";
-  static const String _scheme = "http";
+import 'package:cenafoodie/src/utils/constants/cena_service_constants.dart';
 
-  const CenaServiceAPI._internal();
+class CenaServiceAPIv1 {
+  const CenaServiceAPIv1._internal();
 
   // ignore: prefer_const_constructors
-  static final CenaServiceAPI _instance = CenaServiceAPI._internal();
+  static final CenaServiceAPIv1 _instance = CenaServiceAPIv1._internal();
 
-  static CenaServiceAPI get instance => _instance;
+  static CenaServiceAPIv1 get instance => _instance;
+
+  static const String _apiBaseUrl = CenaServiceConstants.BASE_URL;
+  static const int _port = CenaServiceConstants.URL_PORT;
+  static const String _apiPathVersionV1 = CenaServiceConstants.URL_API_PATHv1;
+  static const String _scheme = CenaServiceConstants.URL_SCHEME;
 
   /// ==================[AUTHENTICATION]========================================
   /// Feature Authentication of Cena Foodie
   /// Login with email function
   Uri authOnEmail() => _buildUri(
-        groupEndpoint: "auth",
+        groupEndpoint: CenaServiceConstants.api_group_auth,
         endpoint: "login-email",
         parameterBuilder: () => {},
       );
 
   /// Login with phone number function
   Uri authOnPhone() => _buildUri(
-        groupEndpoint: "auth",
+        groupEndpoint: CenaServiceConstants.api_group_auth,
         endpoint: "login-phone",
         parameterBuilder: () => {},
       );
 
   /// renew token
   Uri authOnRenewToken() => _buildUri(
-        groupEndpoint: "auth",
+        groupEndpoint: CenaServiceConstants.api_group_auth,
         endpoint: "renew-token-login",
         parameterBuilder: () => {},
       );
@@ -39,7 +41,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories",
         parameterBuilder: () => {},
       );
@@ -49,7 +51,7 @@ class CenaServiceAPI {
     required int categoryId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories/$categoryId",
         parameterBuilder: () => {},
       );
@@ -59,7 +61,7 @@ class CenaServiceAPI {
     required int categoryId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories/$categoryId",
         parameterBuilder: () => {},
       );
@@ -68,7 +70,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories",
         parameterBuilder: () => {},
       );
@@ -80,7 +82,7 @@ class CenaServiceAPI {
     required int limit,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories",
         parameterBuilder: () => filterCategories(
           sort: sort,
@@ -94,7 +96,7 @@ class CenaServiceAPI {
     required int categoryId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories/$categoryId",
         parameterBuilder: () => {},
       );
@@ -104,7 +106,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId",
         parameterBuilder: () => {},
       );
@@ -113,7 +115,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId",
         parameterBuilder: () => {},
       );
@@ -122,7 +124,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/password",
         parameterBuilder: () => {},
       );
@@ -131,7 +133,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/image-profile",
         parameterBuilder: () => {},
       );
@@ -140,7 +142,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/last-name",
         parameterBuilder: () => {},
       );
@@ -148,7 +150,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/first-name",
         parameterBuilder: () => {},
       );
@@ -157,7 +159,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/sex",
         parameterBuilder: () => {},
       );
@@ -166,7 +168,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/date-of-birth",
         parameterBuilder: () => {},
       );
@@ -175,13 +177,13 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/sex",
         parameterBuilder: () => {},
       );
 
   Uri userOnAdd() => _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "",
         parameterBuilder: () => {},
       );
@@ -190,7 +192,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses",
         parameterBuilder: () => {},
       );
@@ -199,7 +201,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses",
         parameterBuilder: () => {},
       );
@@ -209,7 +211,7 @@ class CenaServiceAPI {
     required int addressId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses/$addressId",
         parameterBuilder: () => {},
       );
@@ -218,7 +220,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses",
         parameterBuilder: () => {},
       );
@@ -227,7 +229,7 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses",
         parameterBuilder: () => {},
       );
@@ -237,7 +239,7 @@ class CenaServiceAPI {
     required int addressId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/addresses/$addressId",
         parameterBuilder: () => {},
       );
@@ -246,13 +248,13 @@ class CenaServiceAPI {
     required int userId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/notification-token",
         parameterBuilder: () => {},
       );
 
   Uri userGetAdminsNotificationToken() => _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "admins-notification-token",
         parameterBuilder: () => {},
       );
@@ -261,17 +263,13 @@ class CenaServiceAPI {
     required int deliveryId,
   }) =>
       _buildUri(
-        groupEndpoint: "users",
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "update-delivery-to-client/$deliveryId",
         parameterBuilder: () => {},
       );
 
-  Uri userEnterReferenceCode({
-    required int userId,
-    required String referCode,
-  }) =>
-      _buildUri(
-        groupEndpoint: "users",
+  Uri userEnterReferenceCode({required int userId}) => _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_user,
         endpoint: "$userId/reference",
         parameterBuilder: () => {},
       );
@@ -279,7 +277,7 @@ class CenaServiceAPI {
   ///==========================[ORDERs]=========================================
 
   Uri orderAdd() => _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "",
         parameterBuilder: () => {},
       );
@@ -287,7 +285,7 @@ class CenaServiceAPI {
     required int orderId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId",
         parameterBuilder: () => {},
       );
@@ -295,7 +293,7 @@ class CenaServiceAPI {
     required int orderId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId/to-dispatch",
         parameterBuilder: () => {},
       );
@@ -304,7 +302,7 @@ class CenaServiceAPI {
     required int orderId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId/to-on-way",
         parameterBuilder: () => {},
       );
@@ -313,7 +311,7 @@ class CenaServiceAPI {
     required int orderId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId/to-delivered",
         parameterBuilder: () => {},
       );
@@ -321,7 +319,7 @@ class CenaServiceAPI {
     required int orderId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId/to-cancelled",
         parameterBuilder: () => {},
       );
@@ -332,7 +330,7 @@ class CenaServiceAPI {
     required int objectId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "",
         parameterBuilder: () => filterOrder(
           status: status,
@@ -347,8 +345,17 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "/$storeId/products",
+        parameterBuilder: () => {},
+      );
+  Uri productUpdateStatus({
+    required int storeId,
+    required int productId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_store,
+        endpoint: "/$storeId/products/$productId",
         parameterBuilder: () => {},
       );
 
@@ -357,7 +364,7 @@ class CenaServiceAPI {
     required int productId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$orderId/products/$productId",
         parameterBuilder: () => {},
       );
@@ -366,7 +373,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$storeId/products",
         parameterBuilder: () => {},
       );
@@ -376,19 +383,19 @@ class CenaServiceAPI {
     required int productId,
   }) =>
       _buildUri(
-        groupEndpoint: "orders",
+        groupEndpoint: CenaServiceConstants.api_group_order,
         endpoint: "$storeId/products/$productId",
         parameterBuilder: () => {},
       );
 
-  Uri productSearchByName({required int productName}) => _buildUri(
-        groupEndpoint: "products",
+  Uri productSearchByName({required String productName}) => _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_product,
         endpoint: "search-product-for-name/$productName",
         parameterBuilder: () => {},
       );
 
-  Uri productSearchByCategory({required int categoryName}) => _buildUri(
-        groupEndpoint: "products",
+  Uri productSearchByCategory({required String categoryName}) => _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_product,
         endpoint: "search-product-for-category/$categoryName",
         parameterBuilder: () => {},
       );
@@ -397,7 +404,7 @@ class CenaServiceAPI {
     required int productId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/products/$productId",
         parameterBuilder: () => {},
       );
@@ -408,7 +415,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId",
         parameterBuilder: () => {},
       );
@@ -417,7 +424,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/name",
         parameterBuilder: () => {},
       );
@@ -430,9 +437,9 @@ class CenaServiceAPI {
     required String lat,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "",
-        parameterBuilder: () => filterStoreByLongLat(
+        parameterBuilder: () => _filterStoreByLongLat(
           sort: sort,
           offset: offset,
           limit: limit,
@@ -445,7 +452,16 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
+        endpoint: "$storeId/image",
+        parameterBuilder: () => {},
+      );
+
+  Uri storeChangeName({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/image",
         parameterBuilder: () => {},
       );
@@ -454,7 +470,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/time",
         parameterBuilder: () => {},
       );
@@ -463,7 +479,7 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/voucher",
         parameterBuilder: () => {},
       );
@@ -472,7 +488,15 @@ class CenaServiceAPI {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: "stores",
+        groupEndpoint: CenaServiceConstants.api_group_store,
+        endpoint: "$storeId/deliveries",
+        parameterBuilder: () => {},
+      );
+  Uri storeFetchAllDelivery({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/deliveries",
         parameterBuilder: () => {},
       );
@@ -486,7 +510,7 @@ class CenaServiceAPI {
     return Uri(
         scheme: _scheme,
         host: _apiBaseUrl,
-        path: "$_apiPathVersion1/$groupEndpoint/$endpoint",
+        path: "$_apiPathVersionV1/$groupEndpoint/$endpoint",
         port: _port,
         queryParameters: parameterBuilder());
   }
@@ -502,7 +526,7 @@ class CenaServiceAPI {
         "limit": limit,
       };
 
-  Map<String, dynamic>? filterStoreByLongLat({
+  Map<String, dynamic>? _filterStoreByLongLat({
     required String sort,
     required int offset,
     required int limit,

@@ -1,6 +1,5 @@
-import 'package:cenafoodie/src/data/models/ui/ui_response.dart';
-
 import '../../models/entities/user/user.dart';
+import '../../models/ui/ui_response.dart';
 
 abstract class IUserService {
   ///Get user by id
@@ -31,7 +30,7 @@ abstract class IUserService {
   /// Change first name
   Future<UiResponse<String>> changeFirstName({
     required int userId,
-    required String lastName,
+    required String firstName,
   });
 
   /// Change sex
