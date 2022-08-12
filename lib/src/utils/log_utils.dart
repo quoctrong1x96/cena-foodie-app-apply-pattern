@@ -1,4 +1,7 @@
+// ignore_for_file: unused_element
+
 import 'package:f_logs/f_logs.dart';
+import 'package:flutter/foundation.dart';
 
 class LogUtils {
   const LogUtils._internal();
@@ -29,7 +32,9 @@ class LogUtils {
         text: message ?? 'null',
       );
     } on Exception catch (e) {
-      print('[LogUtils] [debug] [${e.toString()}]');
+      if (kDebugMode) {
+        print('[LogUtils] [debug] [${e.toString()}]');
+      }
     }
   }
 
@@ -41,7 +46,9 @@ class LogUtils {
         text: exception == null ? 'null' : exception.toString(),
       );
     } on Exception catch (e) {
-      print('[LogUtils] [error] [${e.toString()}]');
+      if (kDebugMode) {
+        print('[LogUtils] [error] [${e.toString()}]');
+      }
     }
   }
 

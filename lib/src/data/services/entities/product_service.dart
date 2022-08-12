@@ -1,5 +1,3 @@
-import 'package:image_picker/image_picker.dart';
-
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/ui/ui_response.dart';
@@ -11,7 +9,7 @@ abstract class IProductService {
     required String name,
     required String description,
     required String price,
-    required List<XFile> images,
+    required List<String> images,
     required String category,
   });
 
@@ -22,7 +20,7 @@ abstract class IProductService {
     required String name,
     required String description,
     required String price,
-    required List<XFile> images,
+    required List<String> images,
     required String category,
   });
 

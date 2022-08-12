@@ -125,7 +125,7 @@ class NetworkClient {
     Exception? exception,
   }) {
     try {
-      var logMap = Map<String, String>();
+      var logMap = <String, String>{};
       logMap['URL'] = uri.toString();
       logMap['Response'] =
           'Status: ${response?.statusCode} - ${response?.reasonPhrase}, Body: ${response?.body}';

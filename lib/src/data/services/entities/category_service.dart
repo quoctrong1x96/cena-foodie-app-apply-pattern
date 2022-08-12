@@ -8,13 +8,11 @@ abstract class ICategoryService {
 
   /// Add category to store
   Future<UiResponse<Category>> add({
-    required int storeId,
     required Category category,
   });
 
   ///Update category
   Future<UiResponse<String>> update({
-    required int storeId,
     required Category category,
   });
 

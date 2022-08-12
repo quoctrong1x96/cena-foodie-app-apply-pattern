@@ -4,12 +4,12 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../models/entities/address/address.dart';
 import '../../models/entities/auth/auth_response.dart';
-import '../../models/entities/cart/cart.dart';
 import '../../models/entities/category/category.dart';
 import '../../models/entities/delivery/delivery.dart';
 import '../../models/entities/order/order.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
+import '../../models/entities/store/store.dart';
 import '../../models/entities/user/user.dart';
 import '../../models/entities/user/user_request.dart';
 import '../../models/networks/api_response/api_response.dart';
@@ -50,7 +50,7 @@ abstract class ICenaService {
 
   /// Change first name
   Future<ApiResponse<String>> changeUserFirstName(
-      {required int userId, required String lastName});
+      {required int userId, required String firstName});
 
   /// Change sex
   Future<ApiResponse<String>> changeUserSex(
@@ -70,28 +70,70 @@ abstract class ICenaService {
 
   //Update notification token
   Future<ApiResponse<String>> updateUserNotifyToken(
-      {required User user, required String password});
+      {required int userId, required String notifyToken});
 
   ///Enter reference code
   Future<ApiResponse<String>> enterReferenceCodeOfUser(
-      {required User user, required String code});
+      {required int userId, required String code});
 
   // #endregion
 
   /// #region [Store_API]
 
-  ///Get user by id
+  ///Get token admin of store by id
   Future<ApiResponse<String>> getStoreAdminToken({required int storeId});
 
+  ///Get store by ID
+  Future<ApiResponse<Store>> getStoreById({required int storeId});
+
+  ///Get store's name  by ID
+  Future<ApiResponse<String>> getStoreName({required int storeId});
+
+  ///Get all store by filter
+  Future<ApiResponse<List<Store>>> fetchAllStore(
+      {required int offset,
+      required int limit,
+      required String lat,
+      required String lng});
+
+  ///Change images of store
+  Future<ApiResponse<String>> changeStoreImage(
+      {required int storeId, required String images});
+
+  ///Change name of store
+  Future<ApiResponse<String>> changeStoreName(
+      {required int storeId, required String name});
+
+  ///Change open&close time of store
+  Future<ApiResponse<String>> changeStoreTime(
+      {required int storeId,
+      required DateTime openTime,
+      required DateTime closeTime});
+
+  ///Get Store voucher
+  Future<ApiResponse<String>> getStoreVoucher({required int storeId});
+
+  ///Get Store voucher
+  Future<ApiResponse<String>> registerDeliveryOfStore(
+      {required int storeId,
+      required String name,
+      required String lastName,
+      required String phone,
+      required String email,
+      required String password,
+      required String image,
+      required String nToken});
   // #endregion
 
   ///#region [Delivery_API]
 
   ///Get user by id
-  Future<ApiResponse<Delivery>> convertToClient({required int deliveryId});
+  Future<ApiResponse<Delivery>> convertDeliveryToClient(
+      {required int deliveryId});
 
   /// Get all delivery of store
-  Future<ApiResponse<List<Delivery>>> fetchAllOfStore({required int storeId});
+  Future<ApiResponse<List<Delivery>>> fetchAllDeliveryOfStore(
+      {required int storeId});
 
   // #endregion
 
@@ -112,6 +154,9 @@ abstract class ICenaService {
   Future<ApiResponse<Address>> addAddress(
       {required int userId, required Address address});
 
+  /// get first address for user
+  Future<ApiResponse<Address>> fisrtAddress({required int userId});
+
   // #endregion
 
   /// #region [Category_API]
@@ -123,8 +168,7 @@ abstract class ICenaService {
   Future<ApiResponse<Category>> addCategory({required Category category});
 
   ///Update category
-  Future<ApiResponse<String>> updateCategory(
-      {required int storeId, required Category category});
+  Future<ApiResponse<String>> updateCategory({required Category category});
 
   /// Delete category
   Future<ApiResponse<String>> deleteCategory(
@@ -182,7 +226,7 @@ abstract class ICenaService {
       required String name,
       required String description,
       required String price,
-      required List<XFile> images,
+      required List<String> images,
       required String category});
 
   ///Update product
@@ -192,7 +236,7 @@ abstract class ICenaService {
       required String name,
       required String description,
       required String price,
-      required List<XFile> images,
+      required List<String> images,
       required String category});
 
   ///Delete product
