@@ -1,6 +1,15 @@
+import 'package:cenafoodie/src/ui/pages/admin/admin_home_page.dart';
+import 'package:cenafoodie/src/ui/pages/auth/enter_references_page.dart';
+import 'package:cenafoodie/src/ui/pages/auth/forgot_password_page.dart';
+import 'package:cenafoodie/src/ui/pages/auth/login/login_page.dart';
+import 'package:cenafoodie/src/ui/pages/auth/login_verify_phone_page.dart';
+import 'package:cenafoodie/src/ui/pages/auth/register/register_client_page.dart';
+import 'package:cenafoodie/src/ui/pages/intro/checking_login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../data/models/ui/page_arguments.dart';
+import 'constants/app_constants.dart';
+import 'constants/route_constants.dart';
 import 'log_utils.dart';
 
 class RouteUtils {
@@ -18,56 +27,80 @@ class RouteUtils {
       'generateRoute',
       '$route, ${args?.toJson()}',
     );
-    return null;
 
-    // if (route == RouteConstants.home) {
-    //   // Initial route doesn't requires transition
-    //   return MaterialPageRoute(
-    //     builder: (ctx) => SplashPage(),
-    //   );
-    // } else if (route == RouteConstants.auth) {
-    //   return _getPageRoute(
-    //     AuthPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.product_overview) {
-    //   return _getPageRoute(
-    //     ProductOverviewPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.product_detail) {
-    //   return _getPageRoute(
-    //     ProductDetailPage(
-    //       productId: args?.data,
-    //     ),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.cart) {
-    //   return _getPageRoute(
-    //     CartPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.orders) {
-    //   return _getPageRoute(
-    //     OrdersPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.user_products) {
-    //   return _getPageRoute(
-    //     UserProductsPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.manage_product) {
-    //   final id = args?.data[AppConstants.key_id];
-    //   final option = args?.data[AppConstants.key_option];
-    //   return _getPageRoute(
-    //     ManageProductPage(
-    //       productId: id,
-    //       manageOption: option,
-    //     ),
-    //     transitionType: args?.transitionType,
-    //   );
-    // }
+    if (route == RouteConstants.check_login) {
+      // Initial route doesn't requires transition
+      return MaterialPageRoute(
+        builder: (ctx) => const CheckingLoginPage(),
+      );
+    } else if (route == RouteConstants.login) {
+      return _getPageRoute(
+        const LoginPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.forgot_password) {
+      return _getPageRoute(
+        const ForgotPasswordPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.register) {
+      return _getPageRoute(
+        const RegisterClientPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.enter_reference) {
+      return _getPageRoute(
+        const EnterReferencePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.verify_phone_number) {
+      final String phoneNumber = args?.data[AppConstants.key_phone];
+      final bool isRegisterPage = args?.data[AppConstants.key_is_register_page];
+      return _getPageRoute(
+        LoginVerifyOtpPage(
+            phoneNumber: phoneNumber, isFromRegistry: isRegisterPage),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_home) {
+      return _getPageRoute(
+        const AdminHomePage(),
+        transitionType: args?.transitionType,
+      );
+      // } else if (route == RouteConstants.product_detail) {
+      //   return _getPageRoute(
+      //     ProductDetailPage(
+      //       productId: args?.data,
+      //     ),
+      //     transitionType: args?.transitionType,
+      //   );
+      // } else if (route == RouteConstants.cart) {
+      //   return _getPageRoute(
+      //     CartPage(),
+      //     transitionType: args?.transitionType,
+      //   );
+      // } else if (route == RouteConstants.orders) {
+      //   return _getPageRoute(
+      //     OrdersPage(),
+      //     transitionType: args?.transitionType,
+      //   );
+      // } else if (route == RouteConstants.user_products) {
+      //   return _getPageRoute(
+      //     UserProductsPage(),
+      //     transitionType: args?.transitionType,
+      //   );
+      // } else if (route == RouteConstants.manage_product) {
+      //   final id = args?.data[AppConstants.key_id];
+      //   final option = args?.data[AppConstants.key_option];
+      //   return _getPageRoute(
+      //     ManageProductPage(
+      //       productId: id,
+      //       manageOption: option,
+      //     ),
+      //     transitionType: args?.transitionType,
+      //   );
+      // }
+    }
+    return null;
   }
 
   // ignore: unused_element

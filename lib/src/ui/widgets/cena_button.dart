@@ -14,10 +14,10 @@ class CenaButton extends StatelessWidget {
   const CenaButton(
       {Key? key,
       required this.text,
-      this.color = const Color.fromARGB(255, 243, 25, 189),
+      this.color = CenaColors.primary,
       this.height = 50,
       this.width = double.infinity,
-      this.borderRadius = 1.0,
+      this.borderRadius = AppConstants.button_radius,
       this.textColor = Colors.white,
       this.fontWeight = FontWeight.bold,
       this.fontSize = 18,
@@ -32,7 +32,12 @@ class CenaButton extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: AppConstants.margin_all),
       child: TextButton(
         style: TextButton.styleFrom(
-            backgroundColor: onPressed == null ? CenaColors.GREY : color,
+            backgroundColor: onPressed == null
+                ? Theme.of(context)
+                    .primaryColorDark
+                    .withOpacity(AppConstants.color_opacity)
+                : color,
+            elevation: AppConstants.elevation_button, //Defines Elevation
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius))),
         child: CenaTextDescription(

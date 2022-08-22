@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../ui/blocs/auth/auth_bloc.dart';
+import '../../../utils/constants/route_constants.dart';
+import '../../../utils/navigation_utils.dart';
 import '../../blocs/store/store_bloc.dart';
 import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
@@ -39,6 +41,7 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
               _animationController.forward();
             }
           });
+    ;
 
     _animationController.forward();
   }
@@ -57,31 +60,24 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is LoadingAuthState) {
-          Navigator.pushAndRemoveUntil(context,
-              routeCena(page: const CheckingLoginPage()), (route) => false);
+          _continueCheckLogin(context);
         } else if (state is LogOutAuthState) {
-          Navigator.pushAndRemoveUntil(
-              context, routeCena(page: const LoginPage()), (route) => false);
+          _logout(context);
         } else if (state is FailureAuthState) {
-          Navigator.pushAndRemoveUntil(
-              context, routeCena(page: const LoginPage()), (route) => false);
+          _goToLogin(context);
         } else if (state.rolId != '') {
-          userBloc.add(OnGetUserEvent(state.user!));
-          storeBloc.add(OnGetStoreEvent(state.store!));
+          _getUserInformation(userBloc, state, storeBloc);
 
           if (state.rolId == '1') {
-            Navigator.pushAndRemoveUntil(context,
-                routeCena(page: const AdminHomePage()), (route) => false);
+            _goToAdminPage(context);
           } else if (state.rolId == '3') {
             // Navigator.pushAndRemoveUntil(context,
             //     routeCena(page: const DeliveryHomePage()), (route) => false);
           } else if (state.rolId == '2') {
-            Navigator.pushAndRemoveUntil(context,
-                routeCena(page: const EnterReferencePage()), (route) => false);
+            _goToClientPage(context);
           }
         } else {
-          Navigator.pushAndRemoveUntil(
-              context, routeCena(page: const LoginPage()), (route) => false);
+          _goToLogin(context);
         }
       },
       child: Scaffold(
@@ -89,24 +85,67 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) => Transform.scale(
-                  scale: _scaleAnimation.value,
-                  child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: Image.asset('Assets/Logo/logo-white.png'),
-                  ),
-                ),
-              ),
-            )
-          ],
+          children: [_buildLogoAnimation(context)],
         ),
       ),
     );
+  }
+
+  void _getUserInformation(
+      UserBloc userBloc, AuthState state, StoreBloc storeBloc) {
+    userBloc.add(OnGetUserEvent(state.user!));
+    storeBloc.add(OnGetStoreEvent(state.store!));
+  }
+
+  void _goToClientPage(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context, routeCena(page: const EnterReferencePage()), (route) => false);
+  }
+
+  void _goToAdminPage(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context, routeCena(page: const AdminHomePage()), (route) => false);
+  }
+
+  void _goToLogin(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      NavigationUtils.replace(
+        context,
+        RouteConstants.login,
+      );
+    });
+    // Navigator.pushAndRemoveUntil(
+    //     context, routeCena(page: const LoginPage()), (route) => false);
+  }
+
+  void _logout(BuildContext context) {
+    NavigationUtils.replace(
+      context,
+      RouteConstants.login,
+    );
+    // Navigator.pushAndRemoveUntil(
+    //     context, routeCena(page: const LoginPage()), (route) => false);
+  }
+
+  Widget _buildLogoAnimation(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) => Transform.scale(
+          scale: _scaleAnimation.value,
+          child: SizedBox(
+            height: 200,
+            width: 200,
+            child: Image.asset('Assets/Logo/logo-white.png'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _continueCheckLogin(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context, routeCena(page: const CheckingLoginPage()), (route) => false);
   }
 }

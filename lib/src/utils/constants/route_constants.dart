@@ -3,6 +3,14 @@
 class RouteConstants {
   const RouteConstants._internal();
 
+  static const String check_login = '/check-login-page';
+  static const String login = '/login';
+  static const String forgot_password = '/forgot-password';
+  static const String register = '/register';
+  static const String enter_reference = '/register/reference';
+  static const String verify_phone_number = "/verify-phone-number";
+
+  static const String admin_home = '/merchan/';
   static const String home = '/';
   static const String auth = '/authorize';
   static const String product_overview = '/product-list';

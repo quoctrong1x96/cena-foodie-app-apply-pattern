@@ -566,13 +566,11 @@ class CenaRepository implements ICenaService {
     required User user,
     required String password,
   }) async {
-    final token = await _storageService.getAccessToken();
-    final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
-      uri: CenaServiceAPIv1.instance.authOnEmail(),
-      token: token,
-      body: user.toJson(),
-    );
+    final response = await NetworkClient.instance.requestMultipart(
+        NetworkRequestType.post,
+        uri: CenaServiceAPIv1.instance.userOnAdd(),
+        fields: user.toJson()..addAll({"password": password}),
+        filesPath: {'image': user.image});
     return _getApiResponse<User>(response, (data) {
       return data != null ? User.fromJson(data) : null;
     });
@@ -967,23 +965,23 @@ class CenaRepository implements ICenaService {
       required String phone,
       required String email,
       required String password,
-      required String image,
+      required Map<String, String> image,
       required String nToken}) async {
     final token = await _storageService.getAccessToken();
 
-    final response = await NetworkClient.instance.request(
+    final response = await NetworkClient.instance.requestMultipart(
       NetworkRequestType.post,
       uri: CenaServiceAPIv1.instance.storeRegisterDelivery(storeId: storeId),
       token: token,
-      body: {
+      fields: {
         'firstName': name,
         'lastName': lastName,
         'phone': phone,
         'email': email,
         'password': password,
         'notification_token': nToken,
-        'image': image
       },
+      filesPath: image,
     );
     return _getApiResponse(response, (data) {
       return data != null ? Category.fromJson(data) : null;

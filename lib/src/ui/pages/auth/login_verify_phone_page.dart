@@ -19,7 +19,7 @@ import '../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
 import '../Admin/admin_home_page.dart';
 import 'enter_references_page.dart';
-import 'register_client_page.dart';
+import 'register/register_client_page.dart';
 
 enum authProblems { userNotFound, passwordNotValid, networkError }
 

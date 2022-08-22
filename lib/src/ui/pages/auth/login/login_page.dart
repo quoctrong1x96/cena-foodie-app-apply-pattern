@@ -1,31 +1,35 @@
-import 'package:flag/flag.dart';
+import 'dart:convert' show json;
+
+import 'package:cenafoodie/src/utils/constants/app_constants.dart';
+import 'package:cenafoodie/src/utils/themes/theme_maps.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:get/get.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show json;
+import 'package:page_transition/page_transition.dart';
 
-import '../../../../utils/getx_services/getx_settings_service.dart';
-import '../../../../utils/themes/theme_maps.dart';
+import '../../../../data/models/ui/page_arguments.dart';
+import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/log_utils.dart';
+import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/general/general_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
-import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../../Admin/admin_home_page.dart';
 import '../forgot_password_page.dart';
 import '../login_verify_phone_page.dart';
-import '../register_client_page.dart';
+import '../register/register_client_page.dart';
+import 'components/components.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -73,45 +77,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = BlocProvider.of<UserBloc>(context);
-    final storeBloc = BlocProvider.of<StoreBloc>(context);
     final lang = S.of(context);
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is LoadingAuthState) {
           modalLoading(context);
         } else if (state is FailureAuthState) {
-          Navigator.pop(context);
-
-          switch (state.error) {
-            case "Wrong Credentials":
-              cenaToastError(lang.login_error_wrong);
-              break;
-            default:
-              cenaToastError(lang.login_error_server);
-          }
+          _catchAuthError(context, state, lang);
         } else if (state.rolId != '') {
-          userBloc.add(OnGetUserEvent(state.user!));
-          storeBloc.add(OnGetStoreEvent(state.store!));
-          Navigator.pop(context);
-
-          if (state.rolId == '1') {
-            Navigator.pushAndRemoveUntil(context,
-                routeCena(page: const AdminHomePage()), (route) => false);
-          } else if (state.rolId == '3') {
-            // Navigator.pushAndRemoveUntil(context,
-            //     routeCena(page: const DeliveryHomePage()), (route) => false);
-          } else if (state.rolId == '2') {
-            final userBloc = BlocProvider.of<UserBloc>(context);
-            if (userBloc.state.address == null) {
-              userBloc.add(OnInitialCurrentAddressEvent(
-                  state.user!.id,
-                  state.user!.firstName + " " + state.user!.lastName,
-                  state.user!.phone));
-            }
-            // Navigator.pushAndRemoveUntil(context,
-            //     routeCena(page: const ClientHomePage()), (route) => false);
-          }
+          _loginSuccessLogic(BlocProvider.of<UserBloc>(context), state,
+              BlocProvider.of<StoreBloc>(context), context);
         }
       },
       child: Scaffold(
@@ -122,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             children: [
-              _buildAppName(context),
+              _buildHeader(context, widget),
               const SizedBox(height: 10.0),
               Image.asset('Assets/Logo/logo-black.png', height: 140),
               const SizedBox(height: 10.0),
@@ -131,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
               _loginType == LoginType.byPhone
                   ? _buildPhoneForm()
                   : _buildEmailForm(),
-              _buildDivide(),
+              _buildDivide(context),
               CenaButton(
                 text: S.of(context).login_register,
                 fontWeight: FontWeight.w500,
@@ -139,9 +114,12 @@ class _LoginPageState extends State<LoginPage> {
                 height: 47,
                 color: Theme.of(context).highlightColor,
                 fontSize: 16,
-                onPressed: () => Navigator.push(
-                    context, routeCena(page: const RegisterClientPage())),
+                onPressed: () => NavigationUtils.push(
+                    context, RouteConstants.register,
+                    args: PageArguments(
+                        transitionType: PageTransitionType.rightToLeft)),
               ),
+              const SizedBox(height: 20),
               _buildSocialButtons(context),
             ],
           ),
@@ -150,8 +128,41 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
-    CustomTheme.instanceOf(buildContext).changeTheme(key);
+  void _loginSuccessLogic(UserBloc userBloc, AuthState state,
+      StoreBloc storeBloc, BuildContext context) {
+    userBloc.add(OnGetUserEvent(state.user!));
+    storeBloc.add(OnGetStoreEvent(state.store!));
+    NavigationUtils.pop(context);
+
+    if (state.rolId == '1') {
+      NavigationUtils.replace(context, RouteConstants.admin_home,
+          args: PageArguments(transitionType: PageTransitionType.bottomToTop));
+    } else if (state.rolId == '3') {
+      // Navigator.pushAndRemoveUntil(context,
+      //     routeCena(page: const DeliveryHomePage()), (route) => false);
+    } else if (state.rolId == '2') {
+      final userBloc = BlocProvider.of<UserBloc>(context);
+      if (userBloc.state.address == null) {
+        userBloc.add(OnInitialCurrentAddressEvent(
+            state.user!.id,
+            state.user!.firstName + " " + state.user!.lastName,
+            state.user!.phone));
+      }
+      // Navigator.pushAndRemoveUntil(context,
+      //     routeCena(page: const ClientHomePage()), (route) => false);
+    }
+  }
+
+  void _catchAuthError(BuildContext context, FailureAuthState state, S lang) {
+    NavigationUtils.pop(context);
+
+    switch (state.error) {
+      case "Wrong Credentials":
+        cenaToastError(lang.login_error_wrong);
+        break;
+      default:
+        cenaToastError(lang.login_error_server);
+    }
   }
 
   void setStateLoginType(LoginType loginTypeState) {
@@ -160,25 +171,24 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget _buildAppName(BuildContext context) {
+  Widget _buildHeader(BuildContext context, Widget loginWidget) {
+    GlobalKey changeThemeKey = GlobalKey();
     return Align(
       alignment: Alignment.centerLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildLanguagesOption(),
+          LoginLanguageOptions(context: context),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CenaTextDescription(
-                  text: 'Cena ',
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w500),
-              CenaTextDescription(
-                  text: 'Foodie',
-                  color: Theme.of(context).primaryColorDark,
-                  fontWeight: FontWeight.w500),
+              const AppName(),
+              LoginChangeThemeButton(
+                  key: changeThemeKey,
+                  myThemeKey: MyThemes.instance.currentThemeKey,
+                  parrentWidget: loginWidget),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -186,46 +196,61 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildSwitchButton(BuildContext context) {
     return Center(
-      child: ToggleButtons(
-        fillColor: CenaColors.primary,
-        color: CenaColors.GREY,
-        selectedColor: Theme.of(context).primaryColorLight,
-        borderRadius: BorderRadius.circular(5),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child:
-                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Icon(
-                FontAwesomeIcons.commentSms,
-                size: 30,
-              ),
-              const SizedBox(width: 2),
-              Text(S.of(context).login_with_sms)
-            ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(children: [
-              const Icon(FontAwesomeIcons.envelope),
-              const SizedBox(width: 2),
-              Text(S.of(context).login_with_email)
-            ]),
-          ),
-        ],
-        onPressed: (int index) {
-          if (index == 0) {
-            setStateLoginType(LoginType.byPhone);
-            _changeTheme(context, MyThemeKeys.dark);
-          } else {
-            setStateLoginType(LoginType.byEmail);
-            _changeTheme(context, MyThemeKeys.light);
-          }
-        },
-        isSelected: [
-          _loginType == LoginType.byPhone,
-          _loginType == LoginType.byEmail
-        ],
+      child: Container(
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+          color: Theme.of(context)
+              .hintColor
+              .withOpacity(AppConstants.color_opacity),
+          border: Border.all(
+              color: Theme.of(context).primaryColorLight, width: 0.0),
+          borderRadius: BorderRadius.circular(AppConstants.border_radius),
+        ),
+        child: ToggleButtons(
+          fillColor: CenaColors.primary,
+          color: Theme.of(context).primaryColorDark,
+          selectedColor: Theme.of(context).primaryColorLight,
+          borderRadius: BorderRadius.circular(AppConstants.border_radius),
+          borderWidth: 0.0,
+          borderColor: Theme.of(context).primaryColorLight,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                const Icon(
+                  FontAwesomeIcons.commentSms,
+                  size: 30,
+                ),
+                const SizedBox(width: 2),
+                Text(S.of(context).login_with_sms)
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(children: [
+                const Icon(FontAwesomeIcons.envelope),
+                const SizedBox(width: 2),
+                Text(S.of(context).login_with_email)
+              ]),
+            ),
+          ],
+          onPressed: (int index) {
+            if (index == 0) {
+              setStateLoginType(LoginType.byPhone);
+              LogUtils.debug("LoginPage", "_buildSwitchButton",
+                  "User choose LoginType.byPhone");
+            } else {
+              setStateLoginType(LoginType.byEmail);
+              LogUtils.debug("LoginPage", "_buildSwitchButton",
+                  "User choose LoginType.byEmail");
+            }
+          },
+          isSelected: [
+            _loginType == LoginType.byPhone,
+            _loginType == LoginType.byEmail
+          ],
+        ),
       ),
     );
   }
@@ -305,8 +330,8 @@ class _LoginPageState extends State<LoginPage> {
                     keyboardType: TextInputType.emailAddress,
                     validator: validatedEmail,
                   ),
-                  const SizedBox(height: 20.0),
-                  CenaTextDescription(text: S.of(context).login_password),
+                  // const SizedBox(height: 5.0),
+                  // CenaTextDescription(text: S.of(context).login_password),
                   const SizedBox(height: 5.0),
                   CenaInputPasswordShow(
                     controller: _passwordController,
@@ -329,8 +354,11 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                       alignment: Alignment.centerRight,
                       child: InkWell(
-                          onTap: () => Navigator.push(context,
-                              routeCena(page: const ForgotPasswordPage())),
+                          onTap: () => NavigationUtils.push(
+                              context, RouteConstants.forgot_password,
+                              args: PageArguments(
+                                  transitionType:
+                                      PageTransitionType.bottomToTop)),
                           child: CenaTextDescription(
                               text: S.of(context).login_forgot_password,
                               fontSize: 17,
@@ -341,6 +369,11 @@ class _LoginPageState extends State<LoginPage> {
                     height: 50,
                     fontWeight: FontWeight.w500,
                     onPressed: () {
+                      LogUtils.debug(
+                        'LoginPage',
+                        'Login Button Press',
+                        "Pressed",
+                      );
                       if (_keyForm.currentState!.validate()) {
                         authBloc.add(LoginEvent(
                             _emailController.text, _passwordController.text));
@@ -352,16 +385,18 @@ class _LoginPageState extends State<LoginPage> {
             ));
   }
 
-  Widget _buildDivide() {
+  Widget _buildDivide(BuildContext context) {
+    final _theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(height: 1, width: 150, color: Colors.grey[300]),
+        Container(height: 1, width: 150, color: _theme.primaryColorDark),
         CenaTextDescription(
           text: S.of(context).login_or,
           fontSize: 16,
+          color: _theme.primaryColorDark,
         ),
-        Container(height: 1, width: 150, color: Colors.grey[300])
+        Container(height: 1, width: 150, color: _theme.primaryColorDark)
       ],
     );
   }
@@ -369,28 +404,28 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildSocialButtons(BuildContext context) {
     return Column(
       children: [
-        _BtnSocial(
+        LoginButtonSocial(
           icon: Icon(FontAwesomeIcons.google,
               color: Theme.of(context).primaryColorLight),
           text: S.of(context).login_with_google,
           textColor: Theme.of(context).primaryColorLight,
-          backgroundColor: Colors.lightBlue,
-          isBorder: true,
+          backgroundColor: const Color.fromARGB(255, 241, 68, 54),
+          isBorder: false,
           onPressed: _loginWithGoogle,
         ),
         const SizedBox(
           height: 5,
         ),
-        _BtnSocial(
+        LoginButtonSocial(
           icon: Icon(
             FontAwesomeIcons.facebook,
             color: Theme.of(context).primaryColorLight,
           ),
           text: S.of(context).login_with_facebooK,
-          backgroundColor: Theme.of(context).primaryColorDark,
+          backgroundColor: const Color.fromARGB(255, 56, 92, 142),
           textColor: Theme.of(context).primaryColorLight,
           onPressed: _loginWithFacebook,
-          isBorder: true,
+          isBorder: false,
         ),
       ],
     );
@@ -476,98 +511,5 @@ class _LoginPageState extends State<LoginPage> {
                 "id,first_name,last_name,middle_name,about,birthday,picture,email,gender,languages,link");
       }
     }
-  }
-
-  Widget _buildLanguagesOption() {
-    final settingService = Get.find<SettingService>();
-    return Obx(() {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DropdownButton(
-            // icon: const Icon(FontAwesomeIcons.angleDown),
-            items: [
-              DropdownMenuItem(
-                value: const Locale('en'),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(S.of(context).login_languages_english),
-                    const SizedBox(width: 5.0),
-                    const Flag.fromString('us',
-                        height: 17, width: 30, fit: BoxFit.fill)
-                  ],
-                ),
-              ),
-              DropdownMenuItem(
-                value: const Locale('vi'),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(S.of(context).login_languages_vietnam),
-                    const SizedBox(width: 5.0),
-                    const Flag.fromString('vn',
-                        height: 17, width: 30, fit: BoxFit.fill)
-                  ],
-                ),
-              ),
-            ],
-            onChanged: (Locale? value) {
-              if (value != null) {
-                settingService.updateLocale(value);
-              }
-            },
-            value: settingService.currentLocate.value,
-            underline: null,
-          ),
-        ],
-      );
-    });
-  }
-}
-
-class _BtnSocial extends StatelessWidget {
-  final Icon icon;
-  final String text;
-  final VoidCallback? onPressed;
-  final Color backgroundColor;
-  final Color textColor;
-  final bool isBorder;
-
-  const _BtnSocial(
-      {required this.icon,
-      required this.text,
-      this.onPressed,
-      this.backgroundColor = const Color(0xffF5F5F5),
-      this.textColor = Colors.black,
-      this.isBorder = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1.0),
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          height: 47,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
-              border:
-                  isBorder ? Border.all(color: Colors.grey, width: .7) : null,
-              borderRadius: BorderRadius.circular(1.0)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 30.0),
-              icon,
-              const SizedBox(width: 50.0),
-              CenaTextDescription(text: text, color: textColor, fontSize: 16)
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

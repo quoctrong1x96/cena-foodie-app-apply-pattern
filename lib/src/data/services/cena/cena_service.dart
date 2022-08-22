@@ -120,7 +120,7 @@ abstract class ICenaService {
       required String phone,
       required String email,
       required String password,
-      required String image,
+      required Map<String, String> image,
       required String nToken});
   // #endregion
 
