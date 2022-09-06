@@ -34,12 +34,12 @@ class CenaTextDescription extends StatelessWidget {
         maxLines: maxLine,
         textAlign: textAlign,
         style: textStyle ??
-            (fontSize == null
-                ? Theme.of(context).textTheme.bodyMedium
-                : Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(fontSize: fontSize)),
+            TextStyle(
+              fontSize:
+                  fontSize ?? Theme.of(context).textTheme.bodyMedium!.fontSize,
+              fontWeight: fontWeight,
+              color: color,
+            ),
       ),
     );
   }

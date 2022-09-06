@@ -26,9 +26,7 @@ import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../forgot_password_page.dart';
-import '../login_verify_phone_page.dart';
-import '../register/register_client_page.dart';
+import '../otp/login_verify_phone_page.dart';
 import 'components/components.dart';
 
 class LoginPage extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc/src/bloc_provider.dart';
+import 'package:flutter_bloc/src/bloc_provider.dart' as bloc_provider;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
     ]);
   }
 
-  List<BlocProviderSingleChildWidget> get _delareBlocProviders {
+  List<bloc_provider.BlocProviderSingleChildWidget> get _delareBlocProviders {
     return [
       BlocProvider(create: (context) => AuthBloc()..add(CheckLoginEvent())),
       BlocProvider(create: (context) => GeneralBloc()),

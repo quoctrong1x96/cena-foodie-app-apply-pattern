@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'order_request_add.dart';
 
 // **************************************************************************
@@ -10,9 +8,9 @@ part of 'order_request_add.dart';
 
 _$_OrderRequestAdd _$_$_OrderRequestAddFromJson(Map<String, dynamic> json) {
   return _$_OrderRequestAdd(
-    addressId: json['uidAddress'] as int,
+    addressId: json['address_id'] as int,
     total: (json['total'] as num).toDouble(),
-    typePayment: json['typePayment'] as String,
+    typePayment: json['type_payment'] as String,
     carts: (json['products'] as List<dynamic>)
         .map((e) => Cart.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -21,8 +19,8 @@ _$_OrderRequestAdd _$_$_OrderRequestAddFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_OrderRequestAddToJson(_$_OrderRequestAdd instance) =>
     <String, dynamic>{
-      'uidAddress': instance.addressId,
+      'address_id': instance.addressId,
       'total': instance.total,
-      'typePayment': instance.typePayment,
+      'type_payment': instance.typePayment,
       'products': instance.carts,
     };

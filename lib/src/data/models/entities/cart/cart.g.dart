@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'cart.dart';
 
 // **************************************************************************
@@ -10,20 +8,20 @@ part of 'cart.dart';
 
 _$_Cart _$_$_CartFromJson(Map<String, dynamic> json) {
   return _$_Cart(
-    storeId: json['storeId'] as int,
-    productId: json['productId'] as int,
-    productImage: json['productImage'] as String,
-    productName: json['productName'] as String,
+    storeId: json['store_id'] as int,
+    productId: json['product_id'] as int,
+    productImage: json['product_image'] as String,
+    productName: json['product_name'] as String,
     price: (json['price'] as num).toDouble(),
     quantity: json['quantity'] as int,
   );
 }
 
 Map<String, dynamic> _$_$_CartToJson(_$_Cart instance) => <String, dynamic>{
-      'storeId': instance.storeId,
-      'productId': instance.productId,
-      'productImage': instance.productImage,
-      'productName': instance.productName,
+      'store_id': instance.storeId,
+      'product_id': instance.productId,
+      'product_image': instance.productImage,
+      'product_name': instance.productName,
       'price': instance.price,
       'quantity': instance.quantity,
     };

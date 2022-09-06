@@ -62,7 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingAuthState());
 
       final response =
-          await _authService.onEmail(UserRequest(numberPhone: event.phone));
+          await _authService.onPhone(UserRequest(numberPhone: event.phone));
 
       await Future.delayed(const Duration(milliseconds: 550));
 

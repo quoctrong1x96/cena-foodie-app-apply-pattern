@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:convert';
 
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:http/http.dart' as http;

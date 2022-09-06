@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -59,6 +60,9 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     _focusPhone = FocusNode();
     _focusEmail = FocusNode();
     _focusPassword = FocusNode();
+    if (kDebugMode) {
+      initFormDefault();
+    }
     super.initState();
   }
 
@@ -72,6 +76,15 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     _passwordController.dispose();
     _passwordRepeatController.dispose();
     super.dispose();
+  }
+
+  void initFormDefault() {
+    _nameController.text = 'Test';
+    _lastNameController.text = 'User 01';
+    _phoneController.text = '0949412112';
+    _emailController.text = 'user10@gmail.com';
+    _passwordController.text = 'Cena@123';
+    _passwordRepeatController.text = 'Cena@123';
   }
 
   void clearForm() {

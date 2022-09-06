@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'order.dart';
 
@@ -21,23 +21,23 @@ class _$OrderTearOff {
   const _$OrderTearOff();
 
   _Order call(
-      {@JsonKey(name: "order_id") required int id,
+      {@JsonKey(name: "id") required int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
-      @JsonKey(name: "deliveryImage") String? deliveryImage,
+      @JsonKey(name: "delivery_image") String? deliveryImage,
       @JsonKey(name: "client_id") int? clientId,
       @JsonKey(name: "client") String? client,
-      @JsonKey(name: "clientImage") String? clientImage,
-      @JsonKey(name: "clientPhone") String? clientPhone,
+      @JsonKey(name: "client_image") String? clientImage,
+      @JsonKey(name: "client_phone") String? clientPhone,
       @JsonKey(name: "address_id") int? addressId,
       String? address,
       @JsonKey(name: "receiver") String? receiver,
-      @JsonKey(name: "Latitude") String? latitude,
-      @JsonKey(name: "Longitude") String? longitude,
+      @JsonKey(name: "latitude") String? latitude,
+      @JsonKey(name: "longitude") String? longitude,
       String? status,
       @JsonKey(name: "pay_type") String? payType,
       double? amount,
-      @JsonKey(name: "currentDate") DateTime? currentDate,
+      @JsonKey(name: "update_date") DateTime? currentDate,
       @JsonKey(name: "store_id") int? storeId,
       @JsonKey(name: "store_latitude") String? storeLatitude,
       @JsonKey(name: "store_longitude") String? storeLongitude}) {
@@ -75,36 +75,36 @@ const $Order = _$OrderTearOff();
 
 /// @nodoc
 mixin _$Order {
-  @JsonKey(name: "order_id")
+  @JsonKey(name: "id")
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: "delivery_id")
   int? get deliveryId => throw _privateConstructorUsedError;
   @JsonKey(name: "delivery")
   String? get deliveryName => throw _privateConstructorUsedError;
-  @JsonKey(name: "deliveryImage")
+  @JsonKey(name: "delivery_image")
   String? get deliveryImage => throw _privateConstructorUsedError;
   @JsonKey(name: "client_id")
   int? get clientId => throw _privateConstructorUsedError;
   @JsonKey(name: "client")
   String? get client => throw _privateConstructorUsedError;
-  @JsonKey(name: "clientImage")
+  @JsonKey(name: "client_image")
   String? get clientImage => throw _privateConstructorUsedError;
-  @JsonKey(name: "clientPhone")
+  @JsonKey(name: "client_phone")
   String? get clientPhone => throw _privateConstructorUsedError;
   @JsonKey(name: "address_id")
   int? get addressId => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: "receiver")
   String? get receiver => throw _privateConstructorUsedError;
-  @JsonKey(name: "Latitude")
+  @JsonKey(name: "latitude")
   String? get latitude => throw _privateConstructorUsedError;
-  @JsonKey(name: "Longitude")
+  @JsonKey(name: "longitude")
   String? get longitude => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   @JsonKey(name: "pay_type")
   String? get payType => throw _privateConstructorUsedError;
   double? get amount => throw _privateConstructorUsedError;
-  @JsonKey(name: "currentDate")
+  @JsonKey(name: "update_date")
   DateTime? get currentDate => throw _privateConstructorUsedError;
   @JsonKey(name: "store_id")
   int? get storeId => throw _privateConstructorUsedError;
@@ -123,23 +123,23 @@ abstract class $OrderCopyWith<$Res> {
   factory $OrderCopyWith(Order value, $Res Function(Order) then) =
       _$OrderCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "order_id") int id,
+      {@JsonKey(name: "id") int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
-      @JsonKey(name: "deliveryImage") String? deliveryImage,
+      @JsonKey(name: "delivery_image") String? deliveryImage,
       @JsonKey(name: "client_id") int? clientId,
       @JsonKey(name: "client") String? client,
-      @JsonKey(name: "clientImage") String? clientImage,
-      @JsonKey(name: "clientPhone") String? clientPhone,
+      @JsonKey(name: "client_image") String? clientImage,
+      @JsonKey(name: "client_phone") String? clientPhone,
       @JsonKey(name: "address_id") int? addressId,
       String? address,
       @JsonKey(name: "receiver") String? receiver,
-      @JsonKey(name: "Latitude") String? latitude,
-      @JsonKey(name: "Longitude") String? longitude,
+      @JsonKey(name: "latitude") String? latitude,
+      @JsonKey(name: "longitude") String? longitude,
       String? status,
       @JsonKey(name: "pay_type") String? payType,
       double? amount,
-      @JsonKey(name: "currentDate") DateTime? currentDate,
+      @JsonKey(name: "update_date") DateTime? currentDate,
       @JsonKey(name: "store_id") int? storeId,
       @JsonKey(name: "store_latitude") String? storeLatitude,
       @JsonKey(name: "store_longitude") String? storeLongitude});
@@ -267,23 +267,23 @@ abstract class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
       __$OrderCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "order_id") int id,
+      {@JsonKey(name: "id") int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
-      @JsonKey(name: "deliveryImage") String? deliveryImage,
+      @JsonKey(name: "delivery_image") String? deliveryImage,
       @JsonKey(name: "client_id") int? clientId,
       @JsonKey(name: "client") String? client,
-      @JsonKey(name: "clientImage") String? clientImage,
-      @JsonKey(name: "clientPhone") String? clientPhone,
+      @JsonKey(name: "client_image") String? clientImage,
+      @JsonKey(name: "client_phone") String? clientPhone,
       @JsonKey(name: "address_id") int? addressId,
       String? address,
       @JsonKey(name: "receiver") String? receiver,
-      @JsonKey(name: "Latitude") String? latitude,
-      @JsonKey(name: "Longitude") String? longitude,
+      @JsonKey(name: "latitude") String? latitude,
+      @JsonKey(name: "longitude") String? longitude,
       String? status,
       @JsonKey(name: "pay_type") String? payType,
       double? amount,
-      @JsonKey(name: "currentDate") DateTime? currentDate,
+      @JsonKey(name: "update_date") DateTime? currentDate,
       @JsonKey(name: "store_id") int? storeId,
       @JsonKey(name: "store_latitude") String? storeLatitude,
       @JsonKey(name: "store_longitude") String? storeLongitude});
@@ -410,23 +410,23 @@ class __$OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Order implements _Order {
   _$_Order(
-      {@JsonKey(name: "order_id") required this.id,
+      {@JsonKey(name: "id") required this.id,
       @JsonKey(name: "delivery_id") this.deliveryId,
       @JsonKey(name: "delivery") this.deliveryName,
-      @JsonKey(name: "deliveryImage") this.deliveryImage,
+      @JsonKey(name: "delivery_image") this.deliveryImage,
       @JsonKey(name: "client_id") this.clientId,
       @JsonKey(name: "client") this.client,
-      @JsonKey(name: "clientImage") this.clientImage,
-      @JsonKey(name: "clientPhone") this.clientPhone,
+      @JsonKey(name: "client_image") this.clientImage,
+      @JsonKey(name: "client_phone") this.clientPhone,
       @JsonKey(name: "address_id") this.addressId,
       this.address,
       @JsonKey(name: "receiver") this.receiver,
-      @JsonKey(name: "Latitude") this.latitude,
-      @JsonKey(name: "Longitude") this.longitude,
+      @JsonKey(name: "latitude") this.latitude,
+      @JsonKey(name: "longitude") this.longitude,
       this.status,
       @JsonKey(name: "pay_type") this.payType,
       this.amount,
-      @JsonKey(name: "currentDate") this.currentDate,
+      @JsonKey(name: "update_date") this.currentDate,
       @JsonKey(name: "store_id") this.storeId,
       @JsonKey(name: "store_latitude") this.storeLatitude,
       @JsonKey(name: "store_longitude") this.storeLongitude});
@@ -435,7 +435,7 @@ class _$_Order implements _Order {
       _$_$_OrderFromJson(json);
 
   @override
-  @JsonKey(name: "order_id")
+  @JsonKey(name: "id")
   final int id;
   @override
   @JsonKey(name: "delivery_id")
@@ -444,7 +444,7 @@ class _$_Order implements _Order {
   @JsonKey(name: "delivery")
   final String? deliveryName;
   @override
-  @JsonKey(name: "deliveryImage")
+  @JsonKey(name: "delivery_image")
   final String? deliveryImage;
   @override
   @JsonKey(name: "client_id")
@@ -453,10 +453,10 @@ class _$_Order implements _Order {
   @JsonKey(name: "client")
   final String? client;
   @override
-  @JsonKey(name: "clientImage")
+  @JsonKey(name: "client_image")
   final String? clientImage;
   @override
-  @JsonKey(name: "clientPhone")
+  @JsonKey(name: "client_phone")
   final String? clientPhone;
   @override
   @JsonKey(name: "address_id")
@@ -467,10 +467,10 @@ class _$_Order implements _Order {
   @JsonKey(name: "receiver")
   final String? receiver;
   @override
-  @JsonKey(name: "Latitude")
+  @JsonKey(name: "latitude")
   final String? latitude;
   @override
-  @JsonKey(name: "Longitude")
+  @JsonKey(name: "longitude")
   final String? longitude;
   @override
   final String? status;
@@ -480,7 +480,7 @@ class _$_Order implements _Order {
   @override
   final double? amount;
   @override
-  @JsonKey(name: "currentDate")
+  @JsonKey(name: "update_date")
   final DateTime? currentDate;
   @override
   @JsonKey(name: "store_id")
@@ -596,23 +596,23 @@ class _$_Order implements _Order {
 
 abstract class _Order implements Order {
   factory _Order(
-      {@JsonKey(name: "order_id") required int id,
+      {@JsonKey(name: "id") required int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
-      @JsonKey(name: "deliveryImage") String? deliveryImage,
+      @JsonKey(name: "delivery_image") String? deliveryImage,
       @JsonKey(name: "client_id") int? clientId,
       @JsonKey(name: "client") String? client,
-      @JsonKey(name: "clientImage") String? clientImage,
-      @JsonKey(name: "clientPhone") String? clientPhone,
+      @JsonKey(name: "client_image") String? clientImage,
+      @JsonKey(name: "client_phone") String? clientPhone,
       @JsonKey(name: "address_id") int? addressId,
       String? address,
       @JsonKey(name: "receiver") String? receiver,
-      @JsonKey(name: "Latitude") String? latitude,
-      @JsonKey(name: "Longitude") String? longitude,
+      @JsonKey(name: "latitude") String? latitude,
+      @JsonKey(name: "longitude") String? longitude,
       String? status,
       @JsonKey(name: "pay_type") String? payType,
       double? amount,
-      @JsonKey(name: "currentDate") DateTime? currentDate,
+      @JsonKey(name: "update_date") DateTime? currentDate,
       @JsonKey(name: "store_id") int? storeId,
       @JsonKey(name: "store_latitude") String? storeLatitude,
       @JsonKey(name: "store_longitude") String? storeLongitude}) = _$_Order;
@@ -620,7 +620,7 @@ abstract class _Order implements Order {
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
 
   @override
-  @JsonKey(name: "order_id")
+  @JsonKey(name: "id")
   int get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "delivery_id")
@@ -629,7 +629,7 @@ abstract class _Order implements Order {
   @JsonKey(name: "delivery")
   String? get deliveryName => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "deliveryImage")
+  @JsonKey(name: "delivery_image")
   String? get deliveryImage => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "client_id")
@@ -638,10 +638,10 @@ abstract class _Order implements Order {
   @JsonKey(name: "client")
   String? get client => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "clientImage")
+  @JsonKey(name: "client_image")
   String? get clientImage => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "clientPhone")
+  @JsonKey(name: "client_phone")
   String? get clientPhone => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "address_id")
@@ -652,10 +652,10 @@ abstract class _Order implements Order {
   @JsonKey(name: "receiver")
   String? get receiver => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "Latitude")
+  @JsonKey(name: "latitude")
   String? get latitude => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "Longitude")
+  @JsonKey(name: "longitude")
   String? get longitude => throw _privateConstructorUsedError;
   @override
   String? get status => throw _privateConstructorUsedError;
@@ -665,7 +665,7 @@ abstract class _Order implements Order {
   @override
   double? get amount => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "currentDate")
+  @JsonKey(name: "update_date")
   DateTime? get currentDate => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "store_id")

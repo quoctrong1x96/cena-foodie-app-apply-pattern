@@ -13,10 +13,12 @@ class AppName extends StatelessWidget {
       children: [
         CenaTextDescription(
             text: 'Cena ',
+            fontSize: 16,
             color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.w500),
         CenaTextDescription(
             text: 'Foodie',
+            fontSize: 16,
             color: Theme.of(context).primaryColorDark,
             fontWeight: FontWeight.w500),
       ],

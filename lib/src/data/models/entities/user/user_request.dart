@@ -12,7 +12,7 @@ class UserRequest with _$UserRequest implements IModel {
   factory UserRequest({
     @JsonKey(includeIfNull: true) String? email,
     @JsonKey(includeIfNull: true) String? password,
-    @JsonKey(includeIfNull: true) String? numberPhone,
+    @JsonKey(includeIfNull: true, name: 'phone') String? numberPhone,
     @JsonKey(defaultValue: true, includeIfNull: true) bool? returnSecureToken,
   }) = _UserRequest;
 

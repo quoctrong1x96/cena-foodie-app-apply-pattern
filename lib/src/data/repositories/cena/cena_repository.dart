@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
 import 'package:cenafoodie/src/data/models/entities/product/product_response.dart';
 import 'package:cenafoodie/src/data/models/entities/store/store.dart';
@@ -19,6 +21,7 @@ import '../../models/entities/order/order_response.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/entities/product/product_image_response.dart';
+import '../../models/entities/store/stores_response.dart';
 import '../../models/entities/user/user.dart';
 import '../../models/entities/user/user_request.dart';
 import '../../models/networks/api_response/api_response.dart';
@@ -307,12 +310,12 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-        NetworkRequestType.post,
+        NetworkRequestType.patch,
         uri: CenaServiceAPIv1.instance.userEnterReferenceCode(userId: userId),
         token: token,
         body: {'code': code});
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data['message'];
     });
   }
 
@@ -550,14 +553,15 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<User>> loginWithPhone(UserRequest? userRequest) async {
+  Future<ApiResponse<AuthResponse>> loginWithPhone(
+      UserRequest? userRequest) async {
     final response = await NetworkClient.instance.request(
       NetworkRequestType.post,
       uri: CenaServiceAPIv1.instance.authOnPhone(),
       body: userRequest?.toJson(),
     );
-    return _getApiResponse<User>(response, (data) {
-      return data != null ? User.fromJson(data) : null;
+    return _getApiResponse<AuthResponse>(response, (data) {
+      return data != null ? AuthResponse.fromJson(data) : null;
     });
   }
 
@@ -581,7 +585,7 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
     final response = await NetworkClient.instance.request(
       NetworkRequestType.get,
-      uri: CenaServiceAPIv1.instance.authOnEmail(),
+      uri: CenaServiceAPIv1.instance.authOnRenewToken(),
       token: token,
     );
     return _getApiResponse<AuthResponse>(response, (data) {
@@ -778,9 +782,19 @@ class CenaRepository implements ICenaService {
 
   @override
   Future<ApiResponse<String>> updateUserNotifyToken(
-      {required int userId, required String notifyToken}) {
-    // TODO: implement updateUserNotifyToken
-    throw UnimplementedError();
+      {required int userId, required String notifyToken}) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.put,
+      uri:
+          CenaServiceAPIv1.instance.userUpdateNotificationToken(userId: userId),
+      token: token,
+      body: {'notification_token': notifyToken},
+    );
+    return _getApiResponse(response, (data) {
+      return data != null ? data['message'] : null;
+    });
   }
 
   ApiResponse<T> _getApiResponse<T>(
@@ -789,24 +803,35 @@ class CenaRepository implements ICenaService {
   ) {
     try {
       final type = _getNetworkResponseType(response);
+      final bodyJson = jsonDecode(response?.body ?? '{}');
       final body = response?.body;
-      if (type == NetworkResponseType.success) {
+      if (type == NetworkResponseType.success_200) {
         return ApiResponse.fromRawJson(
           _getNetworkResponseBody(body),
           (data) => create(data),
         );
-      } else if (type == NetworkResponseType.badRequest) {
+      } else if (type == NetworkResponseType.badRequest_400) {
         return ApiResponse(
           message: 'error_bad_request',
           code: NetworkConstants.response_bad_request,
         );
-      } else if (type == NetworkResponseType.unauthorized) {
+      } else if (type == NetworkResponseType.unauthorized_401) {
         return ApiResponse(
           message: 'error_session_expire',
           code: NetworkConstants.response_unauthorized,
         );
+      } else if (type == NetworkResponseType.conflict_409) {
+        return ApiResponse(
+          message: bodyJson['message'],
+          code: NetworkConstants.response_conflict,
+        );
+      } else if (type == NetworkResponseType.serverInternalError_500) {
+        return ApiResponse(
+          message: "error_interal_server",
+          code: NetworkConstants.response_internal_server_error,
+        );
       }
-      return ApiResponse(message: body ?? 'error_unknown');
+      return ApiResponse(message: bodyJson['message'] ?? 'error_unknown');
     } catch (e) {
       LogUtils.error('NetworkRepository', '_getApiResponse<T>', e.toString());
       return ApiResponse(message: 'error_unknown');
@@ -816,11 +841,15 @@ class CenaRepository implements ICenaService {
   NetworkResponseType _getNetworkResponseType(http.Response? response) {
     final status = response?.statusCode;
     if (NetworkConstants.response_success_list.contains(status)) {
-      return NetworkResponseType.success;
+      return NetworkResponseType.success_200;
     } else if (status == NetworkConstants.response_bad_request) {
-      return NetworkResponseType.badRequest;
+      return NetworkResponseType.badRequest_400;
     } else if (status == NetworkConstants.response_unauthorized) {
-      return NetworkResponseType.unauthorized;
+      return NetworkResponseType.unauthorized_401;
+    } else if (status == NetworkConstants.response_conflict) {
+      return NetworkResponseType.conflict_409;
+    } else if (status == NetworkConstants.response_internal_server_error) {
+      return NetworkResponseType.serverInternalError_500;
     } else {
       return NetworkResponseType.unknown;
     }
@@ -911,7 +940,7 @@ class CenaRepository implements ICenaService {
       token: token,
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? StoresResponse.fromJson(data).stores : null;
     });
   }
 

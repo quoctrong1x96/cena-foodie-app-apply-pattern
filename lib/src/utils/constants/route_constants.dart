@@ -9,12 +9,22 @@ class RouteConstants {
   static const String register = '/register';
   static const String enter_reference = '/register/reference';
   static const String verify_phone_number = "/verify-phone-number";
+  static const String get_current_address_of_user = 'users/current-address';
 
   static const String admin_home = '/merchan/';
+
+  static const String client_home = '/client/';
+  static const String client_address = '/client/addresses';
+  static const String client_add_address = '/client/addresses/add';
+
+  static const String product_detail = '/product/detail';
+  static const String search_by_category = '/search/category';
+  static const String cart_client = '/cart/client';
+  static const String store_order = '/store/order';
+
   static const String home = '/';
   static const String auth = '/authorize';
   static const String product_overview = '/product-list';
-  static const String product_detail = '/product-detail';
   static const String cart = '/cart';
   static const String orders = '/orders';
   static const String user_products = '/user-products';

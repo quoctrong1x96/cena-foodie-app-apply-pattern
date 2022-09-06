@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:cenafoodie/src/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

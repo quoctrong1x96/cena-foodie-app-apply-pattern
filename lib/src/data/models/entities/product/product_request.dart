@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -13,8 +15,8 @@ class ProductRequest with _$ProductRequest implements IModel {
     @Default(0) double price,
     List<String>? images,
     String? category,
-    required int categoryId,
-    required int storeId,
+    @JsonKey(name: 'category_id') required int categoryId,
+    @JsonKey(name: 'store_id') required int storeId,
   }) = _ProductAddRequest;
   @override
   factory ProductRequest.fromJson(Map<String, dynamic> json) =>

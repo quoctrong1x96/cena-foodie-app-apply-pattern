@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +11,7 @@ import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
 import '../../widgets/animation_route.dart';
 import '../Admin/admin_home_page.dart';
-import '../auth/enter_references_page.dart';
+import '../auth/reference/enter_references_page.dart';
 import '../auth/login/login_page.dart';
 
 class CheckingLoginPage extends StatefulWidget {
@@ -41,7 +43,6 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
               _animationController.forward();
             }
           });
-    ;
 
     _animationController.forward();
   }
@@ -66,7 +67,10 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
         } else if (state is FailureAuthState) {
           _goToLogin(context);
         } else if (state.rolId != '') {
-          _getUserInformation(userBloc, state, storeBloc);
+          userBloc.add(OnGetUserEvent(state.user!));
+          if (state.store != null) {
+            storeBloc.add(OnGetStoreEvent(state.store!));
+          }
 
           if (state.rolId == '1') {
             _goToAdminPage(context);
@@ -89,12 +93,6 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
         ),
       ),
     );
-  }
-
-  void _getUserInformation(
-      UserBloc userBloc, AuthState state, StoreBloc storeBloc) {
-    userBloc.add(OnGetUserEvent(state.user!));
-    storeBloc.add(OnGetStoreEvent(state.store!));
   }
 
   void _goToClientPage(BuildContext context) {

@@ -26,8 +26,8 @@ class _$ProductRequestTearOff {
       double price = 0,
       List<String>? images,
       String? category,
-      required int categoryId,
-      required int storeId}) {
+      @JsonKey(name: 'category_id') required int categoryId,
+      @JsonKey(name: 'store_id') required int storeId}) {
     return _ProductAddRequest(
       name: name,
       description: description,
@@ -54,7 +54,9 @@ mixin _$ProductRequest {
   double get price => throw _privateConstructorUsedError;
   List<String>? get images => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_id')
   int get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -74,8 +76,8 @@ abstract class $ProductRequestCopyWith<$Res> {
       double price,
       List<String>? images,
       String? category,
-      int categoryId,
-      int storeId});
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'store_id') int storeId});
 }
 
 /// @nodoc
@@ -143,8 +145,8 @@ abstract class _$ProductAddRequestCopyWith<$Res>
       double price,
       List<String>? images,
       String? category,
-      int categoryId,
-      int storeId});
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'store_id') int storeId});
 }
 
 /// @nodoc
@@ -210,8 +212,8 @@ class _$_ProductAddRequest implements _ProductAddRequest {
       this.price = 0,
       this.images,
       this.category,
-      required this.categoryId,
-      required this.storeId});
+      @JsonKey(name: 'category_id') required this.categoryId,
+      @JsonKey(name: 'store_id') required this.storeId});
 
   factory _$_ProductAddRequest.fromJson(Map<String, dynamic> json) =>
       _$_$_ProductAddRequestFromJson(json);
@@ -228,8 +230,10 @@ class _$_ProductAddRequest implements _ProductAddRequest {
   @override
   final String? category;
   @override
+  @JsonKey(name: 'category_id')
   final int categoryId;
   @override
+  @JsonKey(name: 'store_id')
   final int storeId;
 
   @override
@@ -289,8 +293,8 @@ abstract class _ProductAddRequest implements ProductRequest {
       double price,
       List<String>? images,
       String? category,
-      required int categoryId,
-      required int storeId}) = _$_ProductAddRequest;
+      @JsonKey(name: 'category_id') required int categoryId,
+      @JsonKey(name: 'store_id') required int storeId}) = _$_ProductAddRequest;
 
   factory _ProductAddRequest.fromJson(Map<String, dynamic> json) =
       _$_ProductAddRequest.fromJson;
@@ -306,8 +310,10 @@ abstract class _ProductAddRequest implements ProductRequest {
   @override
   String? get category => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'category_id')
   int get categoryId => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

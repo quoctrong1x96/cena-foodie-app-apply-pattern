@@ -532,8 +532,8 @@ class CenaServiceAPIv1 {
   }) =>
       {
         "sort": sort,
-        "offset": offset,
-        "limit": limit,
+        "offset": offset.toString(),
+        "limit": limit.toString(),
         "lat": lat,
         "lng": lng,
       };

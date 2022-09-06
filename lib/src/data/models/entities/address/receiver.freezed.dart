@@ -20,7 +20,10 @@ Receiver _$ReceiverFromJson(Map<String, dynamic> json) {
 class _$ReceiverTearOff {
   const _$ReceiverTearOff();
 
-  _Receiver call({String? name, String? phoneNumber, dynamic isFemale = true}) {
+  _Receiver call(
+      {String? name,
+      @JsonKey(name: 'phone') String? phoneNumber,
+      dynamic isFemale = true}) {
     return _Receiver(
       name: name,
       phoneNumber: phoneNumber,
@@ -39,6 +42,7 @@ const $Receiver = _$ReceiverTearOff();
 /// @nodoc
 mixin _$Receiver {
   String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone')
   String? get phoneNumber => throw _privateConstructorUsedError;
   dynamic get isFemale => throw _privateConstructorUsedError;
 
@@ -52,7 +56,10 @@ mixin _$Receiver {
 abstract class $ReceiverCopyWith<$Res> {
   factory $ReceiverCopyWith(Receiver value, $Res Function(Receiver) then) =
       _$ReceiverCopyWithImpl<$Res>;
-  $Res call({String? name, String? phoneNumber, dynamic isFemale});
+  $Res call(
+      {String? name,
+      @JsonKey(name: 'phone') String? phoneNumber,
+      dynamic isFemale});
 }
 
 /// @nodoc
@@ -91,7 +98,10 @@ abstract class _$ReceiverCopyWith<$Res> implements $ReceiverCopyWith<$Res> {
   factory _$ReceiverCopyWith(_Receiver value, $Res Function(_Receiver) then) =
       __$ReceiverCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, String? phoneNumber, dynamic isFemale});
+  $Res call(
+      {String? name,
+      @JsonKey(name: 'phone') String? phoneNumber,
+      dynamic isFemale});
 }
 
 /// @nodoc
@@ -126,7 +136,10 @@ class __$ReceiverCopyWithImpl<$Res> extends _$ReceiverCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Receiver implements _Receiver {
-  _$_Receiver({this.name, this.phoneNumber, this.isFemale = true});
+  _$_Receiver(
+      {this.name,
+      @JsonKey(name: 'phone') this.phoneNumber,
+      this.isFemale = true});
 
   factory _$_Receiver.fromJson(Map<String, dynamic> json) =>
       _$_$_ReceiverFromJson(json);
@@ -134,6 +147,7 @@ class _$_Receiver implements _Receiver {
   @override
   final String? name;
   @override
+  @JsonKey(name: 'phone')
   final String? phoneNumber;
   @JsonKey(defaultValue: true)
   @override
@@ -177,14 +191,17 @@ class _$_Receiver implements _Receiver {
 }
 
 abstract class _Receiver implements Receiver {
-  factory _Receiver({String? name, String? phoneNumber, dynamic isFemale}) =
-      _$_Receiver;
+  factory _Receiver(
+      {String? name,
+      @JsonKey(name: 'phone') String? phoneNumber,
+      dynamic isFemale}) = _$_Receiver;
 
   factory _Receiver.fromJson(Map<String, dynamic> json) = _$_Receiver.fromJson;
 
   @override
   String? get name => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'phone')
   String? get phoneNumber => throw _privateConstructorUsedError;
   @override
   dynamic get isFemale => throw _privateConstructorUsedError;

@@ -23,7 +23,7 @@ abstract class ICenaService {
   Future<ApiResponse<AuthResponse>> loginWithEmail(UserRequest? userRequest);
 
   ///Login with phone number
-  Future<ApiResponse<User>> loginWithPhone(UserRequest? userRequest);
+  Future<ApiResponse<AuthResponse>> loginWithPhone(UserRequest? userRequest);
 
   // #endregion
 

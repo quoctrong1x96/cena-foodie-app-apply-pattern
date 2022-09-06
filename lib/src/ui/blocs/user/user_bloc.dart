@@ -476,10 +476,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
 
         // emit(SuccessUserState());
-        emit(state.copyWith(address: address));
-      } else {
-        emit(const FailureUserState("error"));
+
       }
+      emit(state.copyWith(address: address));
     } catch (e) {
       emit(FailureUserState(e.toString()));
     }

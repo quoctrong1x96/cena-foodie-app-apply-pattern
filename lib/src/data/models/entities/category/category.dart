@@ -13,7 +13,7 @@ class Category with _$Category implements IModel {
     required int id,
     required String category,
     String? description,
-    required int storeId,
+    @JsonKey(name: 'store_id') required int storeId,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>

@@ -66,7 +66,7 @@ class ProductRepository extends BaseRepository implements IProductService {
   }
 
   @override
-  Future<UiResponse<void>> searchByCategory(
+  Future<UiResponse<List<Product>>> searchByCategory(
       {required String categoryName}) async {
     if (!await hasInternet()) {
       return UiResponse(

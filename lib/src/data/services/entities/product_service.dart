@@ -43,7 +43,8 @@ abstract class IProductService {
   Future<UiResponse<void>> searchByName({required String productName});
 
   ///Search product by category
-  Future<UiResponse<void>> searchByCategory({required String categoryName});
+  Future<UiResponse<List<Product>>> searchByCategory(
+      {required String categoryName});
 
   //Update status of product
   Future<UiResponse<String>> updateStatus({

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'order_request_add.dart';
 
@@ -21,9 +21,9 @@ class _$OrderRequestAddTearOff {
   const _$OrderRequestAddTearOff();
 
   _OrderRequestAdd call(
-      {@JsonKey(name: 'uidAddress') required int addressId,
+      {@JsonKey(name: 'address_id') required int addressId,
       required double total,
-      required String typePayment,
+      @JsonKey(name: 'type_payment') required String typePayment,
       @JsonKey(name: 'products') required List<Cart> carts}) {
     return _OrderRequestAdd(
       addressId: addressId,
@@ -43,9 +43,10 @@ const $OrderRequestAdd = _$OrderRequestAddTearOff();
 
 /// @nodoc
 mixin _$OrderRequestAdd {
-  @JsonKey(name: 'uidAddress')
+  @JsonKey(name: 'address_id')
   int get addressId => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type_payment')
   String get typePayment => throw _privateConstructorUsedError;
   @JsonKey(name: 'products')
   List<Cart> get carts => throw _privateConstructorUsedError;
@@ -62,9 +63,9 @@ abstract class $OrderRequestAddCopyWith<$Res> {
           OrderRequestAdd value, $Res Function(OrderRequestAdd) then) =
       _$OrderRequestAddCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'uidAddress') int addressId,
+      {@JsonKey(name: 'address_id') int addressId,
       double total,
-      String typePayment,
+      @JsonKey(name: 'type_payment') String typePayment,
       @JsonKey(name: 'products') List<Cart> carts});
 }
 
@@ -113,9 +114,9 @@ abstract class _$OrderRequestAddCopyWith<$Res>
       __$OrderRequestAddCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'uidAddress') int addressId,
+      {@JsonKey(name: 'address_id') int addressId,
       double total,
-      String typePayment,
+      @JsonKey(name: 'type_payment') String typePayment,
       @JsonKey(name: 'products') List<Cart> carts});
 }
 
@@ -162,20 +163,21 @@ class __$OrderRequestAddCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OrderRequestAdd implements _OrderRequestAdd {
   _$_OrderRequestAdd(
-      {@JsonKey(name: 'uidAddress') required this.addressId,
+      {@JsonKey(name: 'address_id') required this.addressId,
       required this.total,
-      required this.typePayment,
+      @JsonKey(name: 'type_payment') required this.typePayment,
       @JsonKey(name: 'products') required this.carts});
 
   factory _$_OrderRequestAdd.fromJson(Map<String, dynamic> json) =>
       _$_$_OrderRequestAddFromJson(json);
 
   @override
-  @JsonKey(name: 'uidAddress')
+  @JsonKey(name: 'address_id')
   final int addressId;
   @override
   final double total;
   @override
+  @JsonKey(name: 'type_payment')
   final String typePayment;
   @override
   @JsonKey(name: 'products')
@@ -223,9 +225,9 @@ class _$_OrderRequestAdd implements _OrderRequestAdd {
 
 abstract class _OrderRequestAdd implements OrderRequestAdd {
   factory _OrderRequestAdd(
-          {@JsonKey(name: 'uidAddress') required int addressId,
+          {@JsonKey(name: 'address_id') required int addressId,
           required double total,
-          required String typePayment,
+          @JsonKey(name: 'type_payment') required String typePayment,
           @JsonKey(name: 'products') required List<Cart> carts}) =
       _$_OrderRequestAdd;
 
@@ -233,11 +235,12 @@ abstract class _OrderRequestAdd implements OrderRequestAdd {
       _$_OrderRequestAdd.fromJson;
 
   @override
-  @JsonKey(name: 'uidAddress')
+  @JsonKey(name: 'address_id')
   int get addressId => throw _privateConstructorUsedError;
   @override
   double get total => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'type_payment')
   String get typePayment => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'products')
