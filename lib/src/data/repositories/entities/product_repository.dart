@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/ui/ui_response.dart';
@@ -66,7 +68,7 @@ class ProductRepository extends BaseRepository implements IProductService {
   }
 
   @override
-  Future<UiResponse<void>> searchByCategory(
+  Future<UiResponse<List<Product>>> searchByCategory(
       {required String categoryName}) async {
     if (!await hasInternet()) {
       return UiResponse(
@@ -79,7 +81,8 @@ class ProductRepository extends BaseRepository implements IProductService {
   }
 
   @override
-  Future<UiResponse<void>> searchByName({required String productName}) async {
+  Future<UiResponse<List<Product>>> searchByName(
+      {required String productName}) async {
     if (!await hasInternet()) {
       return UiResponse(
         errorMessage: "error_internet_unavailable",

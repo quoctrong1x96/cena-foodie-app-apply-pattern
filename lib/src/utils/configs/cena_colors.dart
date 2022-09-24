@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CenaColors {
   ///Common
-  static const Color primary = Color.fromARGB(255, 243, 25, 189);
-  static const Color secondary = Color.fromARGB(255, 21, 160, 215);
+  static const Color primary = Color.fromARGB(255, 255, 194, 69);
+  static const Color secondary = Color.fromARGB(255, 106, 148, 231);
   static const Color accent = Color.fromARGB(255, 207, 111, 21);
   static const Color dartGrey = Color.fromARGB(255, 79, 79, 79);
 

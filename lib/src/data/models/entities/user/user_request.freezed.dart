@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'user_request.dart';
 
@@ -25,7 +25,7 @@ class _$UserRequestTearOff {
           String? email,
       @JsonKey(includeIfNull: true)
           String? password,
-      @JsonKey(includeIfNull: true)
+      @JsonKey(includeIfNull: true, name: 'phone')
           String? numberPhone,
       @JsonKey(defaultValue: true, includeIfNull: true)
           bool? returnSecureToken}) {
@@ -51,7 +51,7 @@ mixin _$UserRequest {
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(includeIfNull: true)
   String? get password => throw _privateConstructorUsedError;
-  @JsonKey(includeIfNull: true)
+  @JsonKey(includeIfNull: true, name: 'phone')
   String? get numberPhone => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: true, includeIfNull: true)
   bool? get returnSecureToken => throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ abstract class $UserRequestCopyWith<$Res> {
           String? email,
       @JsonKey(includeIfNull: true)
           String? password,
-      @JsonKey(includeIfNull: true)
+      @JsonKey(includeIfNull: true, name: 'phone')
           String? numberPhone,
       @JsonKey(defaultValue: true, includeIfNull: true)
           bool? returnSecureToken});
@@ -126,7 +126,7 @@ abstract class _$UserRequestCopyWith<$Res>
           String? email,
       @JsonKey(includeIfNull: true)
           String? password,
-      @JsonKey(includeIfNull: true)
+      @JsonKey(includeIfNull: true, name: 'phone')
           String? numberPhone,
       @JsonKey(defaultValue: true, includeIfNull: true)
           bool? returnSecureToken});
@@ -178,7 +178,7 @@ class _$_UserRequest implements _UserRequest {
           this.email,
       @JsonKey(includeIfNull: true)
           this.password,
-      @JsonKey(includeIfNull: true)
+      @JsonKey(includeIfNull: true, name: 'phone')
           this.numberPhone,
       @JsonKey(defaultValue: true, includeIfNull: true)
           this.returnSecureToken});
@@ -193,7 +193,7 @@ class _$_UserRequest implements _UserRequest {
   @JsonKey(includeIfNull: true)
   final String? password;
   @override
-  @JsonKey(includeIfNull: true)
+  @JsonKey(includeIfNull: true, name: 'phone')
   final String? numberPhone;
   @override
   @JsonKey(defaultValue: true, includeIfNull: true)
@@ -246,7 +246,7 @@ abstract class _UserRequest implements UserRequest {
           String? email,
       @JsonKey(includeIfNull: true)
           String? password,
-      @JsonKey(includeIfNull: true)
+      @JsonKey(includeIfNull: true, name: 'phone')
           String? numberPhone,
       @JsonKey(defaultValue: true, includeIfNull: true)
           bool? returnSecureToken}) = _$_UserRequest;
@@ -261,7 +261,7 @@ abstract class _UserRequest implements UserRequest {
   @JsonKey(includeIfNull: true)
   String? get password => throw _privateConstructorUsedError;
   @override
-  @JsonKey(includeIfNull: true)
+  @JsonKey(includeIfNull: true, name: 'phone')
   String? get numberPhone => throw _privateConstructorUsedError;
   @override
   @JsonKey(defaultValue: true, includeIfNull: true)

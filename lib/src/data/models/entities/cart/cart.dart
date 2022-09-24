@@ -10,10 +10,10 @@ part 'cart.g.dart';
 @freezed
 class Cart with _$Cart implements IModel {
   factory Cart({
-    required int storeId,
-    required int productId,
-    required String productImage,
-    required String productName,
+    @JsonKey(name: 'store_id') required int storeId,
+    @JsonKey(name: 'product_id') required int productId,
+    @JsonKey(name: 'product_image') required String productImage,
+    @JsonKey(name: 'product_name') required String productName,
     required double price,
     required int quantity,
   }) = _Cart;

@@ -22,18 +22,18 @@ class _$ProductTearOff {
 
   _Product call(
       {required int id,
-      String? nameProduct,
+      @JsonKey(name: 'name') String? nameProduct,
       String? description,
       double price = 0,
       int status = 1,
       String? picture,
       String? category,
-      required int categoryId,
-      required int storeId,
+      @JsonKey(name: 'category_id') required int categoryId,
+      @JsonKey(name: 'store_id') required int storeId,
       int liked = 0,
       int viewer = 0,
       int sales = 0,
-      int totalSales = 0}) {
+      @JsonKey(name: 'total_sales') int totalSales = 0}) {
     return _Product(
       id: id,
       nameProduct: nameProduct,
@@ -62,17 +62,21 @@ const $Product = _$ProductTearOff();
 /// @nodoc
 mixin _$Product {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String? get nameProduct => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   int get status => throw _privateConstructorUsedError;
   String? get picture => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_id')
   int get categoryId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
   int get liked => throw _privateConstructorUsedError;
   int get viewer => throw _privateConstructorUsedError;
   int get sales => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_sales')
   int get totalSales => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -86,18 +90,18 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      String? nameProduct,
+      @JsonKey(name: 'name') String? nameProduct,
       String? description,
       double price,
       int status,
       String? picture,
       String? category,
-      int categoryId,
-      int storeId,
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'store_id') int storeId,
       int liked,
       int viewer,
       int sales,
-      int totalSales});
+      @JsonKey(name: 'total_sales') int totalSales});
 }
 
 /// @nodoc
@@ -188,18 +192,18 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      String? nameProduct,
+      @JsonKey(name: 'name') String? nameProduct,
       String? description,
       double price,
       int status,
       String? picture,
       String? category,
-      int categoryId,
-      int storeId,
+      @JsonKey(name: 'category_id') int categoryId,
+      @JsonKey(name: 'store_id') int storeId,
       int liked,
       int viewer,
       int sales,
-      int totalSales});
+      @JsonKey(name: 'total_sales') int totalSales});
 }
 
 /// @nodoc
@@ -289,18 +293,18 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
 class _$_Product implements _Product {
   _$_Product(
       {required this.id,
-      this.nameProduct,
+      @JsonKey(name: 'name') this.nameProduct,
       this.description,
       this.price = 0,
       this.status = 1,
       this.picture,
       this.category,
-      required this.categoryId,
-      required this.storeId,
+      @JsonKey(name: 'category_id') required this.categoryId,
+      @JsonKey(name: 'store_id') required this.storeId,
       this.liked = 0,
       this.viewer = 0,
       this.sales = 0,
-      this.totalSales = 0});
+      @JsonKey(name: 'total_sales') this.totalSales = 0});
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
       _$_$_ProductFromJson(json);
@@ -308,6 +312,7 @@ class _$_Product implements _Product {
   @override
   final int id;
   @override
+  @JsonKey(name: 'name')
   final String? nameProduct;
   @override
   final String? description;
@@ -322,8 +327,10 @@ class _$_Product implements _Product {
   @override
   final String? category;
   @override
+  @JsonKey(name: 'category_id')
   final int categoryId;
   @override
+  @JsonKey(name: 'store_id')
   final int storeId;
   @JsonKey(defaultValue: 0)
   @override
@@ -334,8 +341,8 @@ class _$_Product implements _Product {
   @JsonKey(defaultValue: 0)
   @override
   final int sales;
-  @JsonKey(defaultValue: 0)
   @override
+  @JsonKey(name: 'total_sales')
   final int totalSales;
 
   @override
@@ -413,24 +420,25 @@ class _$_Product implements _Product {
 abstract class _Product implements Product {
   factory _Product(
       {required int id,
-      String? nameProduct,
+      @JsonKey(name: 'name') String? nameProduct,
       String? description,
       double price,
       int status,
       String? picture,
       String? category,
-      required int categoryId,
-      required int storeId,
+      @JsonKey(name: 'category_id') required int categoryId,
+      @JsonKey(name: 'store_id') required int storeId,
       int liked,
       int viewer,
       int sales,
-      int totalSales}) = _$_Product;
+      @JsonKey(name: 'total_sales') int totalSales}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
   @override
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'name')
   String? get nameProduct => throw _privateConstructorUsedError;
   @override
   String? get description => throw _privateConstructorUsedError;
@@ -443,8 +451,10 @@ abstract class _Product implements Product {
   @override
   String? get category => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'category_id')
   int get categoryId => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
   @override
   int get liked => throw _privateConstructorUsedError;
@@ -453,6 +463,7 @@ abstract class _Product implements Product {
   @override
   int get sales => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'total_sales')
   int get totalSales => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

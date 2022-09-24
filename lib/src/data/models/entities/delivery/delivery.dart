@@ -14,7 +14,7 @@ class Delivery with _$Delivery implements IModel {
     String? name,
     String? phone,
     String? image,
-    String? notificationToken,
+    @JsonKey(name: 'notification_token') String? notificationToken,
   }) = _Delivery;
 
   factory Delivery.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,39 @@
+import 'package:cenafoodie/src/ui/pages/client/client_profile/profile_client_page.dart';
+import 'package:cenafoodie/src/ui/pages/client/orders/client_orders_page.dart';
+import 'package:cenafoodie/src/ui/pages/home/select_role_page.dart';
+import 'package:cenafoodie/src/ui/pages/profile/change_languages_page.dart';
+import 'package:cenafoodie/src/ui/pages/profile/edit-profile/profile_edit_last_name.dart';
+import 'package:cenafoodie/src/ui/pages/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../data/models/entities/order/order.dart';
+import '../data/models/entities/product/product.dart';
+import '../data/models/entities/store/store.dart';
 import '../data/models/ui/page_arguments.dart';
+import '../ui/pages/admin/admin_home_page.dart';
+import '../ui/pages/auth/forgot_password_page.dart';
+import '../ui/pages/auth/login/login_page.dart';
+import '../ui/pages/auth/otp/login_verify_phone_page.dart';
+import '../ui/pages/auth/reference/enter_references_page.dart';
+import '../ui/pages/auth/register/register_client_page.dart';
+import '../ui/pages/client/cart/cart_client_page.dart';
+import '../ui/pages/client/client_get_current_address_page.dart';
+import '../ui/pages/client/home/client_home_page.dart';
+import '../ui/pages/client/detail_product/details_product_page.dart';
+import '../ui/pages/client/orders/client_map_page.dart';
+import '../ui/pages/client/searchs/search_for_category_page.dart';
+import '../ui/pages/client/store_order/store_order.dart';
+import '../ui/pages/delivery/delivery_home_page.dart';
+import '../ui/pages/delivery/list_orders_delivery_page.dart';
+import '../ui/pages/delivery/order_delivered_page.dart';
+import '../ui/pages/delivery/order_on_way_page.dart';
+import '../ui/pages/intro/checking_login_page.dart';
+import '../ui/pages/map/add_street_address_page.dart';
+import '../ui/pages/profile/edit-profile/profile_edit_first_name.dart';
+import '../ui/pages/profile/list_addresses_page.dart';
+import 'constants/app_constants.dart';
+import 'constants/route_constants.dart';
 import 'log_utils.dart';
 
 class RouteUtils {
@@ -18,56 +51,177 @@ class RouteUtils {
       'generateRoute',
       '$route, ${args?.toJson()}',
     );
-    return null;
 
-    // if (route == RouteConstants.home) {
-    //   // Initial route doesn't requires transition
-    //   return MaterialPageRoute(
-    //     builder: (ctx) => SplashPage(),
-    //   );
-    // } else if (route == RouteConstants.auth) {
-    //   return _getPageRoute(
-    //     AuthPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.product_overview) {
-    //   return _getPageRoute(
-    //     ProductOverviewPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.product_detail) {
-    //   return _getPageRoute(
-    //     ProductDetailPage(
-    //       productId: args?.data,
-    //     ),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.cart) {
-    //   return _getPageRoute(
-    //     CartPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.orders) {
-    //   return _getPageRoute(
-    //     OrdersPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.user_products) {
-    //   return _getPageRoute(
-    //     UserProductsPage(),
-    //     transitionType: args?.transitionType,
-    //   );
-    // } else if (route == RouteConstants.manage_product) {
-    //   final id = args?.data[AppConstants.key_id];
-    //   final option = args?.data[AppConstants.key_option];
-    //   return _getPageRoute(
-    //     ManageProductPage(
-    //       productId: id,
-    //       manageOption: option,
-    //     ),
-    //     transitionType: args?.transitionType,
-    //   );
-    // }
+    if (route == RouteConstants.check_login) {
+      // Initial route doesn't requires transition
+      return MaterialPageRoute(
+        builder: (ctx) => const CheckingLoginPage(),
+      );
+    } else if (route == RouteConstants.login) {
+      return _getPageRoute(
+        const LoginPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.forgot_password) {
+      return _getPageRoute(
+        const ForgotPasswordPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.register) {
+      return _getPageRoute(
+        const RegisterClientPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.enter_reference) {
+      return _getPageRoute(
+        const EnterReferencePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.verify_phone_number) {
+      final String phoneNumber = args?.data[AppConstants.key_phone];
+      final bool isRegisterPage = args?.data[AppConstants.key_is_register_page];
+      return _getPageRoute(
+        LoginVerifyOtpPage(
+            phoneNumber: phoneNumber, isFromRegistry: isRegisterPage),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_home) {
+      return _getPageRoute(
+        const AdminHomePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.get_current_address_of_user) {
+      return _getPageRoute(
+        const ClientGetCurrentAddressPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_home) {
+      return _getPageRoute(
+        const ClientHomePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_address) {
+      return _getPageRoute(
+        const ListAddressesPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_add_address) {
+      return _getPageRoute(
+        const AddStreetAddressPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.product_detail) {
+      final Product product = args?.data['product'];
+      final int storeId = args?.data['store_id'];
+      return _getPageRoute(
+        DetailsProductPage(
+          product: product,
+          storeId: storeId,
+        ),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.cart_client) {
+      final List<Store> stores = args?.data['stores'];
+      return _getPageRoute(
+        CartClientPage(
+          listStore: stores,
+        ),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.store_order) {
+      final Store stores = args?.data['stores'];
+      return _getPageRoute(
+        StoreOrderPage(stores),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.search_by_category) {
+      final String categoryName = args?.data['category_name'];
+      final int categoryId = args?.data['category_id'];
+      return _getPageRoute(
+        SearchForCategoryPage(idCategory: categoryId, category: categoryName),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile) {
+      return _getPageRoute(
+        const ProfileClientPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_edit) {
+      return _getPageRoute(
+        const EditProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_lastname) {
+      return _getPageRoute(
+        const EditLastNameProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_firstname) {
+      return _getPageRoute(
+        const EditFirstNameProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_on_way) {
+      return _getPageRoute(
+        OrderOnWayPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_deliveried) {
+      return _getPageRoute(
+        const OrderDeliveredPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_details) {
+      return _getPageRoute(
+        ListOrdersDeliveryPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.setting_change_languages) {
+      return _getPageRoute(
+        const ChangeLanguagesPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.delivery_home) {
+      return _getPageRoute(
+        const DeliveryHomePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.select_role) {
+      return _getPageRoute(
+        const SelectRolePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.store_order) {
+      final Order order = args?.data['order-client'];
+      return _getPageRoute(
+        ClientMapPage(orderClient: order),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_order_detail) {
+      final Order order = args?.data['order'];
+      return _getPageRoute(
+        ClientMapPage(orderClient: order),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_order) {
+      return _getPageRoute(
+        ClientOrdersPage(),
+        transitionType: args?.transitionType,
+      );
+
+      // } else if (route == RouteConstants.manage_product) {
+      //   final id = args?.data[AppConstants.key_id];
+      //   final option = args?.data[AppConstants.key_option];
+      //   return _getPageRoute(
+      //     ManageProductPage(
+      //       productId: id,
+      //       manageOption: option,
+      //     ),
+      //     transitionType: args?.transitionType,
+      //   );
+      // }
+    }
+    return null;
   }
 
   // ignore: unused_element

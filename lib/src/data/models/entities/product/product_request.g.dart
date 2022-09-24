@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'product_request.dart';
 
 // **************************************************************************
@@ -16,8 +14,8 @@ _$_ProductAddRequest _$_$_ProductAddRequestFromJson(Map<String, dynamic> json) {
     images:
         (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
     category: json['category'] as String?,
-    categoryId: json['categoryId'] as int,
-    storeId: json['storeId'] as int,
+    categoryId: json['category_id'] as int,
+    storeId: json['store_id'] as int,
   );
 }
 
@@ -29,6 +27,6 @@ Map<String, dynamic> _$_$_ProductAddRequestToJson(
       'price': instance.price,
       'images': instance.images,
       'category': instance.category,
-      'categoryId': instance.categoryId,
-      'storeId': instance.storeId,
+      'category_id': instance.categoryId,
+      'store_id': instance.storeId,
     };

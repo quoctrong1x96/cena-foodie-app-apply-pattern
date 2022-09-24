@@ -3,6 +3,18 @@
 import 'package:f_logs/f_logs.dart';
 import 'package:flutter/foundation.dart';
 
+/*
+Black:   \x1B[30m
+Red:     \x1B[31m
+Green:   \x1B[32m
+Yellow:  \x1B[33m
+Blue:    \x1B[34m
+Magenta: \x1B[35m
+Cyan:    \x1B[36m
+White:   \x1B[37m
+Reset:   \x1B[0m8
+*/
+
 class LogUtils {
   const LogUtils._internal();
 
@@ -27,13 +39,13 @@ class LogUtils {
   static void debug(String className, String methodName, String? message) {
     try {
       FLog.debug(
-        className: className,
-        methodName: methodName,
-        text: message ?? 'null',
+        className: '\x1B[32m$className\x1B[0m',
+        methodName: '\x1B[35m$methodName\x1B[0m',
+        text: message != null ? '\x1B[33m$message\x1B[0m' : 'null',
       );
     } on Exception catch (e) {
       if (kDebugMode) {
-        print('[LogUtils] [debug] [${e.toString()}]');
+        print('\x1B[31m[debug] [${e.toString()}]\x1B[0m');
       }
     }
   }
@@ -43,7 +55,9 @@ class LogUtils {
       FLog.error(
         className: className,
         methodName: methodName,
-        text: exception == null ? 'null' : exception.toString(),
+        text: exception == null
+            ? 'null'
+            : '\x1B[31m${exception.toString()}\x1B[0m',
       );
     } on Exception catch (e) {
       if (kDebugMode) {

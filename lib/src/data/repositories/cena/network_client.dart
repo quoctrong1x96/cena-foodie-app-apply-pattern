@@ -80,6 +80,72 @@ class NetworkClient {
     return response;
   }
 
+  Future<http.Response?> requestMultipart(
+    NetworkRequestType requestType, {
+    required Uri uri,
+    String? token,
+    dynamic fields, //required T Function(dynamic data) builder
+    required Map<String, String> filesPath,
+  }) async {
+    Exception? exception;
+    http.Response? response;
+    // var url = '$baseUrl$endpoint';
+    // if (baseUrl == NetworkConstants.base_url && (token?.isNotEmpty ?? false)) {
+    //   final queryParamOperator = endpoint.contains('?') ? '&' : '?';
+    //   final tokenQueryParam = 'auth=$token';
+    //   url = '$baseUrl$endpoint$queryParamOperator$tokenQueryParam';
+    // }
+    // final uri = Uri.parse(url);
+    try {
+      final headers = _getHeaders(token);
+      final Map<String, String> fieldsMap = fields.map<String, String>((key,
+              value) =>
+          MapEntry<String, String>(key, value == null ? "" : value.toString()));
+      _logRequest(
+        EnumToString.convertToString(requestType),
+        uri,
+        token: token,
+        body: fields,
+      );
+
+      var request = http.MultipartRequest(
+          EnumToString.convertToString(requestType).toUpperCase(), uri);
+      request.headers.addAll(headers);
+      request.fields.addAll(fieldsMap);
+      for (var key in filesPath.keys) {
+        request.files
+            .add(await http.MultipartFile.fromPath(key, filesPath[key]!));
+      }
+      final streamResponse = await request.send();
+      response = await http.Response.fromStream(streamResponse);
+    } on TimeoutException catch (e) {
+      exception = e;
+      response = http.Response(
+        "error_timeout",
+        NetworkConstants.response_timeout,
+      );
+    } on SocketException catch (e) {
+      exception = e;
+      response = http.Response(
+        "error_internet_unavailable",
+        NetworkConstants.response_internet_unavailable,
+      );
+    } on Exception catch (e) {
+      exception = e;
+      response = http.Response(
+        "error_unknown",
+        NetworkConstants.response_unknown,
+      );
+    }
+    _logResponse(
+      EnumToString.convertToString(requestType),
+      uri,
+      response: response,
+      exception: exception,
+    );
+    return response;
+  }
+
   Map<String, String> _getHeaders(String? token) {
     var headers = {'Content-Type': 'application/json'};
     if (token?.isNotEmpty ?? false) {
@@ -102,7 +168,7 @@ class NetworkClient {
       logMap['URL'] = uri.toString();
       logMap['Headers'] = _getHeaders(token).toString();
       if (body != null) {
-        logMap['Body'] = body;
+        logMap['Body'] = body.toString();
       }
       LogUtils.debug(
         'NetworkRequest',

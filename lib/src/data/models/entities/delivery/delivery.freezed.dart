@@ -25,7 +25,7 @@ class _$DeliveryTearOff {
       String? name,
       String? phone,
       String? image,
-      String? notificationToken}) {
+      @JsonKey(name: 'notification_token') String? notificationToken}) {
     return _Delivery(
       id: id,
       name: name,
@@ -49,6 +49,7 @@ mixin _$Delivery {
   String? get name => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: 'notification_token')
   String? get notificationToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,7 +67,7 @@ abstract class $DeliveryCopyWith<$Res> {
       String? name,
       String? phone,
       String? image,
-      String? notificationToken});
+      @JsonKey(name: 'notification_token') String? notificationToken});
 }
 
 /// @nodoc
@@ -120,7 +121,7 @@ abstract class _$DeliveryCopyWith<$Res> implements $DeliveryCopyWith<$Res> {
       String? name,
       String? phone,
       String? image,
-      String? notificationToken});
+      @JsonKey(name: 'notification_token') String? notificationToken});
 }
 
 /// @nodoc
@@ -173,7 +174,7 @@ class _$_Delivery implements _Delivery {
       this.name,
       this.phone,
       this.image,
-      this.notificationToken});
+      @JsonKey(name: 'notification_token') this.notificationToken});
 
   factory _$_Delivery.fromJson(Map<String, dynamic> json) =>
       _$_$_DeliveryFromJson(json);
@@ -187,6 +188,7 @@ class _$_Delivery implements _Delivery {
   @override
   final String? image;
   @override
+  @JsonKey(name: 'notification_token')
   final String? notificationToken;
 
   @override
@@ -233,11 +235,12 @@ class _$_Delivery implements _Delivery {
 
 abstract class _Delivery implements Delivery {
   factory _Delivery(
-      {required int id,
-      String? name,
-      String? phone,
-      String? image,
-      String? notificationToken}) = _$_Delivery;
+          {required int id,
+          String? name,
+          String? phone,
+          String? image,
+          @JsonKey(name: 'notification_token') String? notificationToken}) =
+      _$_Delivery;
 
   factory _Delivery.fromJson(Map<String, dynamic> json) = _$_Delivery.fromJson;
 
@@ -250,6 +253,7 @@ abstract class _Delivery implements Delivery {
   @override
   String? get image => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'notification_token')
   String? get notificationToken => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

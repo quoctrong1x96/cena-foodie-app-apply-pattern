@@ -24,7 +24,7 @@ class _$CategoryTearOff {
       {required int id,
       required String category,
       String? description,
-      required int storeId}) {
+      @JsonKey(name: 'store_id') required int storeId}) {
     return _Category(
       id: id,
       category: category,
@@ -46,6 +46,7 @@ mixin _$Category {
   int get id => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +59,11 @@ mixin _$Category {
 abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res>;
-  $Res call({int id, String category, String? description, int storeId});
+  $Res call(
+      {int id,
+      String category,
+      String? description,
+      @JsonKey(name: 'store_id') int storeId});
 }
 
 /// @nodoc
@@ -102,7 +107,11 @@ abstract class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
   factory _$CategoryCopyWith(_Category value, $Res Function(_Category) then) =
       __$CategoryCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String category, String? description, int storeId});
+  $Res call(
+      {int id,
+      String category,
+      String? description,
+      @JsonKey(name: 'store_id') int storeId});
 }
 
 /// @nodoc
@@ -149,7 +158,7 @@ class _$_Category implements _Category {
       {required this.id,
       required this.category,
       this.description,
-      required this.storeId});
+      @JsonKey(name: 'store_id') required this.storeId});
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
       _$_$_CategoryFromJson(json);
@@ -161,6 +170,7 @@ class _$_Category implements _Category {
   @override
   final String? description;
   @override
+  @JsonKey(name: 'store_id')
   final int storeId;
 
   @override
@@ -208,7 +218,7 @@ abstract class _Category implements Category {
       {required int id,
       required String category,
       String? description,
-      required int storeId}) = _$_Category;
+      @JsonKey(name: 'store_id') required int storeId}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
 
@@ -219,6 +229,7 @@ abstract class _Category implements Category {
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

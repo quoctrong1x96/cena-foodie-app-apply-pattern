@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -9,16 +11,16 @@ part 'store.freezed.dart';
 class Store with _$Store implements IModel {
   factory Store({
     required int id,
-    required String storeName,
+    @JsonKey(name: 'name') required String storeName,
     String? address,
     required String latitude,
     required String longitude,
-    required String openTime,
-    required String closeTime,
-    String? distance,
+    @JsonKey(name: 'open_time') required String openTime,
+    @JsonKey(name: 'close_time') required String closeTime,
+    @JsonKey(name: 'distance_in_km') double? distance,
     String? categories,
     String? image,
-    int? userId,
+    @JsonKey(name: 'user_id') int? userId,
   }) = _Store;
 
   @override

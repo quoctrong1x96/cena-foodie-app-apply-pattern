@@ -22,16 +22,16 @@ class _$StoreTearOff {
 
   _Store call(
       {required int id,
-      required String storeName,
+      @JsonKey(name: 'name') required String storeName,
       String? address,
       required String latitude,
       required String longitude,
-      required String openTime,
-      required String closeTime,
-      String? distance,
+      @JsonKey(name: 'open_time') required String openTime,
+      @JsonKey(name: 'close_time') required String closeTime,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
-      int? userId}) {
+      @JsonKey(name: 'user_id') int? userId}) {
     return _Store(
       id: id,
       storeName: storeName,
@@ -58,15 +58,20 @@ const $Store = _$StoreTearOff();
 /// @nodoc
 mixin _$Store {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String get storeName => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String get latitude => throw _privateConstructorUsedError;
   String get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'open_time')
   String get openTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'close_time')
   String get closeTime => throw _privateConstructorUsedError;
-  String? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_in_km')
+  double? get distance => throw _privateConstructorUsedError;
   String? get categories => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
   int? get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -80,16 +85,16 @@ abstract class $StoreCopyWith<$Res> {
       _$StoreCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      String storeName,
+      @JsonKey(name: 'name') String storeName,
       String? address,
       String latitude,
       String longitude,
-      String openTime,
-      String closeTime,
-      String? distance,
+      @JsonKey(name: 'open_time') String openTime,
+      @JsonKey(name: 'close_time') String closeTime,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
-      int? userId});
+      @JsonKey(name: 'user_id') int? userId});
 }
 
 /// @nodoc
@@ -146,7 +151,7 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       categories: categories == freezed
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -170,16 +175,16 @@ abstract class _$StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      String storeName,
+      @JsonKey(name: 'name') String storeName,
       String? address,
       String latitude,
       String longitude,
-      String openTime,
-      String closeTime,
-      String? distance,
+      @JsonKey(name: 'open_time') String openTime,
+      @JsonKey(name: 'close_time') String closeTime,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
-      int? userId});
+      @JsonKey(name: 'user_id') int? userId});
 }
 
 /// @nodoc
@@ -237,7 +242,7 @@ class __$StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       categories: categories == freezed
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -259,16 +264,16 @@ class __$StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
 class _$_Store implements _Store {
   _$_Store(
       {required this.id,
-      required this.storeName,
+      @JsonKey(name: 'name') required this.storeName,
       this.address,
       required this.latitude,
       required this.longitude,
-      required this.openTime,
-      required this.closeTime,
-      this.distance,
+      @JsonKey(name: 'open_time') required this.openTime,
+      @JsonKey(name: 'close_time') required this.closeTime,
+      @JsonKey(name: 'distance_in_km') this.distance,
       this.categories,
       this.image,
-      this.userId});
+      @JsonKey(name: 'user_id') this.userId});
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
       _$_$_StoreFromJson(json);
@@ -276,6 +281,7 @@ class _$_Store implements _Store {
   @override
   final int id;
   @override
+  @JsonKey(name: 'name')
   final String storeName;
   @override
   final String? address;
@@ -284,16 +290,20 @@ class _$_Store implements _Store {
   @override
   final String longitude;
   @override
+  @JsonKey(name: 'open_time')
   final String openTime;
   @override
+  @JsonKey(name: 'close_time')
   final String closeTime;
   @override
-  final String? distance;
+  @JsonKey(name: 'distance_in_km')
+  final double? distance;
   @override
   final String? categories;
   @override
   final String? image;
   @override
+  @JsonKey(name: 'user_id')
   final int? userId;
 
   @override
@@ -366,22 +376,23 @@ class _$_Store implements _Store {
 abstract class _Store implements Store {
   factory _Store(
       {required int id,
-      required String storeName,
+      @JsonKey(name: 'name') required String storeName,
       String? address,
       required String latitude,
       required String longitude,
-      required String openTime,
-      required String closeTime,
-      String? distance,
+      @JsonKey(name: 'open_time') required String openTime,
+      @JsonKey(name: 'close_time') required String closeTime,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
-      int? userId}) = _$_Store;
+      @JsonKey(name: 'user_id') int? userId}) = _$_Store;
 
   factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
 
   @override
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'name')
   String get storeName => throw _privateConstructorUsedError;
   @override
   String? get address => throw _privateConstructorUsedError;
@@ -390,16 +401,20 @@ abstract class _Store implements Store {
   @override
   String get longitude => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'open_time')
   String get openTime => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'close_time')
   String get closeTime => throw _privateConstructorUsedError;
   @override
-  String? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_in_km')
+  double? get distance => throw _privateConstructorUsedError;
   @override
   String? get categories => throw _privateConstructorUsedError;
   @override
   String? get image => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'user_id')
   int? get userId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

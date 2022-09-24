@@ -21,10 +21,10 @@ class _$CartTearOff {
   const _$CartTearOff();
 
   _Cart call(
-      {required int storeId,
-      required int productId,
-      required String productImage,
-      required String productName,
+      {@JsonKey(name: 'store_id') required int storeId,
+      @JsonKey(name: 'product_id') required int productId,
+      @JsonKey(name: 'product_image') required String productImage,
+      @JsonKey(name: 'product_name') required String productName,
       required double price,
       required int quantity}) {
     return _Cart(
@@ -47,9 +47,13 @@ const $Cart = _$CartTearOff();
 
 /// @nodoc
 mixin _$Cart {
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_id')
   int get productId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_image')
   String get productImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_name')
   String get productName => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
@@ -64,10 +68,10 @@ abstract class $CartCopyWith<$Res> {
   factory $CartCopyWith(Cart value, $Res Function(Cart) then) =
       _$CartCopyWithImpl<$Res>;
   $Res call(
-      {int storeId,
-      int productId,
-      String productImage,
-      String productName,
+      {@JsonKey(name: 'store_id') int storeId,
+      @JsonKey(name: 'product_id') int productId,
+      @JsonKey(name: 'product_image') String productImage,
+      @JsonKey(name: 'product_name') String productName,
       double price,
       int quantity});
 }
@@ -124,10 +128,10 @@ abstract class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       __$CartCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int storeId,
-      int productId,
-      String productImage,
-      String productName,
+      {@JsonKey(name: 'store_id') int storeId,
+      @JsonKey(name: 'product_id') int productId,
+      @JsonKey(name: 'product_image') String productImage,
+      @JsonKey(name: 'product_name') String productName,
       double price,
       int quantity});
 }
@@ -183,10 +187,10 @@ class __$CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Cart implements _Cart {
   _$_Cart(
-      {required this.storeId,
-      required this.productId,
-      required this.productImage,
-      required this.productName,
+      {@JsonKey(name: 'store_id') required this.storeId,
+      @JsonKey(name: 'product_id') required this.productId,
+      @JsonKey(name: 'product_image') required this.productImage,
+      @JsonKey(name: 'product_name') required this.productName,
       required this.price,
       required this.quantity});
 
@@ -194,12 +198,16 @@ class _$_Cart implements _Cart {
       _$_$_CartFromJson(json);
 
   @override
+  @JsonKey(name: 'store_id')
   final int storeId;
   @override
+  @JsonKey(name: 'product_id')
   final int productId;
   @override
+  @JsonKey(name: 'product_image')
   final String productImage;
   @override
+  @JsonKey(name: 'product_name')
   final String productName;
   @override
   final double price;
@@ -257,22 +265,26 @@ class _$_Cart implements _Cart {
 
 abstract class _Cart implements Cart {
   factory _Cart(
-      {required int storeId,
-      required int productId,
-      required String productImage,
-      required String productName,
+      {@JsonKey(name: 'store_id') required int storeId,
+      @JsonKey(name: 'product_id') required int productId,
+      @JsonKey(name: 'product_image') required String productImage,
+      @JsonKey(name: 'product_name') required String productName,
       required double price,
       required int quantity}) = _$_Cart;
 
   factory _Cart.fromJson(Map<String, dynamic> json) = _$_Cart.fromJson;
 
   @override
+  @JsonKey(name: 'store_id')
   int get storeId => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'product_id')
   int get productId => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'product_image')
   String get productImage => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'product_name')
   String get productName => throw _privateConstructorUsedError;
   @override
   double get price => throw _privateConstructorUsedError;

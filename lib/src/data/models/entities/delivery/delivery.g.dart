@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'delivery.dart';
 
 // **************************************************************************
@@ -14,7 +12,7 @@ _$_Delivery _$_$_DeliveryFromJson(Map<String, dynamic> json) {
     name: json['name'] as String?,
     phone: json['phone'] as String?,
     image: json['image'] as String?,
-    notificationToken: json['notificationToken'] as String?,
+    notificationToken: json['notification_token'] as String?,
   );
 }
 
@@ -24,5 +22,5 @@ Map<String, dynamic> _$_$_DeliveryToJson(_$_Delivery instance) =>
       'name': instance.name,
       'phone': instance.phone,
       'image': instance.image,
-      'notificationToken': instance.notificationToken,
+      'notification_token': instance.notificationToken,
     };

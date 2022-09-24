@@ -22,15 +22,15 @@ class _$UserTearOff {
 
   _User call(
       {required int id,
-      required String firstName,
-      required String lastName,
+      @JsonKey(name: 'first_name') required String firstName,
+      @JsonKey(name: 'last_name') required String lastName,
       required String image,
       required String email,
       required String phone,
-      required String notificationToken,
-      int rolId = 2,
+      @JsonKey(name: 'notification_token') required String notificationToken,
+      @JsonKey(name: 'rol_id') int rolId = 2,
       String? address,
-      String? reference}) {
+      @JsonKey(name: 'reference_code') String? reference}) {
     return _User(
       id: id,
       firstName: firstName,
@@ -56,14 +56,19 @@ const $User = _$UserTearOff();
 /// @nodoc
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_name')
   String get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_name')
   String get lastName => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'notification_token')
   String get notificationToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rol_id')
   int get rolId => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reference_code')
   String? get reference => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -77,15 +82,15 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      String firstName,
-      String lastName,
+      @JsonKey(name: 'first_name') String firstName,
+      @JsonKey(name: 'last_name') String lastName,
       String image,
       String email,
       String phone,
-      String notificationToken,
-      int rolId,
+      @JsonKey(name: 'notification_token') String notificationToken,
+      @JsonKey(name: 'rol_id') int rolId,
       String? address,
-      String? reference});
+      @JsonKey(name: 'reference_code') String? reference});
 }
 
 /// @nodoc
@@ -161,15 +166,15 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      String firstName,
-      String lastName,
+      @JsonKey(name: 'first_name') String firstName,
+      @JsonKey(name: 'last_name') String lastName,
       String image,
       String email,
       String phone,
-      String notificationToken,
-      int rolId,
+      @JsonKey(name: 'notification_token') String notificationToken,
+      @JsonKey(name: 'rol_id') int rolId,
       String? address,
-      String? reference});
+      @JsonKey(name: 'reference_code') String? reference});
 }
 
 /// @nodoc
@@ -244,15 +249,15 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User implements _User {
   _$_User(
       {required this.id,
-      required this.firstName,
-      required this.lastName,
+      @JsonKey(name: 'first_name') required this.firstName,
+      @JsonKey(name: 'last_name') required this.lastName,
       required this.image,
       required this.email,
       required this.phone,
-      required this.notificationToken,
-      this.rolId = 2,
+      @JsonKey(name: 'notification_token') required this.notificationToken,
+      @JsonKey(name: 'rol_id') this.rolId = 2,
       this.address,
-      this.reference});
+      @JsonKey(name: 'reference_code') this.reference});
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -260,8 +265,10 @@ class _$_User implements _User {
   @override
   final int id;
   @override
+  @JsonKey(name: 'first_name')
   final String firstName;
   @override
+  @JsonKey(name: 'last_name')
   final String lastName;
   @override
   final String image;
@@ -270,13 +277,15 @@ class _$_User implements _User {
   @override
   final String phone;
   @override
+  @JsonKey(name: 'notification_token')
   final String notificationToken;
-  @JsonKey(defaultValue: 2)
   @override
+  @JsonKey(name: 'rol_id')
   final int rolId;
   @override
   final String? address;
   @override
+  @JsonKey(name: 'reference_code')
   final String? reference;
 
   @override
@@ -343,23 +352,25 @@ class _$_User implements _User {
 abstract class _User implements User {
   factory _User(
       {required int id,
-      required String firstName,
-      required String lastName,
+      @JsonKey(name: 'first_name') required String firstName,
+      @JsonKey(name: 'last_name') required String lastName,
       required String image,
       required String email,
       required String phone,
-      required String notificationToken,
-      int rolId,
+      @JsonKey(name: 'notification_token') required String notificationToken,
+      @JsonKey(name: 'rol_id') int rolId,
       String? address,
-      String? reference}) = _$_User;
+      @JsonKey(name: 'reference_code') String? reference}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'first_name')
   String get firstName => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'last_name')
   String get lastName => throw _privateConstructorUsedError;
   @override
   String get image => throw _privateConstructorUsedError;
@@ -368,12 +379,15 @@ abstract class _User implements User {
   @override
   String get phone => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'notification_token')
   String get notificationToken => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'rol_id')
   int get rolId => throw _privateConstructorUsedError;
   @override
   String? get address => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'reference_code')
   String? get reference => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

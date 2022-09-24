@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class CenaTextDescription extends StatelessWidget {
   final String text;
-  final double fontSize;
+  final double? fontSize;
   final Color color;
   final FontWeight fontWeight;
   final TextOverflow textOverflow;
@@ -14,7 +14,7 @@ class CenaTextDescription extends StatelessWidget {
   const CenaTextDescription(
       {Key? key,
       required this.text,
-      this.fontSize = 18,
+      this.fontSize,
       this.color = Colors.black,
       this.fontWeight = FontWeight.normal,
       this.textOverflow = TextOverflow.visible,
@@ -28,13 +28,19 @@ class CenaTextDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: textWidth,
-      child: Text(text,
-          overflow: textOverflow,
-          maxLines: maxLine,
-          textAlign: textAlign,
-          style: textStyle ??
-              GoogleFonts.getFont('Roboto',
-                  fontSize: fontSize, color: color, fontWeight: fontWeight)),
+      child: Text(
+        text,
+        overflow: textOverflow,
+        maxLines: maxLine,
+        textAlign: textAlign,
+        style: textStyle ??
+            TextStyle(
+              fontSize:
+                  fontSize ?? Theme.of(context).textTheme.bodyMedium!.fontSize,
+              fontWeight: fontWeight,
+              color: color,
+            ),
+      ),
     );
   }
 }

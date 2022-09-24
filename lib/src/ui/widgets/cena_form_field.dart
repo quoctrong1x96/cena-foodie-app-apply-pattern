@@ -1,6 +1,6 @@
 part of 'widgets.dart';
 
-class CenaFormField extends StatelessWidget {
+class CenaFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final bool isPassword;
@@ -27,27 +27,61 @@ class CenaFormField extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CenaFormField> createState() => _CenaFormFieldState();
+}
+
+class _CenaFormFieldState extends State<CenaFormField> {
+  var textLength = 0;
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
+    return Container(
+      padding: const EdgeInsets.only(top: AppConstants.padding_all5),
+      width: widget.width,
       child: TextFormField(
-        controller: controller,
-        style: GoogleFonts.getFont('Roboto', fontSize: 18),
-        obscureText: isPassword,
-        maxLines: maxLine,
-        readOnly: readOnly,
-        focusNode: focusNode,
-        maxLength: maxLength,
-        keyboardType: keyboardType,
+        controller: widget.controller,
+        style: Theme.of(context).textTheme.bodyMedium,
+        obscureText: widget.isPassword,
+        maxLines: widget.maxLine,
+        readOnly: widget.readOnly,
+        focusNode: widget.focusNode,
+        maxLength: widget.maxLength,
+        keyboardType: widget.keyboardType,
         decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(width: .5, color: Colors.grey)),
-          contentPadding: const EdgeInsets.all(10.0),
-          hintText: hintText,
-          hintStyle: GoogleFonts.getFont('Roboto', color: Colors.grey),
+          suffixText:
+              '${textLength.toString()}/${widget.maxLength.toString()}  ',
+          counterText: "",
+          contentPadding:
+              const EdgeInsets.only(left: AppConstants.padding_all10 * 2),
+          filled: true,
+          fillColor: Theme.of(context)
+              .primaryColorDark
+              .withOpacity(AppConstants.textbox_opacity),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppConstants.border_radius),
+              borderSide: BorderSide(
+                  width: 0.0, color: Theme.of(context).primaryColorLight)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppConstants.border_radius),
+              borderSide: BorderSide(
+                  width: 0.0, color: Theme.of(context).primaryColorLight)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppConstants.border_radius),
+              borderSide: BorderSide(
+                  width: 1.0, color: Theme.of(context).primaryColor)),
+          hintText: widget.hintText,
+          hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .color!
+                  .withOpacity(AppConstants.color_opacity)),
         ),
-        validator: validator,
+        validator: widget.validator,
+        onChanged: (value) {
+          setState(() {
+            textLength = value.length;
+          });
+        },
       ),
     );
   }

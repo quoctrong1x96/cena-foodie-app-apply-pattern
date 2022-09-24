@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ColorUtils {
-  Color primaryColor = HexColor("F15BB5"); //Pink
-  Color secondaryColor = HexColor("9B5DE5"); //Violet
+  Color primaryColor = HexColor("FFC245"); //Pink
+  Color secondaryColor = HexColor("6A94E7"); //Violet
 
   Color darkColor = HexColor("3D56F0");
-  Color greyColor = HexColor("929794");
+  Color greyColor = HexColor("D7D5C9");
 
   Color searchGreyColor = HexColor("e6e6e6");
   Color blueColor = HexColor("5468FF");

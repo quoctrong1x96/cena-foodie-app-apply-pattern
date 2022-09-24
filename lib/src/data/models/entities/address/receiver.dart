@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../base_model.dart';
@@ -9,7 +11,7 @@ part 'receiver.g.dart';
 class Receiver with _$Receiver implements IModel {
   factory Receiver({
     String? name,
-    String? phoneNumber,
+    @JsonKey(name: 'phone') String? phoneNumber,
     @Default(true) isFemale,
   }) = _Receiver;
 

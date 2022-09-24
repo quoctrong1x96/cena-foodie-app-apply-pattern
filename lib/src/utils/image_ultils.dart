@@ -6,6 +6,10 @@ class ImagesUltils {
   static String getImageApiUrl(String? baseUrl) {
     return baseUrl == null
         ? 'Assets/no-image@2x.png'
-        : CenaServiceConstants.BASE_URL + baseUrl;
+        : CenaServiceConstants.URL_SCHEME +
+            '://' +
+            CenaServiceConstants.BASE_URL +
+            '/' +
+            baseUrl;
   }
 }

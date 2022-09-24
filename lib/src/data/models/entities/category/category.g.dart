@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'category.dart';
 
 // **************************************************************************
@@ -13,7 +11,7 @@ _$_Category _$_$_CategoryFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     category: json['category'] as String,
     description: json['description'] as String?,
-    storeId: json['storeId'] as int,
+    storeId: json['store_id'] as int,
   );
 }
 
@@ -22,5 +20,5 @@ Map<String, dynamic> _$_$_CategoryToJson(_$_Category instance) =>
       'id': instance.id,
       'category': instance.category,
       'description': instance.description,
-      'storeId': instance.storeId,
+      'store_id': instance.storeId,
     };

@@ -272,16 +272,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Future<void> _onRegisterClient(
       OnRegisterClientEvent event, Emitter<UserState> emit) async {
+    final UserState currentState = state;
     try {
-      final UserState currentState = state;
       emit(LoadingUserState());
 
       final validCharacters = RegExp(
-          r'[aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0-9_]+');
-      if (!validCharacters.hasMatch(event.name.replaceAll(" ", ""))) {
+          r'^[aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz0-9-]+$');
+      if (!validCharacters
+          .hasMatch(event.name.replaceAll(" ", "").toLowerCase())) {
         emit(const FailureUserState("FirstName has special character"));
       } else if (!validCharacters
-          .hasMatch(event.lastName.replaceAll(" ", ""))) {
+          .hasMatch(event.lastName.replaceAll(" ", "").toLowerCase())) {
         emit(const FailureUserState("LastName has special character"));
       } else if (event.image.isEmpty) {
         emit(const FailureUserState("No avatar images"));
@@ -310,6 +311,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     } catch (e) {
       emit(FailureUserState(e.toString()));
+    } finally {
+      emit(currentState);
     }
   }
 
@@ -473,10 +476,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
 
         // emit(SuccessUserState());
-        emit(state.copyWith(address: address));
-      } else {
-        emit(const FailureUserState("error"));
+
       }
+      emit(state.copyWith(address: address));
     } catch (e) {
       emit(FailureUserState(e.toString()));
     }

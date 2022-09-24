@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/ui/ui_response.dart';
@@ -40,10 +42,11 @@ abstract class IProductService {
   });
 
   ///Search product by name
-  Future<UiResponse<void>> searchByName({required String productName});
+  Future<UiResponse<List<Product>>> searchByName({required String productName});
 
   ///Search product by category
-  Future<UiResponse<void>> searchByCategory({required String categoryName});
+  Future<UiResponse<List<Product>>> searchByCategory(
+      {required String categoryName});
 
   //Update status of product
   Future<UiResponse<String>> updateStatus({

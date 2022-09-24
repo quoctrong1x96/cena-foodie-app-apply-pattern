@@ -21,7 +21,9 @@ class _$ProductImageTearOff {
   const _$ProductImageTearOff();
 
   _ProductImage call(
-      {required int id, required String networkUrl, required int productId}) {
+      {required int id,
+      @JsonKey(name: 'url') required String networkUrl,
+      @JsonKey(name: 'product_id') required int productId}) {
     return _ProductImage(
       id: id,
       networkUrl: networkUrl,
@@ -40,7 +42,9 @@ const $ProductImage = _$ProductImageTearOff();
 /// @nodoc
 mixin _$ProductImage {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'url')
   String get networkUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_id')
   int get productId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +58,10 @@ abstract class $ProductImageCopyWith<$Res> {
   factory $ProductImageCopyWith(
           ProductImage value, $Res Function(ProductImage) then) =
       _$ProductImageCopyWithImpl<$Res>;
-  $Res call({int id, String networkUrl, int productId});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'url') String networkUrl,
+      @JsonKey(name: 'product_id') int productId});
 }
 
 /// @nodoc
@@ -95,7 +102,10 @@ abstract class _$ProductImageCopyWith<$Res>
           _ProductImage value, $Res Function(_ProductImage) then) =
       __$ProductImageCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String networkUrl, int productId});
+  $Res call(
+      {int id,
+      @JsonKey(name: 'url') String networkUrl,
+      @JsonKey(name: 'product_id') int productId});
 }
 
 /// @nodoc
@@ -135,7 +145,9 @@ class __$ProductImageCopyWithImpl<$Res> extends _$ProductImageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProductImage implements _ProductImage {
   _$_ProductImage(
-      {required this.id, required this.networkUrl, required this.productId});
+      {required this.id,
+      @JsonKey(name: 'url') required this.networkUrl,
+      @JsonKey(name: 'product_id') required this.productId});
 
   factory _$_ProductImage.fromJson(Map<String, dynamic> json) =>
       _$_$_ProductImageFromJson(json);
@@ -143,8 +155,10 @@ class _$_ProductImage implements _ProductImage {
   @override
   final int id;
   @override
+  @JsonKey(name: 'url')
   final String networkUrl;
   @override
+  @JsonKey(name: 'product_id')
   final int productId;
 
   @override
@@ -187,8 +201,8 @@ class _$_ProductImage implements _ProductImage {
 abstract class _ProductImage implements ProductImage {
   factory _ProductImage(
       {required int id,
-      required String networkUrl,
-      required int productId}) = _$_ProductImage;
+      @JsonKey(name: 'url') required String networkUrl,
+      @JsonKey(name: 'product_id') required int productId}) = _$_ProductImage;
 
   factory _ProductImage.fromJson(Map<String, dynamic> json) =
       _$_ProductImage.fromJson;
@@ -196,8 +210,10 @@ abstract class _ProductImage implements ProductImage {
   @override
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'url')
   String get networkUrl => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'product_id')
   int get productId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

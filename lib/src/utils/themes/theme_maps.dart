@@ -5,7 +5,16 @@ import '../importer_utils.dart';
 enum MyThemeKeys { light, dark, darker }
 
 class MyThemes {
-  static final ThemeData lightTheme = ThemeData(
+  MyThemes._internal();
+  static final MyThemes _instance = MyThemes._internal();
+
+  static MyThemes get instance => _instance;
+
+  static MyThemeKeys? _currentTheme;
+
+  MyThemeKeys? get currentThemeKey => _currentTheme;
+
+  final ThemeData _lightTheme = ThemeData(
     primaryColor: UtilsImporter().colorUtils.primaryColor,
     primaryColorLight: Colors.white,
     highlightColor: UtilsImporter().colorUtils.secondaryColor,
@@ -17,7 +26,7 @@ class MyThemes {
                 BorderSide(color: UtilsImporter().colorUtils.primaryColor))),
   );
 
-  static final ThemeData darkTheme = ThemeData(
+  final ThemeData _darkTheme = ThemeData(
     primaryColor: UtilsImporter().colorUtils.primaryColor,
     highlightColor: UtilsImporter().colorUtils.secondaryColor,
     primaryColorLight: Colors.black,
@@ -29,21 +38,22 @@ class MyThemes {
                 BorderSide(color: UtilsImporter().colorUtils.primaryColor))),
   );
 
-  static final ThemeData darkerTheme = ThemeData(
+  final ThemeData _darkerTheme = ThemeData(
     primaryColor: Colors.black,
     brightness: Brightness.dark,
   );
 
-  static ThemeData getThemeFromKey(MyThemeKeys themeKey) {
+  ThemeData getThemeFromKey(MyThemeKeys themeKey) {
+    _currentTheme = themeKey;
     switch (themeKey) {
       case MyThemeKeys.light:
-        return lightTheme;
+        return _lightTheme;
       case MyThemeKeys.dark:
-        return darkTheme;
+        return _darkTheme;
       case MyThemeKeys.darker:
-        return darkerTheme;
+        return _darkerTheme;
       default:
-        return lightTheme;
+        return _lightTheme;
     }
   }
 }
@@ -96,13 +106,13 @@ class CustomThemeState extends State<CustomTheme> {
 
   @override
   void initState() {
-    _theme = MyThemes.getThemeFromKey(widget.initialThemeKey!);
+    _theme = MyThemes.instance.getThemeFromKey(widget.initialThemeKey!);
     super.initState();
   }
 
   void changeTheme(MyThemeKeys themeKey) {
     setState(() {
-      _theme = MyThemes.getThemeFromKey(themeKey);
+      _theme = MyThemes.instance.getThemeFromKey(themeKey);
     });
   }
 

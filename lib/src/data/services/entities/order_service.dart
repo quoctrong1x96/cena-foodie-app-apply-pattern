@@ -1,5 +1,6 @@
 import '../../models/entities/cart/cart.dart';
 import '../../models/entities/order/order.dart';
+import '../../models/entities/order/order_detail.dart';
 import '../../models/ui/ui_response.dart';
 
 abstract class IOrderService {
@@ -30,7 +31,7 @@ abstract class IOrderService {
   });
 
   ///Get detail order
-  Future<UiResponse<Order>> getDetail({required int orderId});
+  Future<UiResponse<List<OrderDetail>>> getDetail({required int orderId});
 
   ///Update status of order to Dispatch
   Future<UiResponse<String>> toDispatch({
