@@ -23,7 +23,7 @@ class _CustomTabsState extends State<CustomTabs> {
   bool _isLoading = true;
 
   Future<void> _getProductsOfStore() async {
-    final int _storeId = widget.store.id!;
+    final int _storeId = widget.store.id;
 
     List<Product> cenaProducts = await _productService
         .fetchAll(storeId: _storeId)
@@ -113,7 +113,7 @@ class _CustomTabsState extends State<CustomTabs> {
                             .where(
                                 (element) => _categories[i] == element.category)
                             .elementAt(j),
-                        storeId: widget.store.id!,
+                        storeId: widget.store.id,
                         discount: 10,
                         like: 100,
                         sale: 10,

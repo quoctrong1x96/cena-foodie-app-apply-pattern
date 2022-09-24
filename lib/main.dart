@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +101,6 @@ class _MyAppState extends State<MyApp> {
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'CENA FOODIE - FOOD&DRINK DELIVERY',
-          // home: const CheckingLoginPage(),
           initialRoute: RouteConstants.check_login,
           onGenerateRoute: RouteUtils.generateRoute,
           theme: CustomTheme.of(context),

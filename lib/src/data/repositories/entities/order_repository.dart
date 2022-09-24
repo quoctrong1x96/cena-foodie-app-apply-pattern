@@ -1,5 +1,6 @@
 import '../../models/entities/cart/cart.dart';
 import '../../models/entities/order/order.dart';
+import '../../models/entities/order/order_detail.dart';
 import '../../models/entities/order/order_request_add.dart';
 import '../../models/ui/ui_response.dart';
 import '../../services/entities/order_service.dart';
@@ -66,7 +67,8 @@ class OrderRepository extends BaseRepository implements IOrderService {
   }
 
   @override
-  Future<UiResponse<Order>> getDetail({required int orderId}) async {
+  Future<UiResponse<List<OrderDetail>>> getDetail(
+      {required int orderId}) async {
     if (!await hasInternet()) {
       return UiResponse(
         errorMessage: "error_internet_unavailable",

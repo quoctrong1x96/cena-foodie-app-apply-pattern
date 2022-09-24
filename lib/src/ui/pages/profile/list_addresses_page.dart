@@ -5,10 +5,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../data/app_locator.dart';
 import '../../../data/models/entities/address/address.dart';
+import '../../../data/models/ui/ui_response.dart';
 import '../../../data/services/entities/address_service.dart';
+import '../../../utils/configs/cena_colors.dart';
 import '../../../utils/constants/app_constants.dart';
 import '../../../utils/helpers/helpers.dart';
-import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
 import '../../resources/generated/l10n.dart';
 import '../../widgets/animation_route.dart';
@@ -90,16 +91,14 @@ class _ListAddressesPageState extends State<ListAddressesPage>
                       color: CenaColors.WHITE,
                       fontSize: 17)),
             ]),
-        body: FutureBuilder<List<Address>?>(
-            future: _addressService
-                .fetchAll(
-                    userId: BlocProvider.of<UserBloc>(context).state.user!.id)
-                .then((value) => value.data),
+        body: FutureBuilder<UiResponse<List<Address>?>>(
+            future: _addressService.fetchAll(
+                userId: BlocProvider.of<UserBloc>(context).state.user!.id),
             builder: (context, snapshot) => (!snapshot.hasData)
                 ? const CenaShimmer()
                 : _ListAddresses(
                     isSelectAddress: widget.isSelectAddress,
-                    listAddress: snapshot.data!)),
+                    listAddress: snapshot.data!.data!)),
       ),
     );
   }

@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../ui/blocs/auth/auth_bloc.dart';
+import '../../../utils/configs/cena_colors.dart';
 import '../../../utils/constants/route_constants.dart';
 import '../../../utils/navigation_utils.dart';
 import '../../blocs/store/store_bloc.dart';
-import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
 import '../../widgets/animation_route.dart';
 import '../Admin/admin_home_page.dart';
-import '../auth/reference/enter_references_page.dart';
 import '../auth/login/login_page.dart';
+import '../auth/reference/enter_references_page.dart';
 
 class CheckingLoginPage extends StatefulWidget {
   const CheckingLoginPage({Key? key}) : super(key: key);
@@ -75,8 +75,8 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
           if (state.rolId == '1') {
             _goToAdminPage(context);
           } else if (state.rolId == '3') {
-            // Navigator.pushAndRemoveUntil(context,
-            //     routeCena(page: const DeliveryHomePage()), (route) => false);
+            NavigationUtils.clearStack(context,
+                newRouteName: RouteConstants.delivery_home);
           } else if (state.rolId == '2') {
             _goToClientPage(context);
           }

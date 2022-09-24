@@ -28,7 +28,7 @@ class _$StoreTearOff {
       required String longitude,
       @JsonKey(name: 'open_time') required String openTime,
       @JsonKey(name: 'close_time') required String closeTime,
-      String? distance,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
       @JsonKey(name: 'user_id') int? userId}) {
@@ -67,7 +67,8 @@ mixin _$Store {
   String get openTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'close_time')
   String get closeTime => throw _privateConstructorUsedError;
-  String? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_in_km')
+  double? get distance => throw _privateConstructorUsedError;
   String? get categories => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
@@ -90,7 +91,7 @@ abstract class $StoreCopyWith<$Res> {
       String longitude,
       @JsonKey(name: 'open_time') String openTime,
       @JsonKey(name: 'close_time') String closeTime,
-      String? distance,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
       @JsonKey(name: 'user_id') int? userId});
@@ -150,7 +151,7 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       categories: categories == freezed
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -180,7 +181,7 @@ abstract class _$StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       String longitude,
       @JsonKey(name: 'open_time') String openTime,
       @JsonKey(name: 'close_time') String closeTime,
-      String? distance,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
       @JsonKey(name: 'user_id') int? userId});
@@ -241,7 +242,7 @@ class __$StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
       distance: distance == freezed
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       categories: categories == freezed
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -269,7 +270,7 @@ class _$_Store implements _Store {
       required this.longitude,
       @JsonKey(name: 'open_time') required this.openTime,
       @JsonKey(name: 'close_time') required this.closeTime,
-      this.distance,
+      @JsonKey(name: 'distance_in_km') this.distance,
       this.categories,
       this.image,
       @JsonKey(name: 'user_id') this.userId});
@@ -295,7 +296,8 @@ class _$_Store implements _Store {
   @JsonKey(name: 'close_time')
   final String closeTime;
   @override
-  final String? distance;
+  @JsonKey(name: 'distance_in_km')
+  final double? distance;
   @override
   final String? categories;
   @override
@@ -380,7 +382,7 @@ abstract class _Store implements Store {
       required String longitude,
       @JsonKey(name: 'open_time') required String openTime,
       @JsonKey(name: 'close_time') required String closeTime,
-      String? distance,
+      @JsonKey(name: 'distance_in_km') double? distance,
       String? categories,
       String? image,
       @JsonKey(name: 'user_id') int? userId}) = _$_Store;
@@ -405,7 +407,8 @@ abstract class _Store implements Store {
   @JsonKey(name: 'close_time')
   String get closeTime => throw _privateConstructorUsedError;
   @override
-  String? get distance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance_in_km')
+  double? get distance => throw _privateConstructorUsedError;
   @override
   String? get categories => throw _privateConstructorUsedError;
   @override

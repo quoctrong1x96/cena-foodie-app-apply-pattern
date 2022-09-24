@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../utils/configs/cena_colors.dart';
 import '../blocs/user/user_bloc.dart';
-import '../pages/client/client_home_page.dart';
+import '../pages/client/home/client_home_page.dart';
 import 'animation_route.dart';
 import 'widgets.dart';
 

@@ -1,3 +1,5 @@
+import 'package:cenafoodie/src/utils/constants/route_constants.dart';
+import 'package:cenafoodie/src/utils/navigation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,9 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
 import '../../resources/generated/l10n.dart';
-import '../../widgets/animation_route.dart';
 import '../../widgets/widgets.dart';
-import 'client_home_page.dart';
 
 class ClientGetCurrentAddressPage extends StatefulWidget {
   const ClientGetCurrentAddressPage({Key? key}) : super(key: key);
@@ -60,16 +60,16 @@ class _ClientGetCurrentAddressPageState
 
     return BlocListener<UserBloc, UserState>(
         listener: (context, state) async {
-          if (state.address != null || state is FailureUserState) {
+          if (state.address != null || state is SuccessUserState) {
             if (mounted) {
               setState(() {
                 _isFinding = false;
               });
             }
             await Future.delayed(const Duration(milliseconds: 1000));
-            Navigator.pushAndRemoveUntil(context,
-                routeCena(page: const ClientHomePage()), (route) => false);
-          } else {}
+            NavigationUtils.clearStack(context,
+                newRouteName: RouteConstants.client_home);
+          }
         },
         child: WillPopScope(
           onWillPop: _onWillPop,

@@ -15,7 +15,7 @@ class StoreOrderPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CenaColors.LIGHT_GREY,
       appBar: CenaAppbarDefault(
-        title: store.storeName!,
+        title: store.storeName,
         leading: const CenaButtonDefaultBack(),
       ),
       body: Body(store: store),

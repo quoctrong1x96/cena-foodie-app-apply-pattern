@@ -59,7 +59,7 @@ class Body extends StatelessWidget {
             width: 7,
           ),
           CenaTextDescription(
-            text: store.storeName!,
+            text: store.storeName,
             textAlign: TextAlign.left,
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class Body extends StatelessWidget {
             color: Colors.grey,
           ),
           Text(
-            " ${(double.parse(store.distance!) * 1000 / 500 + 10).toStringAsFixed(0)} ${lang.store_order_min}",
+            " ${(double.parse(store.distance!.toString()) * 1000 / 500 + 10).toStringAsFixed(0)} ${lang.store_order_min}",
             style: CenaTextStyles.smallDescription,
           ),
         ],

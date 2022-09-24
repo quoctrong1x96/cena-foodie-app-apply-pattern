@@ -10,7 +10,6 @@ import '../../../../../data/models/entities/store/store.dart';
 import '../../../../blocs/cart/cart_bloc.dart';
 import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../resources/generated/l10n.dart';
-import '../../../../widgets/animation_route.dart';
 import '../../../../widgets/widgets.dart';
 
 class StoreShopingCart extends StatelessWidget {

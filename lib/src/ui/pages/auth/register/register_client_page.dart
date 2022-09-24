@@ -444,8 +444,8 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
         NavigationUtils.clearStack(context,
             newRouteName: RouteConstants.enter_reference);
       } else if (state.rolId == '3') {
-        // Navigator.pushAndRemoveUntil(context,
-        //     routeCena(page: const DeliveryHomePage()), (route) => false);
+        NavigationUtils.clearStack(context,
+            newRouteName: RouteConstants.delivery_home);
       }
     }
   }

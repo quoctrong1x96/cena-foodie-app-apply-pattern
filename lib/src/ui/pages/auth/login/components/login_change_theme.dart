@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, overridden_fields, unused_local_variable
 
 import 'package:cenafoodie/src/utils/log_utils.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import '../../../../../utils/themes/theme_maps.dart';
 class LoginChangeThemeButton extends StatefulWidget {
   final Widget parrentWidget;
   final MyThemeKeys? myThemeKey;
+  @override
   final GlobalKey? key;
   const LoginChangeThemeButton(
       {this.key, required this.myThemeKey, required this.parrentWidget})

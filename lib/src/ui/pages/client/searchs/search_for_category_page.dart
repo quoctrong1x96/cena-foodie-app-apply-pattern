@@ -8,6 +8,7 @@ import 'package:cenafoodie/src/utils/navigation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/widgets.dart';
@@ -39,13 +40,11 @@ class SearchForCategoryPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: FutureBuilder<List<Product>>(
-            future: _productService
-                .searchByCategory(categoryName: category)
-                .then((value) => value.data!),
+        child: FutureBuilder<UiResponse<List<Product>>>(
+            future: _productService.searchByCategory(categoryName: category),
             builder: (context, snapshot) => (!snapshot.hasData)
                 ? const CenaShimmer()
-                : ListProducts(listProduct: snapshot.data!)),
+                : ListProducts(listProduct: snapshot.data!.data!)),
       ),
     );
   }

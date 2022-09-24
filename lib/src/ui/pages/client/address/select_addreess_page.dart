@@ -1,5 +1,4 @@
 import 'package:cenafoodie/src/data/models/entities/address/address.dart';
-import 'package:cenafoodie/src/data/models/ui/ui_response.dart';
 import 'package:cenafoodie/src/utils/constants/route_constants.dart';
 import 'package:cenafoodie/src/utils/navigation_utils.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../data/app_locator.dart';
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../data/services/entities/address_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/widgets.dart';
 
 class SelectAddressPage extends StatelessWidget {
@@ -39,16 +38,14 @@ class SelectAddressPage extends StatelessWidget {
                   fontSize: 17))
         ],
       ),
-      body: FutureBuilder<List<Address>?>(
-          future: _addressService
-              .fetchAll(
-                  userId: BlocProvider.of<UserBloc>(context).state.user!.id)
-              .then((value) => value.data),
+      body: FutureBuilder<UiResponse<List<Address>?>>(
+          future: _addressService.fetchAll(
+              userId: BlocProvider.of<UserBloc>(context).state.user!.id),
           builder: (context, snapshot) => (!snapshot.hasData)
               ? const CenaShimmer()
               : _ListAddresses(
                   isSelectAddress: isSelectAddress,
-                  listAddress: snapshot.data!)),
+                  listAddress: snapshot.data!.data!)),
     );
   }
 }

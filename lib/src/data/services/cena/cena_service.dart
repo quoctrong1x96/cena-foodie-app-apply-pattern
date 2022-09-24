@@ -6,6 +6,7 @@ import '../../models/entities/auth/auth_response.dart';
 import '../../models/entities/category/category.dart';
 import '../../models/entities/delivery/delivery.dart';
 import '../../models/entities/order/order.dart';
+import '../../models/entities/order/order_detail.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/entities/store/store.dart';
@@ -194,7 +195,7 @@ abstract class ICenaService {
       {required int storeId, required String status});
 
   ///Get detail order
-  Future<ApiResponse<Order>> getOrderDetail({required int orderId});
+  Future<ApiResponse<List<OrderDetail>>> getOrderDetail({required int orderId});
 
   ///Update status of order to Dispatch
   Future<ApiResponse<String>> setOrderToDispatch(

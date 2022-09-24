@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../blocs/auth/auth_bloc.dart';
-import '../../../../utils/configs/cena_text_styles.dart';
-import '../../../blocs/store/store_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/configs/cena_text_styles.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../blocs/auth/auth_bloc.dart';
+import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../../utils/helpers/helpers.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/loading_more_row_widget.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
@@ -488,8 +488,8 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
               newRouteName: RouteConstants.client_home);
         }
       } else if (state.rolId == '3') {
-        // Navigator.pushAndRemoveUntil(context,
-        //     routeCena(page: const DeliveryHomePage()), (route) => false);
+        NavigationUtils.clearStack(context,
+            newRouteName: RouteConstants.delivery_home);
       }
     }
   }

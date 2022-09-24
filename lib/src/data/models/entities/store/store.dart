@@ -17,7 +17,7 @@ class Store with _$Store implements IModel {
     required String longitude,
     @JsonKey(name: 'open_time') required String openTime,
     @JsonKey(name: 'close_time') required String closeTime,
-    String? distance,
+    @JsonKey(name: 'distance_in_km') double? distance,
     String? categories,
     String? image,
     @JsonKey(name: 'user_id') int? userId,

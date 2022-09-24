@@ -1,6 +1,13 @@
+import 'package:cenafoodie/src/ui/pages/client/client_profile/profile_client_page.dart';
+import 'package:cenafoodie/src/ui/pages/client/orders/client_orders_page.dart';
+import 'package:cenafoodie/src/ui/pages/home/select_role_page.dart';
+import 'package:cenafoodie/src/ui/pages/profile/change_languages_page.dart';
+import 'package:cenafoodie/src/ui/pages/profile/edit-profile/profile_edit_last_name.dart';
+import 'package:cenafoodie/src/ui/pages/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../data/models/entities/order/order.dart';
 import '../data/models/entities/product/product.dart';
 import '../data/models/entities/store/store.dart';
 import '../data/models/ui/page_arguments.dart';
@@ -12,12 +19,18 @@ import '../ui/pages/auth/reference/enter_references_page.dart';
 import '../ui/pages/auth/register/register_client_page.dart';
 import '../ui/pages/client/cart/cart_client_page.dart';
 import '../ui/pages/client/client_get_current_address_page.dart';
-import '../ui/pages/client/client_home_page.dart';
+import '../ui/pages/client/home/client_home_page.dart';
 import '../ui/pages/client/detail_product/details_product_page.dart';
+import '../ui/pages/client/orders/client_map_page.dart';
 import '../ui/pages/client/searchs/search_for_category_page.dart';
 import '../ui/pages/client/store_order/store_order.dart';
+import '../ui/pages/delivery/delivery_home_page.dart';
+import '../ui/pages/delivery/list_orders_delivery_page.dart';
+import '../ui/pages/delivery/order_delivered_page.dart';
+import '../ui/pages/delivery/order_on_way_page.dart';
 import '../ui/pages/intro/checking_login_page.dart';
 import '../ui/pages/map/add_street_address_page.dart';
+import '../ui/pages/profile/edit-profile/profile_edit_first_name.dart';
 import '../ui/pages/profile/list_addresses_page.dart';
 import 'constants/app_constants.dart';
 import 'constants/route_constants.dart';
@@ -128,6 +141,74 @@ class RouteUtils {
         SearchForCategoryPage(idCategory: categoryId, category: categoryName),
         transitionType: args?.transitionType,
       );
+    } else if (route == RouteConstants.client_profile) {
+      return _getPageRoute(
+        const ProfileClientPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_edit) {
+      return _getPageRoute(
+        const EditProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_lastname) {
+      return _getPageRoute(
+        const EditLastNameProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_profile_firstname) {
+      return _getPageRoute(
+        const EditFirstNameProfilePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_on_way) {
+      return _getPageRoute(
+        OrderOnWayPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_deliveried) {
+      return _getPageRoute(
+        const OrderDeliveredPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.order_details) {
+      return _getPageRoute(
+        ListOrdersDeliveryPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.setting_change_languages) {
+      return _getPageRoute(
+        const ChangeLanguagesPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.delivery_home) {
+      return _getPageRoute(
+        const DeliveryHomePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.select_role) {
+      return _getPageRoute(
+        const SelectRolePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.store_order) {
+      final Order order = args?.data['order-client'];
+      return _getPageRoute(
+        ClientMapPage(orderClient: order),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_order_detail) {
+      final Order order = args?.data['order'];
+      return _getPageRoute(
+        ClientMapPage(orderClient: order),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.client_order) {
+      return _getPageRoute(
+        ClientOrdersPage(),
+        transitionType: args?.transitionType,
+      );
+
       // } else if (route == RouteConstants.manage_product) {
       //   final id = args?.data[AppConstants.key_id];
       //   final option = args?.data[AppConstants.key_option];

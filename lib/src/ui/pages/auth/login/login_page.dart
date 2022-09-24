@@ -1,7 +1,5 @@
 import 'dart:convert' show json;
 
-import 'package:cenafoodie/src/utils/constants/app_constants.dart';
-import 'package:cenafoodie/src/utils/themes/theme_maps.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +12,12 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../../data/models/ui/page_arguments.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../../utils/log_utils.dart';
 import '../../../../utils/navigation_utils.dart';
+import '../../../../utils/themes/theme_maps.dart';
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/general/general_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
@@ -54,11 +54,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _emailController = TextEditingController();
-    _emailController.text = 'cenafoodie@gmail.com';
+    _emailController.text = 'user10@gmail.com';
     _phoneController = TextEditingController();
     _phoneController.text = '0949412112';
     _passwordController = TextEditingController();
-    _passwordController.text = 'Cena@1234';
+    _passwordController.text = 'Cena@123';
     super.initState();
   }
 
@@ -129,15 +129,17 @@ class _LoginPageState extends State<LoginPage> {
   void _loginSuccessLogic(UserBloc userBloc, AuthState state,
       StoreBloc storeBloc, BuildContext context) {
     userBloc.add(OnGetUserEvent(state.user!));
-    storeBloc.add(OnGetStoreEvent(state.store!));
+    if (state.store != null) {
+      storeBloc.add(OnGetStoreEvent(state.store!));
+    }
     NavigationUtils.pop(context);
 
     if (state.rolId == '1') {
       NavigationUtils.replace(context, RouteConstants.admin_home,
           args: PageArguments(transitionType: PageTransitionType.bottomToTop));
     } else if (state.rolId == '3') {
-      // Navigator.pushAndRemoveUntil(context,
-      //     routeCena(page: const DeliveryHomePage()), (route) => false);
+      NavigationUtils.clearStack(context,
+          newRouteName: RouteConstants.delivery_home);
     } else if (state.rolId == '2') {
       final userBloc = BlocProvider.of<UserBloc>(context);
       if (userBloc.state.address == null) {
@@ -146,8 +148,8 @@ class _LoginPageState extends State<LoginPage> {
             state.user!.firstName + " " + state.user!.lastName,
             state.user!.phone));
       }
-      // Navigator.pushAndRemoveUntil(context,
-      //     routeCena(page: const ClientHomePage()), (route) => false);
+      NavigationUtils.clearStack(context,
+          newRouteName: RouteConstants.client_home);
     }
   }
 
@@ -155,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
     NavigationUtils.pop(context);
 
     switch (state.error) {
-      case "Wrong Credentials":
+      case "error_session_expire":
         cenaToastError(lang.login_error_wrong);
         break;
       default:

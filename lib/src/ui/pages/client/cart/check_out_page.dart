@@ -1,31 +1,31 @@
-import 'package:cenafoodie/src/data/app_locator.dart';
-import 'package:cenafoodie/src/data/services/entities/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/address/address.dart';
 import '../../../../data/models/entities/cart/cart.dart';
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../data/models/entities/type_payment.dart';
 import '../../../../data/models/entities/voucher/voucher_free_ship.dart';
 import '../../../../data/models/entities/voucher/voucher_subtract.dart';
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../data/services/entities/address_service.dart';
+import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
+import '../../../../utils/helpers/helpers.dart';
 import '../../../../utils/image_ultils.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../blocs/order/orders_bloc.dart';
 import '../../../blocs/payment/payments_bloc.dart';
-import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../profile/list_addresses_page.dart';
-import '../client_home_page.dart';
+import '../home/client_home_page.dart';
 
 class CheckOutPage extends StatelessWidget {
   final Store store;
@@ -472,12 +472,9 @@ class _CheckoutAddress extends StatelessWidget {
                       text: lang.client_payment_address_non,
                       color: CenaColors.accent,
                     )
-                  : FutureBuilder<Address?>(
-                      future: _addressService
-                          .byId(
-                              userId: state.user!.id,
-                              addressId: state.address!.id)
-                          .then((value) => value.data),
+                  : FutureBuilder<UiResponse<Address?>>(
+                      future: _addressService.byId(
+                          userId: state.user!.id, addressId: state.address!.id),
                       builder: (context, snapshot) => (!snapshot.hasData)
                           ? Column(
                               children: const [
@@ -492,42 +489,45 @@ class _CheckoutAddress extends StatelessWidget {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width - 25,
                                   child: CenaTextDescription(
-                                      text: (snapshot.data!.detail != '')
-                                          ? snapshot.data!.detail!
+                                      text: (snapshot.data!.data!.detail != '')
+                                          ? snapshot.data!.data!.detail!
                                           : lang.client_payment_address_select,
                                       fontSize: 14,
                                       textOverflow: TextOverflow.ellipsis,
                                       maxLine: 1),
                                 ),
-                                snapshot.data!.receiver!.name != ''
+                                snapshot.data!.data!.receiver!.name != ''
                                     ? Row(
                                         children: [
                                           CenaTextDescription(
-                                              text: (snapshot.data!.receiver!
-                                                          .name !=
+                                              text: (snapshot.data!.data!
+                                                          .receiver!.name !=
                                                       '')
-                                                  ? '${lang.client_payment_receiver}: ${snapshot.data!.receiver}'
+                                                  ? '${lang.client_payment_receiver}: ${snapshot.data!.data!.receiver}'
                                                   : ' ',
                                               fontSize: 14,
                                               maxLine: 1),
                                           const CenaTextDescription(
                                               text: " - "),
                                           CenaTextDescription(
-                                              text: (snapshot.data!.receiver!
+                                              text: (snapshot
+                                                          .data!
+                                                          .data!
+                                                          .receiver!
                                                           .phoneNumber !=
                                                       '')
-                                                  ? snapshot.data!.receiver!
-                                                      .phoneNumber!
+                                                  ? snapshot.data!.data!
+                                                      .receiver!.phoneNumber!
                                                   : ' ',
                                               fontSize: 14,
                                               maxLine: 1),
                                         ],
                                       )
                                     : const SizedBox(width: 1),
-                                snapshot.data!.note != ''
+                                snapshot.data!.data!.note != ''
                                     ? CenaTextDescription(
-                                        text: (snapshot.data!.note != '')
-                                            ? '${lang.client_payment_note}: "${snapshot.data!.note!}"'
+                                        text: (snapshot.data!.data!.note != '')
+                                            ? '${lang.client_payment_note}: "${snapshot.data!.data!.note!}"'
                                             : ' ',
                                         fontSize: 12,
                                         textAlign: TextAlign.left,

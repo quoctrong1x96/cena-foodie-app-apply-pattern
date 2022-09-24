@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cenafoodie/src/data/models/entities/order/order_detail.dart';
 import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
 import 'package:cenafoodie/src/data/models/entities/product/product_response.dart';
 import 'package:cenafoodie/src/data/models/entities/store/store.dart';
@@ -410,7 +411,7 @@ class CenaRepository implements ICenaService {
 
     final response = await NetworkClient.instance.request(
       NetworkRequestType.get,
-      uri: CenaServiceAPIv1.instance.storeAddCategory(
+      uri: CenaServiceAPIv1.instance.storeGetAllCategories(
         storeId: storeId,
       ),
       token: token,
@@ -418,7 +419,7 @@ class CenaRepository implements ICenaService {
     );
     return _getApiResponse(response, (data) {
       return data != null
-          ? CategoryFetchResponse.fromJson(data).categories
+          ? CategoryFetchResponse.fromJson(data['categories']).categories
           : null;
     });
   }
@@ -479,7 +480,7 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<Order>> getOrderDetail({
+  Future<ApiResponse<List<OrderDetail>>> getOrderDetail({
     required int orderId,
   }) async {
     final token = await _storageService.getAccessToken();
@@ -803,7 +804,8 @@ class CenaRepository implements ICenaService {
   ) {
     try {
       final type = _getNetworkResponseType(response);
-      final bodyJson = jsonDecode(response?.body ?? '{}');
+      final bodyJson =
+          jsonDecode(response?.body == "" ? '{}' : response?.body ?? '{}');
       final body = response?.body;
       if (type == NetworkResponseType.success_200) {
         return ApiResponse.fromRawJson(

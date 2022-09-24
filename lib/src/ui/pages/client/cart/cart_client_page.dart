@@ -58,7 +58,7 @@ class CartClientPage extends StatelessWidget {
       if (listStore != null) {
         Iterable<Cart> productCarts = [];
         for (var storeItem in listStore!) {
-          appbarHeader = storeItem.storeName!;
+          appbarHeader = storeItem.storeName;
           productCarts = state.products!
               .where((element) => element.storeId == storeItem.id);
           List<Cart> listProduct = [];
