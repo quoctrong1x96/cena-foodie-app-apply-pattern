@@ -10,7 +10,7 @@ part 'order.g.dart';
 @freezed
 class Order with _$Order implements IModel {
   factory Order({
-    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "order_id") required int id,
     @JsonKey(name: "delivery_id") int? deliveryId,
     @JsonKey(name: "delivery") String? deliveryName,
     @JsonKey(name: "delivery_image") String? deliveryImage,

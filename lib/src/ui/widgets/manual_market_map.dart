@@ -79,7 +79,7 @@ class ManualMarketMap extends StatelessWidget {
               onPressed: () {
                 if (myLocationBloc.state.addressName != '') {
                   NavigationUtils.replace(
-                      context, RouteConstants.client_address);
+                      context, RouteConstants.client_add_address);
                 }
               },
             ))

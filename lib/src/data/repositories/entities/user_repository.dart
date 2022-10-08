@@ -52,7 +52,7 @@ class UserRepository extends BaseRepository implements IUserService {
       );
     }
     final response =
-        await cenaService.changeUserImage(userId: userId, imageUrl: imageUrl);
+        await cenaService.changeUserImage(userId: userId, image: imageUrl);
     return UiResponse.map(response);
   }
 

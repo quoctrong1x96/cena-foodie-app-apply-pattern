@@ -37,8 +37,9 @@ class MyLocationMapBloc extends Bloc<MyLocationMapEvent, MyLocationMapState> {
   void initMapLocation(GoogleMapController controller) {
     if (!state.mapReady) {
       _mapController = controller;
-      // Change Style from Map
-      _mapController.setMapStyle(jsonEncode(MyThemes));
+      // Change Style from Map TODO
+      // _mapController.setMapStyle(jsonEncode(MyThemes.instance
+      //     .getThemeFromKey(MyThemes.instance.currentThemeKey!)));
 
       add(OnMapReadyEvent());
 

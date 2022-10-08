@@ -229,7 +229,7 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_user,
-        endpoint: "$userId/addresses",
+        endpoint: "$userId/addresses/first",
         parameterBuilder: () => null,
       );
 
@@ -329,6 +329,21 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_order,
+        parameterBuilder: () => filterOrder(
+          status: status,
+          typeObject: typeObject,
+          objectId: objectId,
+        ),
+      );
+
+  Uri orderGetByClient({
+    required String status,
+    required String typeObject,
+    required int objectId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_order,
+        endpoint: "client",
         parameterBuilder: () => filterOrder(
           status: status,
           typeObject: typeObject,
@@ -546,6 +561,6 @@ class CenaServiceAPIv1 {
       {
         "status": status,
         "type": typeObject,
-        "object_id": objectId,
+        "object_id": objectId.toString(),
       };
 }

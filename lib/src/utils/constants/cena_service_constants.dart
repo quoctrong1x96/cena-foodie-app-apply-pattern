@@ -5,7 +5,7 @@ class CenaServiceConstants {
 
   // region base urls / api keys
   static const String BASE_URL =
-      '63cb-2402-800-6375-621e-4c08-1665-f9ae-9639.ngrok.io';
+      '5657-2402-800-6375-621e-ccd5-dc1-689a-e677.ngrok.io';
   static const String URL_API = '$BASE_URL/api';
   static const String URL_API_PATHv1 = '/api/v1';
   static const int? URL_PORT = null;

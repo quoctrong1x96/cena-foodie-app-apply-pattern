@@ -21,6 +21,7 @@ import '../ui/pages/client/cart/cart_client_page.dart';
 import '../ui/pages/client/client_get_current_address_page.dart';
 import '../ui/pages/client/home/client_home_page.dart';
 import '../ui/pages/client/detail_product/details_product_page.dart';
+import '../ui/pages/client/orders/client_details_order_page.dart';
 import '../ui/pages/client/orders/client_map_page.dart';
 import '../ui/pages/client/searchs/search_for_category_page.dart';
 import '../ui/pages/client/store_order/store_order.dart';
@@ -31,7 +32,7 @@ import '../ui/pages/delivery/order_on_way_page.dart';
 import '../ui/pages/intro/checking_login_page.dart';
 import '../ui/pages/map/add_street_address_page.dart';
 import '../ui/pages/profile/edit-profile/profile_edit_first_name.dart';
-import '../ui/pages/profile/list_addresses_page.dart';
+import '../ui/pages/client/address/list_addresses_page.dart';
 import 'constants/app_constants.dart';
 import 'constants/route_constants.dart';
 import 'log_utils.dart';
@@ -191,16 +192,10 @@ class RouteUtils {
         const SelectRolePage(),
         transitionType: args?.transitionType,
       );
-    } else if (route == RouteConstants.store_order) {
-      final Order order = args?.data['order-client'];
-      return _getPageRoute(
-        ClientMapPage(orderClient: order),
-        transitionType: args?.transitionType,
-      );
     } else if (route == RouteConstants.client_order_detail) {
       final Order order = args?.data['order'];
       return _getPageRoute(
-        ClientMapPage(orderClient: order),
+        ClientDetailsOrderPage(orderClient: order),
         transitionType: args?.transitionType,
       );
     } else if (route == RouteConstants.client_order) {

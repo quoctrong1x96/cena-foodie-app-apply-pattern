@@ -118,7 +118,8 @@ class _InfoCardClient extends StatelessWidget {
                                 orderClient.deliveryImage)))),
               ),
               const SizedBox(width: 10.0),
-              CenaTextDescription(text: orderClient.deliveryName!),
+              CenaTextDescription(
+                  text: orderClient.deliveryName ?? "Not assigned yet"),
               const Spacer(),
               InkWell(
                 onTap: () async => await urlLauncherCena.makePhoneCall(

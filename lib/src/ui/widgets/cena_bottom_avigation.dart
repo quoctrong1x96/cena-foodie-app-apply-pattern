@@ -1,3 +1,5 @@
+import 'package:cenafoodie/src/utils/constants/route_constants.dart';
+import 'package:cenafoodie/src/utils/navigation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,14 +62,12 @@ class BottomNavigationCena extends StatelessWidget {
             //       context, routeCena(page: const CartClientPage())),
             // ),
             _ItemButton(
-              i: 2,
-              index: index,
-              iconData: Icons.person_outline_outlined,
-              text: 'Profile',
-              onPressed: () => {}, //TODO here/
-              // Navigator.pushReplacement(
-              //     context, routeCena(page: const ProfileClientPage())),
-            ),
+                i: 2,
+                index: index,
+                iconData: Icons.person_outline_outlined,
+                text: 'Profile',
+                onPressed: () => NavigationUtils.replace(
+                    context, RouteConstants.client_profile)),
           ],
         ));
   }

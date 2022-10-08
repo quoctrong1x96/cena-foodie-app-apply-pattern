@@ -21,7 +21,7 @@ class _$OrderTearOff {
   const _$OrderTearOff();
 
   _Order call(
-      {@JsonKey(name: "id") required int id,
+      {@JsonKey(name: "order_id") required int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
       @JsonKey(name: "delivery_image") String? deliveryImage,
@@ -75,7 +75,7 @@ const $Order = _$OrderTearOff();
 
 /// @nodoc
 mixin _$Order {
-  @JsonKey(name: "id")
+  @JsonKey(name: "order_id")
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: "delivery_id")
   int? get deliveryId => throw _privateConstructorUsedError;
@@ -123,7 +123,7 @@ abstract class $OrderCopyWith<$Res> {
   factory $OrderCopyWith(Order value, $Res Function(Order) then) =
       _$OrderCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "id") int id,
+      {@JsonKey(name: "order_id") int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
       @JsonKey(name: "delivery_image") String? deliveryImage,
@@ -267,7 +267,7 @@ abstract class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
       __$OrderCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "id") int id,
+      {@JsonKey(name: "order_id") int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
       @JsonKey(name: "delivery_image") String? deliveryImage,
@@ -410,7 +410,7 @@ class __$OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Order implements _Order {
   _$_Order(
-      {@JsonKey(name: "id") required this.id,
+      {@JsonKey(name: "order_id") required this.id,
       @JsonKey(name: "delivery_id") this.deliveryId,
       @JsonKey(name: "delivery") this.deliveryName,
       @JsonKey(name: "delivery_image") this.deliveryImage,
@@ -435,7 +435,7 @@ class _$_Order implements _Order {
       _$_$_OrderFromJson(json);
 
   @override
-  @JsonKey(name: "id")
+  @JsonKey(name: "order_id")
   final int id;
   @override
   @JsonKey(name: "delivery_id")
@@ -596,7 +596,7 @@ class _$_Order implements _Order {
 
 abstract class _Order implements Order {
   factory _Order(
-      {@JsonKey(name: "id") required int id,
+      {@JsonKey(name: "order_id") required int id,
       @JsonKey(name: "delivery_id") int? deliveryId,
       @JsonKey(name: "delivery") String? deliveryName,
       @JsonKey(name: "delivery_image") String? deliveryImage,
@@ -620,7 +620,7 @@ abstract class _Order implements Order {
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
 
   @override
-  @JsonKey(name: "id")
+  @JsonKey(name: "order_id")
   int get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "delivery_id")

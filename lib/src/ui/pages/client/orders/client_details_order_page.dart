@@ -131,7 +131,8 @@ class ClientDetailsOrderPage extends StatelessWidget {
                         const SizedBox(width: 10.0),
                         CenaTextDescription(
                             text: (orderClient.deliveryId != 0)
-                                ? orderClient.deliveryName!
+                                ? orderClient.deliveryName ??
+                                    "No name" //!TODO : Thêm tên của người giao hàng
                                 : lang.client_orders_unasignee,
                             fontSize: 17),
                       ],

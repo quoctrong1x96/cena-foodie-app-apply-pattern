@@ -96,21 +96,18 @@ class _CheckingLoginPageState extends State<CheckingLoginPage>
   }
 
   void _goToClientPage(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
-        context, routeCena(page: const EnterReferencePage()), (route) => false);
+    NavigationUtils.clearStack(context,
+        newRouteName: RouteConstants.get_current_address_of_user);
   }
 
   void _goToAdminPage(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
-        context, routeCena(page: const AdminHomePage()), (route) => false);
+    NavigationUtils.clearStack(context,
+        newRouteName: RouteConstants.admin_home);
   }
 
   void _goToLogin(BuildContext context) {
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      NavigationUtils.replace(
-        context,
-        RouteConstants.login,
-      );
+      NavigationUtils.clearStack(context, newRouteName: RouteConstants.login);
     });
     // Navigator.pushAndRemoveUntil(
     //     context, routeCena(page: const LoginPage()), (route) => false);

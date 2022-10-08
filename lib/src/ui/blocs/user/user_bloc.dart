@@ -70,6 +70,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       );
 
       if (!uiResponse.hasError) {
+        user!.copyWith(image: uiResponse.data!);
+
         emit(SuccessUserState());
 
         emit(state.copyWith(
@@ -94,11 +96,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           userId: event.userId, lastName: event.lastName);
 
       if (!uiResponse.hasError) {
-        state.user!.copyWith(lastName: event.lastName);
+        user!.copyWith(lastName: uiResponse.data!);
 
         emit(SuccessUserState());
         emit(state.copyWith(
-            user: user!, address: address, pictureProfilePath: picture));
+            user: user, address: address, pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }
@@ -110,17 +112,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onChangeFirstNameProfile(
       OnChangeFirstNameProfileEvent event, Emitter<UserState> emit) async {
     try {
+      final Address? address = state.address;
+      final User? user = state.user;
+      final String picture = state.pictureProfilePath;
       emit(LoadingUserState());
-
       final uiResponse = await _userService.changeFirstName(
           userId: event.userId, firstName: event.firstName);
 
       if (!uiResponse.hasError) {
-        final data = await _userService.byId(userID: event.userId);
+        user!.copyWith(firstName: uiResponse.data!);
 
         emit(SuccessUserState());
-
-        emit(state.copyWith(user: data.data));
+        emit(state.copyWith(
+            user: user, address: address, pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }
@@ -249,6 +253,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onChangePassword(
       OnChangePasswordEvent event, Emitter<UserState> emit) async {
     try {
+      final Address? address = state.address;
+      final User? user = state.user;
+      final String picture = state.pictureProfilePath;
       emit(LoadingUserState());
 
       final uiResponse = await _userService.changePassword(
@@ -257,11 +264,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           newPassword: event.newPassword);
 
       if (!uiResponse.hasError) {
-        final user = await _userService.byId(userID: event.userId);
-
         emit(SuccessUserState());
 
-        emit(state.copyWith(user: user.data));
+        emit(state.copyWith(
+            user: user, address: address, pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }

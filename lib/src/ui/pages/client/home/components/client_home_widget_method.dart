@@ -78,17 +78,29 @@ GestureDetector _buildAddress(BuildContext context, S lang) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CenaTextDescription(text: lang.client_home_address_title),
+            // CenaTextDescription(text: lang.client_home_address_title),
             BlocBuilder<UserBloc, UserState>(
-              builder: (context, state) => CenaTextDescription(
-                text: (state.address != null)
-                    ? state.address!.detail!
-                    : lang.client_home_without_address,
-                color: CenaColors.primary,
-                fontSize: 17,
-                textOverflow: TextOverflow.ellipsis,
-                textWidth: 250,
-                maxLine: 1,
+              builder: (context, state) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CenaTextDescription(
+                    text: (state.address != null)
+                        ? state.address!.receiver!.name! +
+                            " - " +
+                            state.address!.receiver!.phoneNumber!
+                        : "No body",
+                  ),
+                  CenaTextDescription(
+                    text: (state.address != null)
+                        ? state.address!.detail!
+                        : lang.client_home_without_address,
+                    color: CenaColors.primary,
+                    fontSize: 17,
+                    textOverflow: TextOverflow.ellipsis,
+                    textWidth: 250,
+                    maxLine: 1,
+                  ),
+                ],
               ),
             )
           ],
