@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../data/app_locator.dart';
-import '../../../data/models/entities/address/address.dart';
-import '../../../data/models/ui/ui_response.dart';
-import '../../../data/services/entities/address_service.dart';
-import '../../../utils/configs/cena_colors.dart';
-import '../../../utils/constants/app_constants.dart';
-import '../../../utils/helpers/helpers.dart';
-import '../../blocs/user/user_bloc.dart';
-import '../../resources/generated/l10n.dart';
-import '../../widgets/animation_route.dart';
-import '../../widgets/widgets.dart';
-import '../map/add_street_address_page.dart';
+import '../../../../data/app_locator.dart';
+import '../../../../data/models/entities/address/address.dart';
+import '../../../../data/models/ui/ui_response.dart';
+import '../../../../data/services/entities/address_service.dart';
+import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/app_constants.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../blocs/user/user_bloc.dart';
+import '../../../resources/generated/l10n.dart';
+import '../../../widgets/animation_route.dart';
+import '../../../widgets/widgets.dart';
+import '../../map/add_street_address_page.dart';
 
 class ListAddressesPage extends StatefulWidget {
   final bool isSelectAddress;
@@ -98,14 +98,14 @@ class _ListAddressesPageState extends State<ListAddressesPage>
                 ? const CenaShimmer()
                 : _ListAddresses(
                     isSelectAddress: widget.isSelectAddress,
-                    listAddress: snapshot.data!.data!)),
+                    listAddress: snapshot.data!.data)),
       ),
     );
   }
 }
 
 class _ListAddresses extends StatelessWidget {
-  final List<Address> listAddress;
+  final List<Address>? listAddress;
   final bool isSelectAddress;
   const _ListAddresses(
       {this.isSelectAddress = false, Key? key, required this.listAddress})
@@ -115,11 +115,11 @@ class _ListAddresses extends StatelessWidget {
   Widget build(BuildContext context) {
     final userBloc = BlocProvider.of<UserBloc>(context);
     final lang = S.of(context);
-    return (listAddress.isNotEmpty)
+    return (listAddress != null && listAddress!.isNotEmpty)
         ? ListView.builder(
-            itemCount: listAddress.length,
+            itemCount: listAddress!.length,
             itemBuilder: (_, i) => Dismissible(
-                  key: Key(listAddress[i].id.toString()),
+                  key: Key(listAddress![i].id.toString()),
                   direction: DismissDirection.endToStart,
                   background: Container(),
                   confirmDismiss: (DismissDirection direction) async {
@@ -166,7 +166,7 @@ class _ListAddresses extends StatelessWidget {
                   },
                   onDismissed: (direction) => userBloc.add(
                       OnDeleteStreetAddressEvent(
-                          userBloc.state.user!.id, listAddress[i].id)),
+                          userBloc.state.user!.id, listAddress![i].id)),
                   secondaryBackground: Container(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(
@@ -179,13 +179,13 @@ class _ListAddresses extends StatelessWidget {
                         color: Colors.white, size: 38),
                   ),
                   child: Container(
-                    height: 96,
+                    height: 105,
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         top: AppConstants.margin_topButton),
                     decoration: BoxDecoration(color: CenaColors.WHITE),
                     child: _buildAddressLine(
-                        isSelectAddress, listAddress[i], userBloc, context),
+                        isSelectAddress, listAddress![i], userBloc, context),
                   ),
                 ))
         : _WithoutListAddress();
@@ -236,10 +236,12 @@ class _ListAddresses extends StatelessWidget {
       child: Row(
         children: [
           BlocBuilder<UserBloc, UserState>(
-              builder: (_, state) => (state.address!.id == address.id)
-                  ? const Icon(Icons.check_box_rounded,
-                      color: CenaColors.primary)
-                  : const Icon(Icons.check_box_outline_blank)),
+              builder: (_, state) => state.address == null
+                  ? const SizedBox()
+                  : (state.address!.id == address.id)
+                      ? const Icon(Icons.check_box_rounded,
+                          color: CenaColors.primary)
+                      : const Icon(Icons.check_box_outline_blank)),
           Expanded(
             child: Column(
               children: [

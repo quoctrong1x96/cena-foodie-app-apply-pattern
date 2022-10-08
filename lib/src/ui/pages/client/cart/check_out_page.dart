@@ -24,7 +24,7 @@ import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../../profile/list_addresses_page.dart';
+import '../address/list_addresses_page.dart';
 import '../home/client_home_page.dart';
 
 class CheckOutPage extends StatelessWidget {

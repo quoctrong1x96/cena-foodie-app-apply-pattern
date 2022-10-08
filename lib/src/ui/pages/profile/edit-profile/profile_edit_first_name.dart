@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../edit_profile_page.dart';
 
 class EditFirstNameProfilePage extends StatefulWidget {
   const EditFirstNameProfilePage({Key? key}) : super(key: key);
@@ -51,10 +51,10 @@ class _EditFirstNameProfilePageState extends State<EditFirstNameProfilePage> {
         if (state is LoadingUserState) {
           modalLoading(context);
         } else if (state is SuccessUserState) {
-          Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-              context, routeCena(page: const EditProfilePage()));
+          NavigationUtils.pop(context);
+          NavigationUtils.pop(context);
+          NavigationUtils.pop(context);
+          NavigationUtils.replace(context, RouteConstants.client_profile_edit);
           cenaToastSuccess(lang.profile_edit_firstName_success);
         } else if (state is FailureUserState) {
           Navigator.pop(context);

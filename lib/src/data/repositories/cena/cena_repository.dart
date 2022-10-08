@@ -13,6 +13,7 @@ import '../../app_locator.dart';
 import '../../enums/network_request_type.dart';
 import '../../enums/network_response_type.dart';
 import '../../models/entities/address/address.dart';
+import '../../models/entities/address/address_response.dart';
 import '../../models/entities/auth/auth_response.dart';
 import '../../models/entities/category/category.dart';
 import '../../models/entities/category/category_response.dart';
@@ -133,30 +134,30 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
+      NetworkRequestType.patch,
       uri:
           CenaServiceAPIv1.instance.userChangeProfilesFirstName(userId: userId),
       token: token,
       body: {'firstName': firstName},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data['data'];
     });
   }
 
   @override
   Future<ApiResponse<String>> changeUserImage(
-      {required int userId, required String imageUrl}) async {
+      {required int userId, required String image}) async {
     final token = await _storageService.getAccessToken();
 
-    final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
-      uri: CenaServiceAPIv1.instance.userChangeProfilesImages(userId: userId),
-      token: token,
-      body: {'image': imageUrl},
-    );
+    final response = await NetworkClient.instance.requestMultipart(
+        NetworkRequestType.put,
+        uri: CenaServiceAPIv1.instance.userChangeProfilesImages(userId: userId),
+        fields: {"token": token},
+        token: token,
+        filesPath: {'image': image});
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data['data'];
     });
   }
 
@@ -166,13 +167,13 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-        NetworkRequestType.post,
+        NetworkRequestType.patch,
         uri: CenaServiceAPIv1.instance
             .userChangeProfilesLastName(userId: userId),
         token: token,
         body: {'lastName': lastName});
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data['data'];
     });
   }
 
@@ -184,13 +185,13 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
+      NetworkRequestType.put,
       uri: CenaServiceAPIv1.instance.userChangePassword(userId: userId),
       token: token,
       body: {'currentPassword': oldPassword, 'newPassword': newPassword},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data['data'];
     });
   }
 
@@ -343,7 +344,7 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<List<Address>>> fetchAllAddress({
+  Future<ApiResponse<List<Address>?>> fetchAllAddress({
     required int userId,
   }) async {
     final token = await _storageService.getAccessToken();
@@ -355,7 +356,9 @@ class CenaRepository implements ICenaService {
       body: {},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Address.fromJson(data) : null;
+      return data != null
+          ? AddressFetchResponse.fromJson(data).addresses
+          : null;
     });
   }
 
@@ -368,7 +371,7 @@ class CenaRepository implements ICenaService {
 
     final response = await NetworkClient.instance.request(
       NetworkRequestType.get,
-      uri: CenaServiceAPIv1.instance.orderGet(
+      uri: CenaServiceAPIv1.instance.orderGetByClient(
         status: status,
         typeObject: "client",
         objectId: clientId,
@@ -536,7 +539,7 @@ class CenaRepository implements ICenaService {
       body: {},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? User.fromJson(data) : null;
+      return data != null ? User.fromJson(data['users']) : null;
     });
   }
 
@@ -806,7 +809,7 @@ class CenaRepository implements ICenaService {
       final type = _getNetworkResponseType(response);
       final bodyJson =
           jsonDecode(response?.body == "" ? '{}' : response?.body ?? '{}');
-      final body = response?.body;
+      final body = response?.body.replaceAll('\\', '');
       if (type == NetworkResponseType.success_200) {
         return ApiResponse.fromRawJson(
           _getNetworkResponseBody(body),
@@ -869,11 +872,11 @@ class CenaRepository implements ICenaService {
 
     final response = await NetworkClient.instance.request(
       NetworkRequestType.get,
-      uri: CenaServiceAPIv1.instance.userGetAddress(userId: userId),
+      uri: CenaServiceAPIv1.instance.userGetFirstAddress(userId: userId),
       token: token,
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? Address.fromJson(data['addresses']) : null;
     });
   }
 

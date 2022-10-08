@@ -42,7 +42,7 @@ abstract class ICenaService {
 
   ///Change profile image
   Future<ApiResponse<String>> changeUserImage(
-      {required int userId, required String imageUrl});
+      {required int userId, required String image});
 
   /// Change last name
   Future<ApiResponse<String>> changeUserLastName(
@@ -140,7 +140,7 @@ abstract class ICenaService {
   /// #region [Address_API]
 
   ///Get All address by User
-  Future<ApiResponse<List<Address>>> fetchAllAddress({required int userId});
+  Future<ApiResponse<List<Address>?>> fetchAllAddress({required int userId});
 
   /// Get address by id
   Future<ApiResponse<Address>> getAddressById(

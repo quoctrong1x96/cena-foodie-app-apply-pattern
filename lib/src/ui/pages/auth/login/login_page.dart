@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
             state.user!.phone));
       }
       NavigationUtils.clearStack(context,
-          newRouteName: RouteConstants.client_home);
+          newRouteName: RouteConstants.get_current_address_of_user);
     }
   }
 

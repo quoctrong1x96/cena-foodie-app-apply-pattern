@@ -6,13 +6,10 @@ class OrderFetchResponse implements IModel {
 
   OrderFetchResponse({this.orders});
 
-  factory OrderFetchResponse.fromJson(Map<String, dynamic>? json) {
-    final List<Order>? data = [];
-    json?.forEach((key, value) {
-      data?.add(Order.fromJson(value));
-    });
-    return OrderFetchResponse(orders: data);
-  }
+  factory OrderFetchResponse.fromJson(Map<String, dynamic> json) =>
+      OrderFetchResponse(
+        orders: List<Order>.from(json['orders'].map((x) => Order.fromJson(x))),
+      );
 
   @override
   Map<String, dynamic> toJson() {
