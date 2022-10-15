@@ -1,7 +1,12 @@
+import 'package:cenafoodie/src/ui/pages/admin/category/categories_admin_page.dart';
+import 'package:cenafoodie/src/ui/pages/admin/delivery/list_delivery_page.dart';
+import 'package:cenafoodie/src/ui/pages/admin/products/list_products_page.dart';
+import 'package:cenafoodie/src/ui/pages/admin/store/store_edit_page.dart';
 import 'package:cenafoodie/src/ui/pages/client/client_profile/profile_client_page.dart';
 import 'package:cenafoodie/src/ui/pages/client/orders/client_orders_page.dart';
 import 'package:cenafoodie/src/ui/pages/home/select_role_page.dart';
 import 'package:cenafoodie/src/ui/pages/profile/change_languages_page.dart';
+import 'package:cenafoodie/src/ui/pages/profile/change_password_page.dart';
 import 'package:cenafoodie/src/ui/pages/profile/edit-profile/profile_edit_last_name.dart';
 import 'package:cenafoodie/src/ui/pages/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +17,7 @@ import '../data/models/entities/product/product.dart';
 import '../data/models/entities/store/store.dart';
 import '../data/models/ui/page_arguments.dart';
 import '../ui/pages/admin/admin_home_page.dart';
+import '../ui/pages/admin/dashboard/admin_dashboard_page.dart';
 import '../ui/pages/auth/forgot_password_page.dart';
 import '../ui/pages/auth/login/login_page.dart';
 import '../ui/pages/auth/otp/login_verify_phone_page.dart';
@@ -203,7 +209,38 @@ class RouteUtils {
         ClientOrdersPage(),
         transitionType: args?.transitionType,
       );
-
+    } else if (route == RouteConstants.change_password) {
+      return _getPageRoute(
+        const ChangePasswordPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_category) {
+      final int storeId = args?.data['storeId'];
+      return _getPageRoute(
+        CategoriesAdminPage(storeId),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_edit) {
+      return _getPageRoute(
+        const EditStorePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_list_product) {
+      return _getPageRoute(
+        const ListProductsPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_list_deliveries) {
+      return _getPageRoute(
+        const ListDeliveriesPage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_dashboard) {
+      final int storeId = args?.data['storeId'];
+      return _getPageRoute(
+        AdminDashboardPage(storeId),
+        transitionType: args?.transitionType,
+      );
       // } else if (route == RouteConstants.manage_product) {
       //   final id = args?.data[AppConstants.key_id];
       //   final option = args?.data[AppConstants.key_option];

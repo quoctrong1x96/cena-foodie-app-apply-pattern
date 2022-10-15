@@ -6,6 +6,10 @@ abstract class ICategoryService {
   ///Get user by id
   Future<UiResponse<List<Category>>> fetchAllByStore({required int storeId});
 
+  ///Get Name of Category by id
+  Future<UiResponse<List<String>>> fetchAllNameCategoryByStore(
+      {required int storeId});
+
   /// Add category to store
   Future<UiResponse<Category>> add({
     required Category category,

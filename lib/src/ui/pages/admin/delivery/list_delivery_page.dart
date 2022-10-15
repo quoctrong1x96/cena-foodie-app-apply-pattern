@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cenafoodie/src/data/services/entities/delivery_service.dart';
 import 'package:cenafoodie/src/utils/image_ultils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/delivery/delivery.dart';
+import '../../../../data/models/ui/ui_response.dart';
+import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../../utils/configs/cena_colors.dart';
@@ -22,6 +26,7 @@ class ListDeliveriesPage extends StatefulWidget {
 }
 
 class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
+  final IDeliveryService _deliveryService = locator<IDeliveryService>();
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
@@ -53,20 +58,20 @@ class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
                     fontSize: 16))
           ],
         ),
-        // body: FutureBuilder<List<Delivery>?>(
-        //     future: deliveryController.getAllDelivery(
-        //         BlocProvider.of<StoreBloc>(context).state.store!.id!),
-        //     builder: (context, snapshot) => (!snapshot.hasData)
-        //         ? Column(
-        //             children: const [
-        //               CenaShimmer(),
-        //               SizedBox(height: 10.0),
-        //               CenaShimmer(),
-        //               SizedBox(height: 10.0),
-        //               CenaShimmer(),
-        //             ],
-        //           )
-        //         : _ListDelivery(listDelivery: snapshot.data!)),
+        body: FutureBuilder<UiResponse<List<Delivery>?>>(
+            future: _deliveryService.fetchAllOfStore(
+                storeId: BlocProvider.of<StoreBloc>(context).state.store!.id!),
+            builder: (context, snapshot) => (!snapshot.hasData)
+                ? Column(
+                    children: const [
+                      CenaShimmer(),
+                      SizedBox(height: 10.0),
+                      CenaShimmer(),
+                      SizedBox(height: 10.0),
+                      CenaShimmer(),
+                    ],
+                  )
+                : _ListDelivery(listDelivery: snapshot.data!.data!)),
       ),
     );
   }
@@ -74,28 +79,34 @@ class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
 
 // ignore: unused_element
 class _ListDelivery extends StatelessWidget {
-  final List<Delivery> listDelivery;
+  final List<Delivery>? listDelivery;
 
-  const _ListDelivery({required this.listDelivery});
+  const _ListDelivery({this.listDelivery});
 
   @override
   Widget build(BuildContext context) {
-    return (listDelivery.isNotEmpty)
+    return (listDelivery!.isNotEmpty)
         ? ListView.builder(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            itemCount: listDelivery.length,
+            itemCount: listDelivery!.length,
             itemBuilder: (context, i) => Padding(
               padding: const EdgeInsets.only(bottom: 15.0),
               child: InkWell(
                 onTap: () => {
-                  /*modalDelete(context, listDelivery[i].nameDelivery!,
-                    listDelivery[i].image!, () {
-                  userBloc.add(OnUpdateDeliveryToClientEvent(
-                      listDelivery[i].personId.toString()));
-                  Navigator.pop(context);*/
+                  modalDelete(
+                    context,
+                    listDelivery![i].name!,
+                    listDelivery![i].image!,
+                    () {
+                      BlocProvider.of<UserBloc>(context).add(
+                          OnUpdateDeliveryToClientEvent(
+                              listDelivery![i].id.toString()));
+                      Navigator.pop(context);
+                    },
+                  )
                 },
-                // borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10.0),
                 child: Container(
                   padding: const EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width,
@@ -120,7 +131,7 @@ class _ListDelivery extends StatelessWidget {
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
                                     ImagesUltils.getImageApiUrl(
-                                        listDelivery[i].image)),
+                                        listDelivery![i].image)),
                                 fit: BoxFit.cover)),
                       ),
                       const SizedBox(width: 15.0),
@@ -128,11 +139,11 @@ class _ListDelivery extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CenaTextDescription(
-                              text: listDelivery[i].name!,
+                              text: listDelivery![i].name!,
                               fontWeight: FontWeight.w500),
                           const SizedBox(height: 5.0),
                           CenaTextDescription(
-                              text: listDelivery[i].phone!,
+                              text: listDelivery![i].phone!,
                               color: CenaColors.WHITE),
                         ],
                       )

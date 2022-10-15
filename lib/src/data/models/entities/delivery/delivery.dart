@@ -10,8 +10,8 @@ part 'delivery.g.dart';
 @freezed
 class Delivery with _$Delivery implements IModel {
   factory Delivery({
-    required int id,
-    String? name,
+    @JsonKey(name: 'person_id') required int id,
+    @JsonKey(name: 'nameDelivery') String? name,
     String? phone,
     String? image,
     @JsonKey(name: 'notification_token') String? notificationToken,

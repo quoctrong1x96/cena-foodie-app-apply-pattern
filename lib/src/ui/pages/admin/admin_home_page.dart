@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../blocs/store/store_bloc.dart';
-import '../../../utils/configs/cena_colors.dart';
-import '../../../utils/helpers/helpers.dart';
+import '../../../data/models/ui/page_arguments.dart';
 import '../../../ui/blocs/auth/auth_bloc.dart';
 import '../../../ui/blocs/user/user_bloc.dart';
+import '../../../utils/configs/cena_colors.dart';
+import '../../../utils/constants/route_constants.dart';
+import '../../../utils/helpers/helpers.dart';
+import '../../../utils/navigation_utils.dart';
+import '../../blocs/store/store_bloc.dart';
 import '../../resources/generated/l10n.dart';
 import '../../widgets/animation_route.dart';
 import '../../widgets/widgets.dart';
-import '../Admin/Category/categories_admin_page.dart';
-import '../Admin/Products/list_products_page.dart';
-import '../Admin/delivery/list_delivery_page.dart';
-import '../Admin/store/store_edit_page.dart';
 import '../app/app_privacy_policy.dart';
 import '../app/app_terms_conditions.dart';
 import '../intro/checking_login_page.dart';
@@ -160,64 +159,58 @@ class AdminHomePage extends StatelessWidget {
                                 fontSize: 20,
                               ))),
                   CenaTextGroup(text: lang.admin_group_account),
-                  // CenaButtonLineIcon(
-                  //   text: lang.admin_profile_settings,
-                  //   icon: Icons.person,
-                  //   colorIcon: const Color(0xff01C58C),
-                  //   onPressed: () => Navigator.push(
-                  //       context, routeCena(page: const EditProfilePage())),
-                  // ),
-                  // CenaButtonLineIcon(
-                  //   text: lang.admin_change_password,
-                  //   icon: Icons.lock_rounded,
-                  //   colorIcon: const Color(0xff1B83F5),
-                  //   onPressed: () => Navigator.push(
-                  //       context, routeCena(page: const ChangePasswordPage())),
-                  // ),
-                  // if (authBloc.state.rolId == '1')
-                  //   CenaButtonLineIcon(
-                  //     text: lang.admin_change_role,
-                  //     icon: Icons.swap_horiz_rounded,
-                  //     colorIcon: const Color(0xffE62755),
-                  //     onPressed: () => Navigator.pushAndRemoveUntil(
-                  //         context,
-                  //         routeCena(page: const SelectRolePage()),
-                  //         (route) => false),
-                  //   ),
+                  CenaButtonLineIcon(
+                    text: lang.admin_profile_settings,
+                    icon: Icons.person,
+                    colorIcon: const Color(0xff01C58C),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.client_profile_edit),
+                  ),
+                  CenaButtonLineIcon(
+                    text: lang.admin_change_password,
+                    icon: Icons.lock_rounded,
+                    colorIcon: const Color(0xff1B83F5),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.change_password),
+                  ),
+                  if (authBloc.state.rolId == '1')
+                    CenaButtonLineIcon(
+                      text: lang.admin_change_role,
+                      icon: Icons.swap_horiz_rounded,
+                      colorIcon: const Color(0xffE62755),
+                      onPressed: () => NavigationUtils.clearStack(context,
+                          newRouteName: RouteConstants.select_role),
+                    ),
                   CenaTextGroup(text: lang.admin_group_store_managerment),
                   CenaButtonLineIcon(
                     text: lang.admin_store,
                     icon: Icons.store,
                     colorIcon: const Color(0xffE62755),
-                    onPressed: () => Navigator.push(
-                        context,
-                        routeCena(
-                            page: const EditStorePage(),
-                            curved: Curves.decelerate)),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.admin_edit),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_categoris,
                     icon: Icons.category_rounded,
                     colorIcon: const Color(0xff5E65CD),
-                    onPressed: () => Navigator.push(
-                        context,
-                        routeCena(
-                            page: CategoriesAdminPage(
-                                storeBloc.state.store!.id))),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.admin_category,
+                        args: PageArguments(
+                            data: {'storeId': storeBloc.state.store!.id})),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_foods_and_drinks,
                     icon: Icons.add,
                     colorIcon: const Color(0xff355773),
-                    onPressed: () => Navigator.push(
-                        context, routeCena(page: const ListProductsPage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.admin_list_product),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_delivery,
                     icon: Icons.delivery_dining_rounded,
                     colorIcon: const Color(0xff469CD7),
-                    onPressed: () => Navigator.push(
-                        context, routeCena(page: const ListDeliveriesPage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.admin_list_deliveries),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_orders,
@@ -235,23 +228,21 @@ class AdminHomePage extends StatelessWidget {
                   ),
                   CenaTextGroup(text: lang.admin_group_dashboard),
                   CenaButtonLineIcon(
-                      text: lang.admin_dashboard,
-                      icon: FontAwesomeIcons.chartSimple,
-                      colorIcon: const Color(0xff469CD7),
-                      onPressed: () => {}
-                      //  Navigator.push(
-                      //     context,
-                      //     routeCena(
-                      //         page: AdminDashboardPage(
-                      //             storeBloc.state.store!.id!))),
-                      ),
+                    text: lang.admin_dashboard,
+                    icon: FontAwesomeIcons.chartSimple,
+                    colorIcon: const Color(0xff469CD7),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.admin_dashboard,
+                        args: PageArguments(
+                            data: {'storeId': storeBloc.state.store!.id})),
+                  ),
                   CenaTextGroup(text: S.of(context).settings_system),
-                  // CenaButtonLineIcon(
-                  //     text: S.of(context).settings_system_languages,
-                  //     icon: FontAwesomeIcons.language,
-                  //     colorIcon: const Color.fromARGB(255, 10, 126, 204),
-                  //     onPressed: () => Navigator.push(context,
-                  //         routeCena(page: const ChangeLanguagesPage()))),
+                  CenaButtonLineIcon(
+                      text: S.of(context).settings_system_languages,
+                      icon: FontAwesomeIcons.language,
+                      colorIcon: const Color.fromARGB(255, 10, 126, 204),
+                      onPressed: () => NavigationUtils.push(
+                          context, RouteConstants.setting_change_languages)),
                   CenaTextGroup(text: lang.admin_group_system_settings),
                   CenaButtonLineIcon(
                     text: lang.admin_dark_mode,

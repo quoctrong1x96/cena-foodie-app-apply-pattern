@@ -10,8 +10,14 @@ class RouteConstants {
   static const String enter_reference = '/register/reference';
   static const String verify_phone_number = "/verify-phone-number";
   static const String get_current_address_of_user = 'users/current-address';
+  static const String change_password = '/change-password';
 
   static const String admin_home = '/merchan/';
+  static const String admin_edit = '/merchan/edit';
+  static const String admin_category = '/merchan/category';
+  static const String admin_list_product = '/merchan/list-products';
+  static const String admin_list_deliveries = '/merchan/list-deliveries';
+  static const String admin_dashboard = '/merchan/dashboard';
 
   static const String delivery_home = '/delivery/';
 

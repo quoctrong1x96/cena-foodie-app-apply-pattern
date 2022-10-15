@@ -21,8 +21,8 @@ class _$DeliveryTearOff {
   const _$DeliveryTearOff();
 
   _Delivery call(
-      {required int id,
-      String? name,
+      {@JsonKey(name: 'person_id') required int id,
+      @JsonKey(name: 'nameDelivery') String? name,
       String? phone,
       String? image,
       @JsonKey(name: 'notification_token') String? notificationToken}) {
@@ -45,7 +45,9 @@ const $Delivery = _$DeliveryTearOff();
 
 /// @nodoc
 mixin _$Delivery {
+  @JsonKey(name: 'person_id')
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'nameDelivery')
   String? get name => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
@@ -63,8 +65,8 @@ abstract class $DeliveryCopyWith<$Res> {
   factory $DeliveryCopyWith(Delivery value, $Res Function(Delivery) then) =
       _$DeliveryCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String? name,
+      {@JsonKey(name: 'person_id') int id,
+      @JsonKey(name: 'nameDelivery') String? name,
       String? phone,
       String? image,
       @JsonKey(name: 'notification_token') String? notificationToken});
@@ -117,8 +119,8 @@ abstract class _$DeliveryCopyWith<$Res> implements $DeliveryCopyWith<$Res> {
       __$DeliveryCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String? name,
+      {@JsonKey(name: 'person_id') int id,
+      @JsonKey(name: 'nameDelivery') String? name,
       String? phone,
       String? image,
       @JsonKey(name: 'notification_token') String? notificationToken});
@@ -170,8 +172,8 @@ class __$DeliveryCopyWithImpl<$Res> extends _$DeliveryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Delivery implements _Delivery {
   _$_Delivery(
-      {required this.id,
-      this.name,
+      {@JsonKey(name: 'person_id') required this.id,
+      @JsonKey(name: 'nameDelivery') this.name,
       this.phone,
       this.image,
       @JsonKey(name: 'notification_token') this.notificationToken});
@@ -180,8 +182,10 @@ class _$_Delivery implements _Delivery {
       _$_$_DeliveryFromJson(json);
 
   @override
+  @JsonKey(name: 'person_id')
   final int id;
   @override
+  @JsonKey(name: 'nameDelivery')
   final String? name;
   @override
   final String? phone;
@@ -235,8 +239,8 @@ class _$_Delivery implements _Delivery {
 
 abstract class _Delivery implements Delivery {
   factory _Delivery(
-          {required int id,
-          String? name,
+          {@JsonKey(name: 'person_id') required int id,
+          @JsonKey(name: 'nameDelivery') String? name,
           String? phone,
           String? image,
           @JsonKey(name: 'notification_token') String? notificationToken}) =
@@ -245,8 +249,10 @@ abstract class _Delivery implements Delivery {
   factory _Delivery.fromJson(Map<String, dynamic> json) = _$_Delivery.fromJson;
 
   @override
+  @JsonKey(name: 'person_id')
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'nameDelivery')
   String? get name => throw _privateConstructorUsedError;
   @override
   String? get phone => throw _privateConstructorUsedError;

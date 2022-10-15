@@ -1,7 +1,10 @@
+import 'package:cenafoodie/src/data/services/entities/category_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/category/category.dart';
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
@@ -11,7 +14,8 @@ import '../../Admin/Category/update_category_admin_page.dart';
 
 class CategoriesAdminPage extends StatelessWidget {
   final int storeId;
-  const CategoriesAdminPage(this.storeId, {Key? key}) : super(key: key);
+  final ICategoryService _categoryService = locator<ICategoryService>();
+  CategoriesAdminPage(this.storeId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +40,20 @@ class CategoriesAdminPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
           physics: const BouncingScrollPhysics(),
-          children: const [
-            // FutureBuilder<List<Category>>(
-            //     future: categoryController.getAllCategories(storeId),
-            //     builder: (context, snapshot) => !snapshot.hasData
-            //         ? Center(
-            //             child: Column(
-            //               children: [
-            //                 const CircularProgressIndicator(),
-            //                 CenaTextDescription(
-            //                     text: lang.admin_category_loading)
-            //               ],
-            //             ),
-            //           )
-            //         : _ListCategories(listCategory: snapshot.data!)),
+          children: [
+            FutureBuilder<UiResponse<List<Category>>>(
+                future: _categoryService.fetchAllByStore(storeId: storeId),
+                builder: (context, snapshot) => !snapshot.hasData
+                    ? Center(
+                        child: Column(
+                          children: [
+                            const CircularProgressIndicator(),
+                            CenaTextDescription(
+                                text: lang.admin_category_loading)
+                          ],
+                        ),
+                      )
+                    : _ListCategories(listCategory: snapshot.data!.data!)),
           ],
         ),
       ),

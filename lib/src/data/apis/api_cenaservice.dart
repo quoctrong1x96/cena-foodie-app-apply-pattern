@@ -75,6 +75,15 @@ class CenaServiceAPIv1 {
         parameterBuilder: () => null,
       );
 
+  Uri storeGetAllNameCategories({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_store,
+        endpoint: "$storeId/categories/name",
+        parameterBuilder: () => null,
+      );
+
   Uri storeGetCategories({
     required int storeId,
     required String sort,
@@ -358,7 +367,7 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_store,
-        endpoint: "/$storeId/products",
+        endpoint: "$storeId/products",
         parameterBuilder: () => null,
       );
   Uri productUpdateStatus({
@@ -367,7 +376,7 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_store,
-        endpoint: "/$storeId/products/$productId",
+        endpoint: "$storeId/products/$productId/status",
         parameterBuilder: () => null,
       );
 
@@ -376,7 +385,7 @@ class CenaServiceAPIv1 {
     required int productId,
   }) =>
       _buildUri(
-        groupEndpoint: CenaServiceConstants.api_group_order,
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$orderId/products/$productId",
         parameterBuilder: () => null,
       );
@@ -385,7 +394,7 @@ class CenaServiceAPIv1 {
     required int storeId,
   }) =>
       _buildUri(
-        groupEndpoint: CenaServiceConstants.api_group_order,
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/products",
         parameterBuilder: () => null,
       );
@@ -395,7 +404,7 @@ class CenaServiceAPIv1 {
     required int productId,
   }) =>
       _buildUri(
-        groupEndpoint: CenaServiceConstants.api_group_order,
+        groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/products/$productId",
         parameterBuilder: () => null,
       );
