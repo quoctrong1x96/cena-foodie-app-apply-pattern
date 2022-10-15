@@ -5,6 +5,7 @@ import '../../blocs/user/user_bloc.dart';
 import '../../resources/generated/l10n.dart';
 import '../../../utils/helpers/helpers.dart';
 import '../../widgets/animation_route.dart';
+import '../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
 import 'edit-profile/profile_edit_avatar.dart';
 import 'edit-profile/profile_edit_first_name.dart';
@@ -62,8 +63,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         if (state is LoadingUserState) {
           modalLoading(context);
         } else if (state is SuccessUserState) {
-          // Navigator.pop(context);
-          // cenaToastSuccess("User updated");
+          Navigator.pop(context);
+          cenaToastSuccess("User updated");
         } else if (state is FailureUserState) {
           Navigator.pop(context);
           errorMessageSnack(context, state.error);

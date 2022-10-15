@@ -18,7 +18,7 @@ class DeliveryRepository extends BaseRepository implements IDeliveryService {
   }
 
   @override
-  Future<UiResponse<List<Delivery>>> fetchAllOfStore(
+  Future<UiResponse<List<Delivery>?>> fetchAllOfStore(
       {required int storeId}) async {
     if (!await hasInternet()) {
       return UiResponse(

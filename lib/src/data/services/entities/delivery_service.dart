@@ -7,5 +7,5 @@ abstract class IDeliveryService {
   Future<UiResponse<Delivery>> convertToClient({required int deliveryId});
 
   /// Get all delivery of store
-  Future<UiResponse<List<Delivery>>> fetchAllOfStore({required int storeId});
+  Future<UiResponse<List<Delivery>?>> fetchAllOfStore({required int storeId});
 }

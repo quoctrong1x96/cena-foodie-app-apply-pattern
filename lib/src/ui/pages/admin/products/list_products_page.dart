@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cenafoodie/src/data/services/entities/product_service.dart';
 import 'package:cenafoodie/src/utils/image_ultils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,11 +7,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../data/app_locator.dart';
+import '../../../../data/models/entities/product/product.dart';
 import '../../../../data/models/entities/response/products_top_home_response.dart';
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
@@ -26,6 +31,7 @@ class ListProductsPage extends StatefulWidget {
 }
 
 class _ListProductsPageState extends State<ListProductsPage> {
+  final IProductService _productService = locator<IProductService>();
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
@@ -57,13 +63,13 @@ class _ListProductsPageState extends State<ListProductsPage> {
                     color: CenaColors.WHITE))
           ],
         ),
-        // body: FutureBuilder<List<FoodAndDrink>>(
-        //     future: productController.getProductsTopHome(
-        //       BlocProvider.of<StoreBloc>(context).state.store!.id!,
-        //     ),
-        //     builder: (context, snapshot) => (!snapshot.hasData)
-        //         ? const CenaShimmer()
-        //         : _GridViewListProduct(listProducts: snapshot.data!)),
+        body: FutureBuilder<UiResponse<List<Product>>>(
+            future: _productService.fetchAll(
+              storeId: BlocProvider.of<StoreBloc>(context).state.store!.id,
+            ),
+            builder: (context, snapshot) => (!snapshot.hasData)
+                ? const CenaShimmer()
+                : _GridViewListProduct(listProducts: snapshot.data!.data!)),
       ),
     );
   }
@@ -71,7 +77,7 @@ class _ListProductsPageState extends State<ListProductsPage> {
 
 // ignore: unused_element
 class _GridViewListProduct extends StatelessWidget {
-  final List<FoodAndDrink> listProducts;
+  final List<Product> listProducts;
 
   const _GridViewListProduct({required this.listProducts});
 
@@ -85,10 +91,10 @@ class _GridViewListProduct extends StatelessWidget {
           if (categories.firstWhere((element) => element == product.category,
                   orElse: () => "") ==
               "") {
-            categories.add(product.category);
+            categories.add(product.category!);
           }
         } else {
-          categories.add(product.category);
+          categories.add(product.category!);
         }
       }
       return ListView.builder(
@@ -156,16 +162,17 @@ class _GridViewListProduct extends StatelessWidget {
                                     CenaTextDescription(
                                       text: listProducts
                                           .where((element) =>
-                                              categories[i] == element.category)
+                                              categories[i] ==
+                                              element.category!)
                                           .elementAt(j)
-                                          .nameProduct,
+                                          .nameProduct!,
                                       fontSize: 16,
                                     ),
                                   ],
                                 ),
                                 _buildPriceDiscount(listProducts
                                     .where((element) =>
-                                        categories[i] == element.category)
+                                        categories[i] == element.category!)
                                     .elementAt(j))
                               ],
                             ),
@@ -258,9 +265,9 @@ class _GridViewListProduct extends StatelessWidget {
                                 context,
                                 listProducts[i].storeId,
                                 listProducts[i].status,
-                                listProducts[i].nameProduct,
+                                listProducts[i].nameProduct!,
                                 listProducts[i].id,
-                                listProducts[i].picture);
+                                listProducts[i].picture!);
                           },
                           child: Container(
                               width: 100,
@@ -297,8 +304,8 @@ class _GridViewListProduct extends StatelessWidget {
                           onPressed: () => modalDeleteProduct(
                               context,
                               listProducts[i].storeId,
-                              listProducts[i].nameProduct,
-                              listProducts[i].picture,
+                              listProducts[i].nameProduct!,
+                              listProducts[i].picture!,
                               listProducts[i].id),
                           child: Container(
                               width: 100,
@@ -323,7 +330,7 @@ class _GridViewListProduct extends StatelessWidget {
     }
   }
 
-  Widget _buildPriceDiscount(FoodAndDrink foodAndDrink) {
+  Widget _buildPriceDiscount(Product foodAndDrink) {
     int discount = 10;
     double discountPrice = foodAndDrink.price;
     NumberFormat numberFormat = NumberFormat('###,###', 'en_US');

@@ -50,4 +50,16 @@ class CategoryRepository extends BaseRepository implements ICategoryService {
     final response = await cenaService.updateCategory(category: category);
     return UiResponse.map(response);
   }
+
+  @override
+  Future<UiResponse<List<String>>> fetchAllNameCategoryByStore(
+      {required int storeId}) async {
+    if (!await hasInternet()) {
+      return UiResponse(
+        errorMessage: "error_internet_unavailable",
+      );
+    }
+    final response = await cenaService.fetchAllNameCategory(storeId: storeId);
+    return UiResponse.map(response);
+  }
 }

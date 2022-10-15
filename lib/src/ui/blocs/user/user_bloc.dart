@@ -70,12 +70,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       );
 
       if (!uiResponse.hasError) {
-        user!.copyWith(image: uiResponse.data!);
-
         emit(SuccessUserState());
 
         emit(state.copyWith(
-            user: user, address: address, pictureProfilePath: picture));
+            user: user!.copyWith(image: uiResponse.data!),
+            address: address,
+            pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }
@@ -88,7 +88,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       OnChangeLastNameProfileEvent event, Emitter<UserState> emit) async {
     try {
       final Address? address = state.address;
-      final User? user = state.user;
+      final User? user = state.user as User;
       final String picture = state.pictureProfilePath;
       emit(LoadingUserState());
 
@@ -96,11 +96,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           userId: event.userId, lastName: event.lastName);
 
       if (!uiResponse.hasError) {
-        user!.copyWith(lastName: uiResponse.data!);
-
         emit(SuccessUserState());
         emit(state.copyWith(
-            user: user, address: address, pictureProfilePath: picture));
+            user: user!.copyWith(lastName: uiResponse.data!),
+            address: address,
+            pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }
@@ -120,11 +120,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           userId: event.userId, firstName: event.firstName);
 
       if (!uiResponse.hasError) {
-        user!.copyWith(firstName: uiResponse.data!);
-
         emit(SuccessUserState());
         emit(state.copyWith(
-            user: user, address: address, pictureProfilePath: picture));
+            user: user!.copyWith(firstName: uiResponse.data!),
+            address: address,
+            pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
       }
@@ -472,7 +472,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           }
         }
         if (count == 0) {
-          address.copyWith(
+          address = address.copyWith(
               id: -1,
               receiver: Receiver(
                   name: event.userFullName,

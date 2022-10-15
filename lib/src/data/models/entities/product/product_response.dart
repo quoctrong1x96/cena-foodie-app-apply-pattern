@@ -9,12 +9,14 @@ class ProductFetchResponse implements IModel {
   factory ProductFetchResponse.fromJson(
     Map<String, dynamic>? productsJson,
   ) {
-    final List<Product>? data = [];
-    productsJson?.forEach((key, value) {
-      // Here key is product id and value is product data (map)
-      data?.add(Product.fromJson(value));
-    });
-    return ProductFetchResponse(products: data);
+    try {
+      return ProductFetchResponse(
+        products: List<Product>.from(
+            productsJson!["products"].map((x) => Product.fromJson(x))),
+      );
+    } catch (e) {
+      return ProductFetchResponse(products: null);
+    }
   }
 
   @override

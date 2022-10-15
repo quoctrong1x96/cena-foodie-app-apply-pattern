@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../data/models/entities/response/products_top_home_response.dart';
+import '../../../../data/models/entities/product/product.dart';
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
@@ -19,7 +19,7 @@ import '../../../widgets/widgets.dart';
 import 'list_products_page.dart';
 
 class UpdateProductPage extends StatefulWidget {
-  final FoodAndDrink product;
+  final Product product;
   const UpdateProductPage(this.product, {Key? key}) : super(key: key);
 
   @override
@@ -41,8 +41,8 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     _nameController = TextEditingController();
     _descriptionController = TextEditingController();
     _priceController = TextEditingController();
-    _nameController.text = widget.product.nameProduct;
-    _descriptionController.text = widget.product.description;
+    _nameController.text = widget.product.nameProduct!;
+    _descriptionController.text = widget.product.description!;
     _priceController.text = widget.product.price.toString();
   }
 
@@ -240,7 +240,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                           null ||
                                       state.category == ''
                                   ? CenaTextDescription(
-                                      text: widget.product.category,
+                                      text: widget.product.category!,
                                     )
                                   : CenaTextDescription(text: state.category!),
                             )

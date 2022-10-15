@@ -132,7 +132,7 @@ abstract class ICenaService {
       {required int deliveryId});
 
   /// Get all delivery of store
-  Future<ApiResponse<List<Delivery>>> fetchAllDeliveryOfStore(
+  Future<ApiResponse<List<Delivery>?>> fetchAllDeliveryOfStore(
       {required int storeId});
 
   // #endregion
@@ -163,6 +163,10 @@ abstract class ICenaService {
 
   ///Get user by id
   Future<ApiResponse<List<Category>>> fetchAllCategory({required int storeId});
+
+  ///Get all Name of category by Store ID
+  Future<ApiResponse<List<String>>> fetchAllNameCategory(
+      {required int storeId});
 
   /// Add category to store
   Future<ApiResponse<Category>> addCategory({required Category category});

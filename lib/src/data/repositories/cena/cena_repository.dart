@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cenafoodie/src/data/models/entities/delivery/delivery_response.dart';
 import 'package:cenafoodie/src/data/models/entities/order/order_detail.dart';
 import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
 import 'package:cenafoodie/src/data/models/entities/product/product_response.dart';
@@ -428,17 +429,19 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<List<Delivery>>> fetchAllDeliveryOfStore(
+  Future<ApiResponse<List<Delivery>?>> fetchAllDeliveryOfStore(
       {required int storeId}) async {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
+      NetworkRequestType.get,
       uri: CenaServiceAPIv1.instance.storeFetchAllDelivery(storeId: storeId),
       token: token,
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Delivery.fromJson(data) : null;
+      return data != null
+          ? DeliveryFetchResponse.fromJson(data).deliveries
+          : null;
     });
   }
 
@@ -773,14 +776,14 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
+      NetworkRequestType.patch,
       uri: CenaServiceAPIv1.instance
           .productUpdateStatus(storeId: storeId, productId: productId),
       token: token,
       body: {'status': status},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -1019,6 +1022,30 @@ class CenaRepository implements ICenaService {
     );
     return _getApiResponse(response, (data) {
       return data != null ? Category.fromJson(data) : null;
+    });
+  }
+
+  @override
+  Future<ApiResponse<List<String>>> fetchAllNameCategory(
+      {required int storeId}) async {
+    final token = await _storageService.getAccessToken();
+
+    final response = await NetworkClient.instance.request(
+      NetworkRequestType.get,
+      uri: CenaServiceAPIv1.instance.storeGetAllCategories(
+        storeId: storeId,
+      ),
+      token: token,
+      body: {},
+    );
+    return _getApiResponse(response, (data) {
+      if (data != null) {
+        List<String> result = [];
+        data["categories"].forEach((e) => result.add(e['category']));
+        return result;
+      } else {
+        return null;
+      }
     });
   }
 }
