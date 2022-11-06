@@ -3,13 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart' as validator1;
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../blocs/general/general_bloc.dart';
-import '../../../utils/configs/cena_colors.dart';
-import '../../blocs/user/user_bloc.dart';
-import '../../resources/generated/l10n.dart';
-import '../../../utils/helpers/helpers.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
-import '../../widgets/widgets.dart';
+import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/app_constants.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/navigation_utils.dart';
+import '../../../blocs/general/general_bloc.dart';
+import '../../../blocs/user/user_bloc.dart';
+import '../../../resources/generated/l10n.dart';
+import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/widgets.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   late TextEditingController _currentPasswordController;
   late TextEditingController _newPasswordController;
   late TextEditingController _repeatPasswordController;
+  late FocusNode? _focusOldPassword;
 
   final _keyForm = GlobalKey<FormState>();
 
@@ -32,6 +35,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     _currentPasswordController = TextEditingController();
     _newPasswordController = TextEditingController();
     _repeatPasswordController = TextEditingController();
+
+    _focusOldPassword = FocusNode();
   }
 
   @override
@@ -66,13 +71,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         if (state is LoadingUserState) {
           modalLoading(context);
         } else if (state is SuccessUserState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           cenaToastSuccess(lang.password_success);
-          Navigator.pop(context);
           clearTextEditingController();
         } else if (state is FailureUserState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           errorMessageSnack(context, state.error);
+          _focusOldPassword!.requestFocus();
         }
       },
       child: Scaffold(
@@ -97,6 +102,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     _CenaFormFieldPassword(
                       controller: _currentPasswordController,
                       isPassword: state.isShowPassword,
+                      focusNode: _focusOldPassword,
                       suffixIcon: IconButton(
                           splashRadius: 20,
                           icon: !state.isShowPassword
@@ -188,6 +194,7 @@ class _CenaFormFieldPassword extends StatelessWidget {
   final TextInputType keyboardType;
   final int maxLine;
   final bool readOnly;
+  final FocusNode? focusNode;
   final Widget? suffixIcon;
   final FormFieldValidator<String>? validator;
 
@@ -199,6 +206,7 @@ class _CenaFormFieldPassword extends StatelessWidget {
       this.maxLine = 1,
       this.readOnly = false,
       this.suffixIcon,
+      this.focusNode,
       this.validator});
 
   @override
@@ -209,12 +217,17 @@ class _CenaFormFieldPassword extends StatelessWidget {
       obscureText: isPassword,
       maxLines: maxLine,
       readOnly: readOnly,
+      focusNode: focusNode,
       keyboardType: keyboardType,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(width: .5, color: Colors.grey)),
           contentPadding: const EdgeInsets.only(left: 15.0),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppConstants.border_radius),
+              borderSide: BorderSide(
+                  width: 1.0, color: Theme.of(context).primaryColor)),
           hintText: hintText,
           hintStyle: GoogleFonts.getFont('Roboto', color: Colors.grey),
           suffixIcon: suffixIcon),

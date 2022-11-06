@@ -15,8 +15,6 @@ import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../app/app_privacy_policy.dart';
 import '../../app/app_terms_conditions.dart';
-import '../../profile/change_password_page.dart';
-import '../../profile/edit_profile_page.dart';
 
 class ProfileClientPage extends StatelessWidget {
   const ProfileClientPage({Key? key}) : super(key: key);
@@ -86,16 +84,16 @@ class ProfileClientPage extends StatelessWidget {
                   icon: Icons.person,
                   fontSize: 15,
                   colorIcon: const Color(0xff01C58C),
-                  onPressed: () => Navigator.push(
-                      context, routeCena(page: const EditProfilePage())),
+                  onPressed: () => NavigationUtils.push(
+                      context, RouteConstants.client_profile),
                 ),
                 CenaButtonLineIcon(
                   text: S.of(context).settings_account_password,
                   icon: Icons.lock_rounded,
                   fontSize: 15,
                   colorIcon: const Color(0xff1B83F5),
-                  onPressed: () => Navigator.push(
-                      context, routeCena(page: const ChangePasswordPage())),
+                  onPressed: () => NavigationUtils.push(
+                      context, RouteConstants.change_password),
                 ),
                 if (authBloc.state.rolId == '1')
                   CenaButtonLineIcon(

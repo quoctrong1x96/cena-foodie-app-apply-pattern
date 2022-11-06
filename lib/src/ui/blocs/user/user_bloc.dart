@@ -270,6 +270,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             user: user, address: address, pictureProfilePath: picture));
       } else {
         emit(FailureUserState(uiResponse.errorMessage!));
+        emit(state.copyWith(
+            user: user, address: address, pictureProfilePath: picture));
       }
     } catch (e) {
       emit(FailureUserState(e.toString()));
