@@ -60,7 +60,7 @@ class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
         ),
         body: FutureBuilder<UiResponse<List<Delivery>?>>(
             future: _deliveryService.fetchAllOfStore(
-                storeId: BlocProvider.of<StoreBloc>(context).state.store!.id!),
+                storeId: BlocProvider.of<StoreBloc>(context).state.store!.id),
             builder: (context, snapshot) => (!snapshot.hasData)
                 ? Column(
                     children: const [

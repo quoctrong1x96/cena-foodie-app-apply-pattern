@@ -28,6 +28,7 @@ class RouteConstants {
   static const String client_profile_edit = '/client/profile/edit';
   static const String client_profile_lastname = '/client/profile/lastname';
   static const String client_profile_firstname = '/client/profile/firstname';
+  static const String client_profile_images = '/client/profile/image';
   static const String client_profile_sex = '/client/profile/sex';
   static const String client_profile_birthday = '/client/profile/birthday';
   static const String client_map = '/client/map';

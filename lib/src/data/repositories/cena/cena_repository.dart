@@ -192,7 +192,7 @@ class CenaRepository implements ICenaService {
       body: {'currentPassword': oldPassword, 'newPassword': newPassword},
     );
     return _getApiResponse(response, (data) {
-      return data['data'];
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -318,7 +318,7 @@ class CenaRepository implements ICenaService {
         token: token,
         body: {'code': code});
     return _getApiResponse(response, (data) {
-      return data['message'];
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -820,12 +820,12 @@ class CenaRepository implements ICenaService {
         );
       } else if (type == NetworkResponseType.badRequest_400) {
         return ApiResponse(
-          message: 'error_bad_request',
+          message: bodyJson['message'] ?? 'error_bad_request',
           code: NetworkConstants.response_bad_request,
         );
       } else if (type == NetworkResponseType.unauthorized_401) {
         return ApiResponse(
-          message: 'error_session_expire',
+          message: bodyJson['message'] ?? 'error_session_expire',
           code: NetworkConstants.response_unauthorized,
         );
       } else if (type == NetworkResponseType.conflict_409) {

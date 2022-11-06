@@ -2,8 +2,8 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/getx_services/getx_settings_service.dart';
-import '../../widgets/widgets.dart';
+import '../../../../utils/getx_services/getx_settings_service.dart';
+import '../../../widgets/widgets.dart';
 
 class ChangeLanguagesPage extends StatefulWidget {
   const ChangeLanguagesPage({Key? key}) : super(key: key);

@@ -15,8 +15,6 @@ import '../app/app_privacy_policy.dart';
 import '../app/app_terms_conditions.dart';
 import '../home/select_role_page.dart';
 import '../intro/checking_login_page.dart';
-import '../profile/change_password_page.dart';
-import '../profile/edit_profile_page.dart';
 
 class DeliveryHomePage extends StatelessWidget {
   const DeliveryHomePage({Key? key}) : super(key: key);
@@ -153,15 +151,15 @@ class DeliveryHomePage extends StatelessWidget {
                     text: lang.admin_profile_settings,
                     icon: Icons.person,
                     colorIcon: const Color(0xff01C58C),
-                    onPressed: () => Navigator.push(
-                        context, routeCena(page: const EditProfilePage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.client_profile_edit),
                   ),
                   CenaButtonLineIcon(
                     text: lang.admin_change_password,
                     icon: Icons.lock_rounded,
                     colorIcon: const Color(0xff1B83F5),
-                    onPressed: () => Navigator.push(
-                        context, routeCena(page: const ChangePasswordPage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.change_password),
                   ),
                   if (authBloc.state.rolId == '1')
                     CenaButtonLineIcon(

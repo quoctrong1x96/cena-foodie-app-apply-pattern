@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/user/user_bloc.dart';
-import '../../resources/generated/l10n.dart';
-import '../../../utils/helpers/helpers.dart';
-import '../../widgets/animation_route.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
-import '../../widgets/widgets.dart';
-import 'edit-profile/profile_edit_avatar.dart';
-import 'edit-profile/profile_edit_first_name.dart';
-import 'edit-profile/profile_edit_last_name.dart';
+import '../../../../utils/constants/route_constants.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/navigation_utils.dart';
+import '../../../blocs/user/user_bloc.dart';
+import '../../../resources/generated/l10n.dart';
+import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/widgets.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -85,8 +83,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   CenaButtonLineImage(
                     text: lang.profile_edit_change_avatar,
                     fontSize: 14,
-                    onPressed: () => Navigator.push(
-                        context, routeCena(page: const EditProfileImagePage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.client_profile_images),
                   ),
                   CenaTextGroup(
                     text: lang.profile_edit_account,
@@ -109,15 +107,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     label: lang.profile_edit_lastName,
                     text: _lastNameController.value.text,
                     fontSize: 14,
-                    onPressed: () => Navigator.push(context,
-                        routeCena(page: const EditLastNameProfilePage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.client_profile_lastname),
                   ),
                   CenaButtonLineText(
                     label: lang.profile_edit_firtname,
                     text: _nameController.value.text,
                     fontSize: 14,
-                    onPressed: () => Navigator.push(context,
-                        routeCena(page: const EditFirstNameProfilePage())),
+                    onPressed: () => NavigationUtils.push(
+                        context, RouteConstants.client_profile_firstname),
                   ),
                 ],
               )),

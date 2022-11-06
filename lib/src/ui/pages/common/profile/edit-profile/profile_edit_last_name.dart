@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/helpers/helpers.dart';
-import '../../../blocs/user/user_bloc.dart';
-import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
-import '../../../widgets/widgets.dart';
-import '../edit_profile_page.dart';
+import '../../../../../utils/configs/cena_colors.dart';
+import '../../../../../utils/constants/route_constants.dart';
+import '../../../../../utils/helpers/helpers.dart';
+import '../../../../../utils/navigation_utils.dart';
+import '../../../../blocs/user/user_bloc.dart';
+import '../../../../resources/generated/l10n.dart';
+import '../../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../../widgets/widgets.dart';
 
 class EditLastNameProfilePage extends StatefulWidget {
   const EditLastNameProfilePage({Key? key}) : super(key: key);
@@ -51,11 +51,9 @@ class _EditLastNameProfilePageState extends State<EditLastNameProfilePage> {
         if (state is LoadingUserState) {
           modalLoading(context);
         } else if (state is SuccessUserState) {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           cenaToastSuccess(lang.profile_edit_lastName_success);
-          Navigator.pushReplacement(
-              context, routeCena(page: const EditProfilePage()));
+          NavigationUtils.replace(context, RouteConstants.client_profile_edit);
         } else if (state is FailureUserState) {
           Navigator.pop(context);
           errorMessageSnack(context, state.error);
