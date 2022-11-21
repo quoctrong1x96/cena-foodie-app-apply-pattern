@@ -5,18 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/product/product.dart';
 import '../../../../data/models/entities/store/store.dart';
+import '../../../../data/services/entities/category_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../../utils/image_ultils.dart';
+import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import 'list_products_page.dart';
 
 class UpdateProductPage extends StatefulWidget {
   final Product product;
@@ -30,6 +32,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
   late TextEditingController _priceController;
+  late ICategoryService _categoryService;
   late Store store;
 
   final _keyForm = GlobalKey<FormState>();
@@ -44,6 +47,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     _nameController.text = widget.product.nameProduct!;
     _descriptionController.text = widget.product.description!;
     _priceController.text = widget.product.price.toString();
+    _categoryService = locator<ICategoryService>();
   }
 
   @override
@@ -69,11 +73,12 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
         if (state is LoadingProductsState) {
           modalLoading(context);
         } else if (state is SuccessProductsState) {
+          NavigationUtils.pop(context);
+          NavigationUtils.pop(context);
           cenaToastSuccess(lang.store_product_update_success);
-          Navigator.pushReplacement(
-              context, routeCena(page: const ListProductsPage()));
+          NavigationUtils.replace(context, RouteConstants.admin_list_product);
         } else if (state is FailureProductsState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content:
                   CenaTextDescription(text: state.error, color: Colors.white),
@@ -220,7 +225,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                       ]),
                   child: InkWell(
                     onTap: () => modalSelectionCategory(
-                        context, storeBloc.state.store!.id),
+                        context, storeBloc.state.store!.id, _categoryService),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

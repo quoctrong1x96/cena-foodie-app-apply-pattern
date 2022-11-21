@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cenafoodie/src/data/services/entities/product_service.dart';
-import 'package:cenafoodie/src/utils/image_ultils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,19 +7,20 @@ import 'package:intl/intl.dart';
 
 import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/product/product.dart';
-import '../../../../data/models/entities/response/products_top_home_response.dart';
+import '../../../../data/models/ui/page_arguments.dart';
 import '../../../../data/models/ui/ui_response.dart';
-import '../../../../utils/configs/cena_text_styles.dart';
-import '../../../blocs/product/product_bloc.dart';
+import '../../../../data/services/entities/product_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/configs/cena_text_styles.dart';
+import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/image_ultils.dart';
+import '../../../../utils/navigation_utils.dart';
+import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../../Admin/Products/add_new_product_page.dart';
-import '../../Admin/Products/update_product_page.dart';
 
 class ListProductsPage extends StatefulWidget {
   const ListProductsPage({Key? key}) : super(key: key);
@@ -40,11 +39,11 @@ class _ListProductsPageState extends State<ListProductsPage> {
         if (state is LoadingProductsState) {
           modalLoading(context);
         } else if (state is SuccessProductsState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           cenaToastSuccess(lang.admin_product_success);
           setState(() {});
         } else if (state is FailureProductsState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           errorMessageSnack(context, state.error);
         }
       },
@@ -55,8 +54,8 @@ class _ListProductsPageState extends State<ListProductsPage> {
           leading: const CenaButtonDefaultBack(),
           actions: [
             TextButton(
-                onPressed: () => Navigator.push(
-                    context, routeCena(page: const AddNewProductPage())),
+                onPressed: () => NavigationUtils.push(
+                    context, RouteConstants.admin_product_add),
                 child: CenaTextDescription(
                     text: lang.admin_product_button_add,
                     fontSize: 16,
@@ -86,15 +85,27 @@ class _GridViewListProduct extends StatelessWidget {
     if (listProducts.isNotEmpty) {
       final lang = S.of(context);
       List<String> categories = [];
+      Map<String, List<Product>> productGroupByCategory =
+          <String, List<Product>>{};
       for (var product in listProducts) {
         if (categories.isNotEmpty) {
           if (categories.firstWhere((element) => element == product.category,
                   orElse: () => "") ==
               "") {
             categories.add(product.category!);
+            productGroupByCategory.addAll({
+              product.category!: listProducts
+                  .where((element) => product.category! == element.category)
+                  .toList()
+            });
           }
         } else {
           categories.add(product.category!);
+          productGroupByCategory.addAll({
+            product.category!: listProducts
+                .where((element) => product.category! == element.category)
+                .toList()
+          });
         }
       }
       return ListView.builder(
@@ -123,9 +134,7 @@ class _GridViewListProduct extends StatelessWidget {
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 1,
                   mainAxisExtent: 120),
-              itemCount: listProducts
-                  .where((element) => categories[i] == element.category)
-                  .length,
+              itemCount: productGroupByCategory[categories[i]]!.length,
               itemBuilder: (_, j) => Container(
                 decoration: BoxDecoration(
                     color: CenaColors.WHITE,
@@ -143,11 +152,10 @@ class _GridViewListProduct extends StatelessWidget {
                               image: DecorationImage(
                                   scale: 7,
                                   image: CachedNetworkImageProvider(
-                                      ImagesUltils.getImageApiUrl(listProducts
-                                          .where((element) =>
-                                              categories[i] == element.category)
-                                          .elementAt(j)
-                                          .picture)),
+                                      ImagesUltils.getImageApiUrl(
+                                          productGroupByCategory[categories[i]]!
+                                              .elementAt(j)
+                                              .picture)),
                                   fit: BoxFit.cover)),
                         ),
                         Expanded(
@@ -160,20 +168,17 @@ class _GridViewListProduct extends StatelessWidget {
                                   children: [
                                     const SizedBox(width: 10),
                                     CenaTextDescription(
-                                      text: listProducts
-                                          .where((element) =>
-                                              categories[i] ==
-                                              element.category!)
-                                          .elementAt(j)
-                                          .nameProduct!,
+                                      text:
+                                          productGroupByCategory[categories[i]]!
+                                              .elementAt(j)
+                                              .nameProduct!,
                                       fontSize: 16,
                                     ),
                                   ],
                                 ),
-                                _buildPriceDiscount(listProducts
-                                    .where((element) =>
-                                        categories[i] == element.category!)
-                                    .elementAt(j))
+                                _buildPriceDiscount(
+                                    productGroupByCategory[categories[i]]!
+                                        .elementAt(j))
                               ],
                             ),
                           ),
@@ -199,9 +204,7 @@ class _GridViewListProduct extends StatelessWidget {
                                 fontSize: 14,
                                 color: CenaColors.textBlack.withOpacity(0.8)),
                             CenaTextDescription(
-                                text: listProducts
-                                    .where((element) =>
-                                        categories[i] == element.category)
+                                text: productGroupByCategory[categories[i]]!
                                     .elementAt(j)
                                     .sales
                                     .toString(),
@@ -221,9 +224,7 @@ class _GridViewListProduct extends StatelessWidget {
                               color: CenaColors.textBlack.withOpacity(0.8),
                             ),
                             CenaTextDescription(
-                                text: listProducts
-                                    .where((element) =>
-                                        categories[i] == element.category)
+                                text: productGroupByCategory[categories[i]]!
                                     .elementAt(j)
                                     .liked
                                     .toString(),
@@ -243,9 +244,7 @@ class _GridViewListProduct extends StatelessWidget {
                               color: CenaColors.textBlack.withOpacity(0.8),
                             ),
                             CenaTextDescription(
-                                text: listProducts
-                                    .where((element) =>
-                                        categories[i] == element.category)
+                                text: productGroupByCategory[categories[i]]!
                                     .elementAt(j)
                                     .viewer
                                     .toString(),
@@ -263,17 +262,30 @@ class _GridViewListProduct extends StatelessWidget {
                           onPressed: () {
                             modalActiveOrInactiveProduct(
                                 context,
-                                listProducts[i].storeId,
-                                listProducts[i].status,
-                                listProducts[i].nameProduct!,
-                                listProducts[i].id,
-                                listProducts[i].picture!);
+                                productGroupByCategory[categories[i]]!
+                                    .elementAt(j)
+                                    .storeId,
+                                productGroupByCategory[categories[i]]!
+                                    .elementAt(j)
+                                    .status,
+                                productGroupByCategory[categories[i]]!
+                                    .elementAt(j)
+                                    .nameProduct!,
+                                productGroupByCategory[categories[i]]!
+                                    .elementAt(j)
+                                    .id,
+                                productGroupByCategory[categories[i]]!
+                                    .elementAt(j)
+                                    .picture!);
                           },
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),
                               child: Center(
-                                  child: listProducts[i].status == 1
+                                  child: productGroupByCategory[categories[i]]!
+                                              .elementAt(j)
+                                              .status ==
+                                          1
                                       ? Text(lang.admin_product_hidden)
                                       : Text(
                                           lang.admin_product_show,
@@ -285,12 +297,13 @@ class _GridViewListProduct extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(2.0))),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                routeCena(
-                                    page: UpdateProductPage(listProducts[i])));
-                          },
+                          onPressed: () => NavigationUtils.push(
+                              context, RouteConstants.admin_product_edit,
+                              args: PageArguments(data: {
+                                "product":
+                                    productGroupByCategory[categories[i]]!
+                                        .elementAt(j)
+                              })),
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),
@@ -303,10 +316,18 @@ class _GridViewListProduct extends StatelessWidget {
                         TextButton(
                           onPressed: () => modalDeleteProduct(
                               context,
-                              listProducts[i].storeId,
-                              listProducts[i].nameProduct!,
-                              listProducts[i].picture!,
-                              listProducts[i].id),
+                              productGroupByCategory[categories[i]]!
+                                  .elementAt(j)
+                                  .storeId,
+                              productGroupByCategory[categories[i]]!
+                                  .elementAt(j)
+                                  .nameProduct!,
+                              productGroupByCategory[categories[i]]!
+                                  .elementAt(j)
+                                  .picture!,
+                              productGroupByCategory[categories[i]]!
+                                  .elementAt(j)
+                                  .id),
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),

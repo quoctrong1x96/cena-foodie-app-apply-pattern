@@ -12,6 +12,7 @@ class NetworkConstants {
   static const int response_success_reset_content = 205;
   static const int response_bad_request = 400;
   static const int response_unauthorized = 401;
+  static const int response_not_found = 404;
   static const int response_conflict = 409;
   static const int response_internal_server_error = 500;
   static const List<int> response_success_list = [

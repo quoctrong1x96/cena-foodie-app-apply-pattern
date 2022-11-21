@@ -66,12 +66,21 @@ class CenaServiceAPIv1 {
         parameterBuilder: () => null,
       );
 
-  Uri storeGetAllCategories({
+  Uri storeGetCategoriesHasProduct({
     required int storeId,
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_store,
         endpoint: "$storeId/categories",
+        parameterBuilder: () => null,
+      );
+
+  Uri storeGetAllCategories({
+    required int storeId,
+  }) =>
+      _buildUri(
+        groupEndpoint: CenaServiceConstants.api_group_store,
+        endpoint: "$storeId/categories/all",
         parameterBuilder: () => null,
       );
 
@@ -293,7 +302,7 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_order,
-        endpoint: "$orderId",
+        endpoint: "$orderId/details",
         parameterBuilder: () => null,
       );
   Uri orderToDispatch({
@@ -570,6 +579,6 @@ class CenaServiceAPIv1 {
       {
         "status": status,
         "type": typeObject,
-        "object_id": objectId.toString(),
+        "store": objectId.toString(),
       };
 }

@@ -6,6 +6,10 @@ import '../data/models/entities/order/order.dart';
 import '../data/models/entities/product/product.dart';
 import '../data/models/entities/store/store.dart';
 import '../data/models/ui/page_arguments.dart';
+import '../ui/pages/Admin/Category/add_category_admin_page.dart';
+import '../ui/pages/Admin/Category/update_category_admin_page.dart';
+import '../ui/pages/Admin/Products/add_new_product_page.dart';
+import '../ui/pages/Admin/Products/update_product_page.dart';
 import '../ui/pages/admin/admin_home_page.dart';
 import '../ui/pages/admin/category/categories_admin_page.dart';
 import '../ui/pages/admin/dashboard/admin_dashboard_page.dart';
@@ -244,6 +248,29 @@ class RouteUtils {
     } else if (route == RouteConstants.client_profile_images) {
       return _getPageRoute(
         const EditProfileImagePage(),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_category_add) {
+      final storeId = args?.data["storeId"];
+      return _getPageRoute(
+        AddCategoryAdminPage(storeId),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_category_edit) {
+      final category = args?.data["category"];
+      return _getPageRoute(
+        UpdateCategoryAdminPage(category),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_product_edit) {
+      final product = args?.data["product"];
+      return _getPageRoute(
+        UpdateProductPage(product),
+        transitionType: args?.transitionType,
+      );
+    } else if (route == RouteConstants.admin_product_add) {
+      return _getPageRoute(
+        const AddNewProductPage(),
         transitionType: args?.transitionType,
       );
       // } else if (route == RouteConstants.manage_product) {
