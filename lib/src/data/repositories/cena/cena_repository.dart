@@ -682,7 +682,7 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.patch,
+      NetworkRequestType.put,
       uri: CenaServiceAPIv1.instance.orderToDispatch(
         orderId: int.parse(orderId),
       ),
@@ -695,7 +695,7 @@ class CenaRepository implements ICenaService {
       },
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Order.fromJson(data) : null;
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -986,7 +986,7 @@ class CenaRepository implements ICenaService {
       token: token,
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? Store.fromJson(data["stores"]) : null;
     });
   }
 

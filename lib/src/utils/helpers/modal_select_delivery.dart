@@ -2,6 +2,7 @@ part of 'helpers.dart';
 
 void modalSelectDelivery(BuildContext context, String idOrder, Store store) {
   final orderBloc = BlocProvider.of<OrdersBloc>(context);
+  final deliveryService = locator<IDeliveryService>();
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -36,21 +37,21 @@ void modalSelectDelivery(BuildContext context, String idOrder, Store store) {
             const SizedBox(height: 10.0),
             const CenaTextDescription(text: 'Select delivery man'),
             const SizedBox(height: 10.0),
-            // Expanded(
-            //   child: FutureBuilder<List<Delivery>?>(
-            //       future: deliveryController.getAllDelivery(store.id!),
-            //       builder: (context, snapshot) => (!snapshot.hasData)
-            //           ? Column(
-            //               children: const [
-            //                 CenaShimmer(),
-            //                 SizedBox(height: 10.0),
-            //                 CenaShimmer(),
-            //                 SizedBox(height: 10.0),
-            //                 CenaShimmer(),
-            //               ],
-            //             )
-            //           : _ListDeliveryModal(listDelivery: snapshot.data!)),
-            // ),
+            Expanded(
+              child: FutureBuilder<UiResponse<List<Delivery>?>>(
+                  future: deliveryService.fetchAllOfStore(storeId: store.id),
+                  builder: (context, snapshot) => (!snapshot.hasData)
+                      ? Column(
+                          children: const [
+                            CenaShimmer(),
+                            SizedBox(height: 10.0),
+                            CenaShimmer(),
+                            SizedBox(height: 10.0),
+                            CenaShimmer(),
+                          ],
+                        )
+                      : _ListDeliveryModal(listDelivery: snapshot.data!.data!)),
+            ),
             BlocBuilder<DeliveryBloc, DeliveryState>(
               builder: (context, state) => CenaButton(
                 text: 'SEND ORDER',

@@ -310,7 +310,7 @@ class CenaServiceAPIv1 {
   }) =>
       _buildUri(
         groupEndpoint: CenaServiceConstants.api_group_order,
-        endpoint: "$orderId/to-dispatch",
+        endpoint: "$orderId/to-dispatched",
         parameterBuilder: () => null,
       );
 
