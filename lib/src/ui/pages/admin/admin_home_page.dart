@@ -217,7 +217,7 @@ class AdminHomePage extends StatelessWidget {
                     icon: Icons.checklist_rounded,
                     colorIcon: const Color(0xffFFA136),
                     onPressed: () => Navigator.push(
-                        context, routeCena(page: const OrdersAdminPage())),
+                        context, routeCena(page: OrdersAdminPage())),
                   ),
                   CenaButtonLineIcon(
                     text: "Kênh marketing",

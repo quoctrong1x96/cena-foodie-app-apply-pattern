@@ -1,16 +1,16 @@
-import 'package:cenafoodie/src/data/services/entities/category_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/category/category.dart';
+import '../../../../data/models/ui/page_arguments.dart';
 import '../../../../data/models/ui/ui_response.dart';
+import '../../../../data/services/entities/category_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
+import '../../../../utils/navigation_utils.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/widgets.dart';
-import '../../Admin/Category/add_category_admin_page.dart';
-import '../../Admin/Category/update_category_admin_page.dart';
 
 class CategoriesAdminPage extends StatelessWidget {
   final int storeId;
@@ -28,8 +28,9 @@ class CategoriesAdminPage extends StatelessWidget {
         title: lang.admin_category_title,
         actions: [
           TextButton(
-              onPressed: () => Navigator.push(
-                  context, routeCena(page: AddCategoryAdminPage(storeId))),
+              onPressed: () => NavigationUtils.push(
+                  context, RouteConstants.admin_category_add,
+                  args: PageArguments(data: {"storeId": storeId})),
               child: CenaTextDescription(
                   text: lang.admin_category_button_add,
                   color: CenaColors.WHITE,
@@ -120,11 +121,10 @@ class _ListCategories extends StatelessWidget {
                       child: GestureDetector(
                         onTap: gridCategory.storeId != 0
                             ? () => {
-                                  Navigator.push(
-                                      context,
-                                      routeCena(
-                                          page: UpdateCategoryAdminPage(
-                                              gridCategory)))
+                                  NavigationUtils.push(context,
+                                      RouteConstants.admin_category_edit,
+                                      args: PageArguments(
+                                          data: {"category": gridCategory}))
                                 }
                             : () {},
                         child: Row(

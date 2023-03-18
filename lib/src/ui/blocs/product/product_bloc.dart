@@ -138,7 +138,9 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           name: event.name,
           description: event.description,
           price: event.price,
-          images: event.images!.map((e) => e.path).toList(),
+          images: event.images == null
+              ? []
+              : event.images!.map((e) => e.path).toList(),
           category: event.category);
 
       Future.delayed(const Duration(seconds: 1));

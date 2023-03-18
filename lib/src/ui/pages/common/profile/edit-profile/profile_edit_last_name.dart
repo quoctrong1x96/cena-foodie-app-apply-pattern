@@ -52,6 +52,7 @@ class _EditLastNameProfilePageState extends State<EditLastNameProfilePage> {
           modalLoading(context);
         } else if (state is SuccessUserState) {
           NavigationUtils.pop(context);
+          NavigationUtils.pop(context);
           cenaToastSuccess(lang.profile_edit_lastName_success);
           NavigationUtils.replace(context, RouteConstants.client_profile_edit);
         } else if (state is FailureUserState) {

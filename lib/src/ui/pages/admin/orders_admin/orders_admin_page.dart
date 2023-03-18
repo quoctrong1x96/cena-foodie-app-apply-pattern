@@ -1,10 +1,14 @@
+import 'package:cenafoodie/src/data/services/entities/order_service.dart';
 import 'package:cenafoodie/src/utils/extensions/date_time_extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/order/order.dart';
 import '../../../../data/models/entities/pay_type.dart';
+import '../../../../data/models/ui/ui_response.dart';
 import '../../../../utils/helpers/cena_indicator.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
@@ -14,7 +18,8 @@ import '../../../widgets/widgets.dart';
 import 'order_details_page.dart';
 
 class OrdersAdminPage extends StatelessWidget {
-  const OrdersAdminPage({Key? key}) : super(key: key);
+  OrdersAdminPage({Key? key}) : super(key: key);
+  final IOrderService _orderService = locator<IOrderService>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,97 +48,100 @@ class OrdersAdminPage extends StatelessWidget {
                             style:
                                 GoogleFonts.getFont('Roboto', fontSize: 17))))),
           ),
-          // body: TabBarView(
-          //   children: payType
-          //       .map((e) => FutureBuilder<List<Order>?>(
-          //           future: ordersController.getOrdersByStatus(
-          //               BlocProvider.of<StoreBloc>(context).state.store!.id, e),
-          //           builder: (context, snapshot) {
-          //             if (!snapshot.hasData) {
-          //               return Column(
-          //                 children: const [
-          //                   CenaShimmer(),
-          //                   SizedBox(height: 10),
-          //                   CenaShimmer(),
-          //                   SizedBox(height: 10),
-          //                   CenaShimmer(),
-          //                 ],
-          //               );
-          //             } else {
-          //               NumberFormat numberFormat =
-          //                   NumberFormat('###,###', 'en_US');
-          //               double amount = 0.0;
-          //               for (var e in snapshot.data!) {
-          //                 amount += e.amount ?? 0.0;
-          //               }
-          //               return Column(
-          //                 children: [
-          //                   Expanded(
-          //                       child: _ListOrders(listOrders: snapshot.data!)),
-          //                   Container(
-          //                     height: 52.0,
-          //                     width: MediaQuery.of(context).size.width - 20,
-          //                     margin: const EdgeInsets.only(bottom: 5.0),
-          //                     decoration: BoxDecoration(
-          //                         color: CenaColors.WHITE,
-          //                         borderRadius: BorderRadius.circular(8.0),
-          //                         boxShadow: [
-          //                           BoxShadow(
-          //                               color: CenaColors.GREY,
-          //                               blurRadius: 10,
-          //                               spreadRadius: 2.0)
-          //                         ]),
-          //                     child: Container(
-          //                       padding: const EdgeInsets.symmetric(
-          //                           horizontal: 15.0, vertical: 5.0),
-          //                       child: Column(
-          //                         children: [
-          //                           Row(
-          //                             mainAxisAlignment:
-          //                                 MainAxisAlignment.spaceBetween,
-          //                             children: [
-          //                               CenaTextDescription(
-          //                                 text: lang.admin_order_total,
-          //                                 fontSize: 16,
-          //                                 color: CenaColors.primary,
-          //                                 fontWeight: FontWeight.bold,
-          //                               ),
-          //                               CenaTextDescription(
-          //                                 text:
-          //                                     '${snapshot.data!.length} ${lang.admin_order_items}',
-          //                                 fontSize: 16,
-          //                                 fontWeight: FontWeight.bold,
-          //                               ),
-          //                             ],
-          //                           ),
-          //                           Row(
-          //                             mainAxisAlignment:
-          //                                 MainAxisAlignment.spaceBetween,
-          //                             children: [
-          //                               CenaTextDescription(
-          //                                 text: lang.admin_order_amount,
-          //                                 fontSize: 16,
-          //                                 color: CenaColors.primary,
-          //                                 fontWeight: FontWeight.bold,
-          //                               ),
-          //                               CenaTextDescription(
-          //                                 text:
-          //                                     '${numberFormat.format(amount)} vnđ',
-          //                                 fontSize: 16,
-          //                                 fontWeight: FontWeight.bold,
-          //                               ),
-          //                             ],
-          //                           ),
-          //                         ],
-          //                       ),
-          //                     ),
-          //                   )
-          //                 ],
-          //               );
-          //             }
-          //           }))
-          //       .toList(),
-          // ),
+          body: TabBarView(
+            children: payType
+                .map((e) => FutureBuilder<UiResponse<List<Order>?>>(
+                    future: _orderService.fetChAllByStatusForStore(
+                        storeId:
+                            BlocProvider.of<StoreBloc>(context).state.store!.id,
+                        status: e),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Column(
+                          children: const [
+                            CenaShimmer(),
+                            SizedBox(height: 10),
+                            CenaShimmer(),
+                            SizedBox(height: 10),
+                            CenaShimmer(),
+                          ],
+                        );
+                      } else {
+                        NumberFormat numberFormat =
+                            NumberFormat('###,###', 'en_US');
+                        double amount = 0.0;
+                        for (var e in snapshot.data!.data!) {
+                          amount += e.amount ?? 0.0;
+                        }
+                        return Column(
+                          children: [
+                            Expanded(
+                                child: _ListOrders(
+                                    listOrders: snapshot.data!.data!)),
+                            Container(
+                              height: 52.0,
+                              width: MediaQuery.of(context).size.width - 20,
+                              margin: const EdgeInsets.only(bottom: 5.0),
+                              decoration: BoxDecoration(
+                                  color: CenaColors.WHITE,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: CenaColors.GREY,
+                                        blurRadius: 10,
+                                        spreadRadius: 2.0)
+                                  ]),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 5.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CenaTextDescription(
+                                          text: lang.admin_order_total,
+                                          fontSize: 16,
+                                          color: CenaColors.primary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        CenaTextDescription(
+                                          text:
+                                              '${snapshot.data!.data!.length} ${lang.admin_order_items}',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CenaTextDescription(
+                                          text: lang.admin_order_amount,
+                                          fontSize: 16,
+                                          color: CenaColors.primary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        CenaTextDescription(
+                                          text:
+                                              '${numberFormat.format(amount)} vnđ',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                    }))
+                .toList(),
+          ),
         ));
   }
 }
@@ -215,7 +223,7 @@ class _CardOrders extends StatelessWidget {
                       fontSize: 13,
                       color: CenaColors.secondary),
                   CenaTextDescription(
-                      text: orderResponse.client!, fontSize: 13),
+                      text: orderResponse.receiver!, fontSize: 13),
                 ],
               ),
               const SizedBox(height: 10.0),

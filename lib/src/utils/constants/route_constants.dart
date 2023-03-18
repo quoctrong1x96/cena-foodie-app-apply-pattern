@@ -19,6 +19,12 @@ class RouteConstants {
   static const String admin_list_deliveries = '/merchan/list-deliveries';
   static const String admin_dashboard = '/merchan/dashboard';
 
+  static const String admin_category_add = 'merchan/category/add';
+  static const String admin_category_edit = 'merchan/category/edit';
+
+  static const String admin_product_edit = 'merchan/product/edit';
+  static const String admin_product_add = 'merchan/product/add';
+
   static const String delivery_home = '/delivery/';
 
   static const String client_home = '/client/';

@@ -5,16 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/store/store.dart';
+import '../../../../data/services/entities/category_service.dart';
+import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
-import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/helpers/helpers.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/animation_route.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
-import '../admin_home_page.dart';
 
 class AddNewProductPage extends StatefulWidget {
   const AddNewProductPage({Key? key}) : super(key: key);
@@ -55,6 +57,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   Widget build(BuildContext context) {
     final productBloc = BlocProvider.of<ProductsBloc>(context);
     final storeBloc = BlocProvider.of<StoreBloc>(context);
+    final _productService = locator<ICategoryService>();
     store = storeBloc.state.store!;
     final lang = S.of(context);
 
@@ -63,12 +66,10 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
         if (state is LoadingProductsState) {
           modalLoading(context);
         } else if (state is SuccessProductsState) {
-          // Navigator.pop(context);
           cenaToastSuccess(lang.store_product_add_success);
-          Navigator.pushReplacement(
-              context, routeCena(page: const AdminHomePage()));
+          NavigationUtils.replace(context, RouteConstants.admin_list_product);
         } else if (state is FailureProductsState) {
-          Navigator.pop(context);
+          NavigationUtils.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content:
                   CenaTextDescription(text: state.error, color: Colors.white),
@@ -209,7 +210,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       ]),
                   child: InkWell(
                     onTap: () => modalSelectionCategory(
-                        context, storeBloc.state.store!.id),
+                        context, storeBloc.state.store!.id, _productService),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

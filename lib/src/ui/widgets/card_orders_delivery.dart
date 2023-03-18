@@ -69,7 +69,7 @@ class CardOrdersDelivery extends StatelessWidget {
                             text: snapshot.hasData
                                 ? snapshot.data!.data!.storeName
                                 : "...",
-                            textWidth: 250,
+                            textWidth: 25,
                             textOverflow: TextOverflow.ellipsis,
                             fontSize: 12);
                       }),
@@ -97,7 +97,7 @@ class CardOrdersDelivery extends StatelessWidget {
                       fontSize: 12,
                       color: CenaColors.secondary),
                   CenaTextDescription(
-                      text: orderResponse.client!, fontSize: 12),
+                      text: orderResponse.receiver!, fontSize: 12),
                 ],
               ),
               const SizedBox(height: 6.0),

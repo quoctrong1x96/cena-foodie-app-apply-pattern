@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cenafoodie/src/data/models/entities/order/order_detail.dart';
+import 'package:cenafoodie/src/data/models/ui/ui_response.dart';
+import 'package:cenafoodie/src/data/services/entities/order_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/order/order.dart';
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../utils/helpers/date.dart';
@@ -19,8 +23,9 @@ import 'orders_admin_page.dart';
 class OrderDetailsPage extends StatelessWidget {
   final Order order;
   final Store store;
+  final IOrderService _orderService = locator<IOrderService>();
 
-  const OrderDetailsPage({Key? key, required this.order, required this.store})
+  OrderDetailsPage({Key? key, required this.order, required this.store})
       : super(key: key);
 
   @override
@@ -37,7 +42,7 @@ class OrderDetailsPage extends StatelessWidget {
 
           Navigator.pop(context);
           Navigator.pushReplacement(
-              context, routeCena(page: const OrdersAdminPage()));
+              context, routeCena(page: OrdersAdminPage()));
         } else if (state is FailureOrdersState) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -66,23 +71,22 @@ class OrderDetailsPage extends StatelessWidget {
                   fontWeight: FontWeight.w500),
             ),
             const Divider(),
-            // Expanded(
-            //     flex: 7,
-            //     child: FutureBuilder<List<Order>?>(
-            //         future: ordersController
-            //             .getOrderDetailsById(order.orderId.toString()),
-            //         builder: (context, snapshot) => (!snapshot.hasData)
-            //             ? Column(
-            //                 children: const [
-            //                   CenaShimmer(),
-            //                   SizedBox(height: 10.0),
-            //                   CenaShimmer(),
-            //                   SizedBox(height: 10.0),
-            //                   CenaShimmer(),
-            //                 ],
-            //               )
-            //             : _ListProductsDetails(
-            //                 listProductDetails: snapshot.data!))),
+            Expanded(
+                flex: 7,
+                child: FutureBuilder<UiResponse<List<OrderDetail>?>>(
+                    future: _orderService.getDetail(orderId: order.id),
+                    builder: (context, snapshot) => (!snapshot.hasData)
+                        ? Column(
+                            children: const [
+                              CenaShimmer(),
+                              SizedBox(height: 10.0),
+                              CenaShimmer(),
+                              SizedBox(height: 10.0),
+                              CenaShimmer(),
+                            ],
+                          )
+                        : _ListProductsDetails(
+                            listProductDetails: snapshot.data!.data!))),
             Expanded(
                 flex: 3,
                 child: Container(
@@ -169,13 +173,20 @@ class OrderDetailsPage extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20.0),
                                           image: DecorationImage(
-                                              image: CachedNetworkImageProvider(
-                                                  ImagesUltils.getImageApiUrl(
-                                                      order.deliveryImage)))),
+                                              image: order.deliveryImage == null
+                                                  ? AssetImage(ImagesUltils
+                                                          .getImageApiUrl(order
+                                                              .deliveryImage))
+                                                      as ImageProvider
+                                                  : CachedNetworkImageProvider(
+                                                      ImagesUltils
+                                                          .getImageApiUrl(order
+                                                              .deliveryImage)))),
                                     ),
                                     const SizedBox(width: 10.0),
                                     CenaTextDescription(
-                                        text: order.deliveryName!, fontSize: 13)
+                                        text: order.deliveryName ?? "No name",
+                                        fontSize: 13)
                                   ],
                                 )
                               ],
@@ -229,7 +240,7 @@ class OrderDetailsPage extends StatelessWidget {
 
 // ignore: unused_element
 class _ListProductsDetails extends StatelessWidget {
-  final List<Order> listProductDetails;
+  final List<OrderDetail> listProductDetails;
 
   const _ListProductsDetails({required this.listProductDetails});
 
@@ -252,7 +263,7 @@ class _ListProductsDetails extends StatelessWidget {
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
                             ImagesUltils.getImageApiUrl(
-                                listProductDetails[i].clientImage)),
+                                listProductDetails[i].picture)),
                         fit: BoxFit.cover)),
               ),
               const SizedBox(width: 15.0),
@@ -261,12 +272,12 @@ class _ListProductsDetails extends StatelessWidget {
                 children: [
                   CenaTextDescription(
                       fontSize: 13,
-                      text: listProductDetails[i].clientImage!,
+                      text: listProductDetails[i].nameProduct!,
                       fontWeight: FontWeight.w500),
                   const SizedBox(height: 5.0),
                   CenaTextDescription(
                       text:
-                          '${S.of(context).admin_order_detail_count}: ${listProductDetails[i].amount}',
+                          '${S.of(context).admin_order_detail_count}: ${listProductDetails[i].quantity} x ${listProductDetails[i].total}',
                       color: Colors.grey,
                       fontSize: 13),
                 ],
@@ -277,7 +288,7 @@ class _ListProductsDetails extends StatelessWidget {
                 child: CenaTextDescription(
                     fontSize: 13,
                     text:
-                        '${numberFormat.format(listProductDetails[i].amount).toString()} vnđ'),
+                        '${numberFormat.format(listProductDetails[i].total! * listProductDetails[i].quantity!).toString()} vnđ'),
               ))
             ],
           ),

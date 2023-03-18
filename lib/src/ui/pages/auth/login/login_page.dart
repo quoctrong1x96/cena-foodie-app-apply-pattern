@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _emailController = TextEditingController();
-    _emailController.text = 'user10@gmail.com';
+    _emailController.text = 'cenafoodie@gmail.com';
     _phoneController = TextEditingController();
     _phoneController.text = '0949412112';
     _passwordController = TextEditingController();

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../../blocs/product/product_bloc.dart';
+import '../../../../data/models/ui/page_arguments.dart';
 import '../../../../utils/configs/cena_colors.dart';
+import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/navigation_utils.dart';
+import '../../../blocs/product/product_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/widgets.dart';
@@ -74,9 +77,10 @@ class _AddCategoryAdminPageState extends State<AddCategoryAdminPage> {
                         _nameCategoryController.text,
                         _categoryDescriptionController.text,
                         widget.storeId));
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(context,
-                        routeCena(page: AddCategoryAdminPage(widget.storeId)));
+                    NavigationUtils.pop(context);
+                    NavigationUtils.replace(
+                        context, RouteConstants.admin_category,
+                        args: PageArguments(data: {"storeId": widget.storeId}));
                   }
                 },
                 child: CenaTextDescription(

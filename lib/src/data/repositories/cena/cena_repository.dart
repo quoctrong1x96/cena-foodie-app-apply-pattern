@@ -1,10 +1,5 @@
 import 'dart:convert';
 
-import 'package:cenafoodie/src/data/models/entities/delivery/delivery_response.dart';
-import 'package:cenafoodie/src/data/models/entities/order/order_detail.dart';
-import 'package:cenafoodie/src/data/models/entities/order/order_request_add.dart';
-import 'package:cenafoodie/src/data/models/entities/product/product_response.dart';
-import 'package:cenafoodie/src/data/models/entities/store/store.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/constants/network_constants.dart';
@@ -19,11 +14,17 @@ import '../../models/entities/auth/auth_response.dart';
 import '../../models/entities/category/category.dart';
 import '../../models/entities/category/category_response.dart';
 import '../../models/entities/delivery/delivery.dart';
+import '../../models/entities/delivery/delivery_response.dart';
 import '../../models/entities/order/order.dart';
+import '../../models/entities/order/order_detail.dart';
+import '../../models/entities/order/order_detail_response.dart';
+import '../../models/entities/order/order_request_add.dart';
 import '../../models/entities/order/order_response.dart';
 import '../../models/entities/product/product.dart';
 import '../../models/entities/product/product_image.dart';
 import '../../models/entities/product/product_image_response.dart';
+import '../../models/entities/product/product_response.dart';
+import '../../models/entities/store/store.dart';
 import '../../models/entities/store/stores_response.dart';
 import '../../models/entities/user/user.dart';
 import '../../models/entities/user/user_request.dart';
@@ -94,21 +95,21 @@ class CenaRepository implements ICenaService {
       required List<String> images,
       required String category}) async {
     final token = await _storageService.getAccessToken();
-
-    final response = await NetworkClient.instance.request(
-      NetworkRequestType.post,
-      uri: CenaServiceAPIv1.instance.productAdd(storeId: storeId),
-      token: token,
-      body: {
-        'name': name,
-        'description': description,
-        'price': price,
-        'category': category,
-        'image': images
-      },
-    );
+    final response = await NetworkClient.instance.requestMultipart(
+        NetworkRequestType.post,
+        uri: CenaServiceAPIv1.instance.productAdd(storeId: storeId),
+        token: token,
+        fields: {
+          'name': name,
+          'description': description,
+          'price': price,
+          'category': category,
+        },
+        filesPath: {
+          'image': images[0]
+        });
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -500,7 +501,7 @@ class CenaRepository implements ICenaService {
       body: {},
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Order.fromJson(data) : null;
+      return data != null ? OrderDetailResponse.fromJson(data).orders : null;
     });
   }
 
@@ -681,7 +682,7 @@ class CenaRepository implements ICenaService {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(
-      NetworkRequestType.patch,
+      NetworkRequestType.put,
       uri: CenaServiceAPIv1.instance.orderToDispatch(
         orderId: int.parse(orderId),
       ),
@@ -694,7 +695,7 @@ class CenaRepository implements ICenaService {
       },
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Order.fromJson(data) : null;
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -735,7 +736,7 @@ class CenaRepository implements ICenaService {
       body: category.toJson(),
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? data['message'] : null;
     });
   }
 
@@ -749,23 +750,41 @@ class CenaRepository implements ICenaService {
       required List<String> images,
       required String category}) async {
     final token = await _storageService.getAccessToken();
-
-    final response = await NetworkClient.instance.request(
-      NetworkRequestType.put,
-      uri: CenaServiceAPIv1.instance
-          .productUpdate(orderId: storeId, productId: productId),
-      token: token,
-      body: {
-        'name': name,
-        'description': description,
-        'price': price,
-        'category': category,
-        'image': images
-      },
-    );
-    return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
-    });
+    if (images.isNotEmpty) {
+      final response = await NetworkClient.instance.requestMultipart(
+          NetworkRequestType.put,
+          uri: CenaServiceAPIv1.instance
+              .productUpdate(orderId: storeId, productId: productId),
+          token: token,
+          fields: {
+            'name': name,
+            'description': description,
+            'price': price,
+            'category': category
+          },
+          filesPath: {
+            'image': images[0]
+          });
+      return _getApiResponse(response, (data) {
+        return data != null ? data['message'] : null;
+      });
+    } else {
+      final response = await NetworkClient.instance.request(
+        NetworkRequestType.put,
+        uri: CenaServiceAPIv1.instance
+            .productUpdate(orderId: storeId, productId: productId),
+        token: token,
+        body: {
+          'name': name,
+          'description': description,
+          'price': price,
+          'category': category
+        },
+      );
+      return _getApiResponse(response, (data) {
+        return data != null ? data['message'] : null;
+      });
+    }
   }
 
   @override
@@ -822,6 +841,11 @@ class CenaRepository implements ICenaService {
         return ApiResponse(
           message: bodyJson['message'] ?? 'error_bad_request',
           code: NetworkConstants.response_bad_request,
+        );
+      } else if (type == NetworkResponseType.notFound_404) {
+        return ApiResponse(
+          message: bodyJson['message'] ?? 'error_not_found',
+          code: NetworkConstants.response_not_found,
         );
       } else if (type == NetworkResponseType.unauthorized_401) {
         return ApiResponse(
@@ -962,7 +986,7 @@ class CenaRepository implements ICenaService {
       token: token,
     );
     return _getApiResponse(response, (data) {
-      return data != null ? Category.fromJson(data) : null;
+      return data != null ? Store.fromJson(data["stores"]) : null;
     });
   }
 

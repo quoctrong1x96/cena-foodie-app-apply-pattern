@@ -14,7 +14,7 @@ class AdminMarketingPage extends StatelessWidget {
     final List<String> images = [
       'https://amber.edu.vn/wp-content/uploads/2019/09/descubra-o-que-e-marketing-e-saiba-como-aplica-lo-em-sua-empresa_22120191332560.png',
       'https://brandinfo.biz/smallimages/images/companies/brandinfo/marketing-la-gi.jpg',
-      'https://www.zafago.com/uploads/post/marketing-online-la-gi-cam-nang-toan-dien-ve-marketing-online.jpg',
+      'https://www.feedough.com/wp-content/uploads/2020/08/what-is-marketing.png',
       'https://cache.digistar.vn/wp-content/uploads/2018/02/marketing-online-la-gi-trong-ky-nguyen-so-4.0-1.png',
       'https://ninjateam.org/wp-content/uploads/2019/07/Marketing-plugins.png',
     ];
