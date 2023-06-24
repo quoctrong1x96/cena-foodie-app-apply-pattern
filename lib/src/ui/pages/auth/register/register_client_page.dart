@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
+import 'package:cenafoodie/src/ui/pages/auth/register/components/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -15,12 +14,13 @@ import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/auth/auth_bloc.dart';
-import '../../../blocs/general/general_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/snackbars/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
+
+enum RegistType { byPhone, byEmail, byGoogle, byFacebook }
 
 class RegisterClientPage extends StatefulWidget {
   final String? phone;
@@ -31,70 +31,19 @@ class RegisterClientPage extends StatefulWidget {
 }
 
 class _RegisterClientPageState extends State<RegisterClientPage> {
-  late TextEditingController _nameController;
-  late TextEditingController _lastNameController;
-  late TextEditingController _phoneController;
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  late TextEditingController _passwordRepeatController;
-  FocusNode? _focusFirstName;
-  FocusNode? _focusLastName;
-  FocusNode? _focusPhone;
-  FocusNode? _focusEmail;
-  FocusNode? _focusPassword;
-
-  final _keyForm = GlobalKey<FormState>();
+  var _registType = RegistType.byEmail;
 
   @override
   void initState() {
-    _nameController = TextEditingController();
-    _lastNameController = TextEditingController();
-    _phoneController = TextEditingController();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _passwordRepeatController = TextEditingController();
-    _phoneController.text = widget.phone!;
-
-    _focusFirstName = FocusNode();
-    _focusLastName = FocusNode();
-    _focusPhone = FocusNode();
-    _focusEmail = FocusNode();
-    _focusPassword = FocusNode();
-    if (kDebugMode) {
-      initFormDefault();
-    }
     super.initState();
   }
 
   @override
   void dispose() {
-    clearForm();
-    _nameController.dispose();
-    _lastNameController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _passwordRepeatController.dispose();
     super.dispose();
   }
 
-  void initFormDefault() {
-    _nameController.text = 'Test';
-    _lastNameController.text = 'User 01';
-    _phoneController.text = '0949412112';
-    _emailController.text = 'user10@gmail.com';
-    _passwordController.text = 'Cena@123';
-    _passwordRepeatController.text = 'Cena@123';
-  }
-
-  void clearForm() {
-    _nameController.clear();
-    _lastNameController.clear();
-    _phoneController.clear();
-    _emailController.clear();
-    _passwordController.clear();
-    _passwordRepeatController.clear();
-  }
+  void initFormDefault() {}
 
   String generate() {
     Random random = Random(DateTime.now().millisecond);
@@ -115,26 +64,10 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
   @override
   Widget build(BuildContext context) {
     final userBloc = BlocProvider.of<UserBloc>(context);
-    final generalBloc = BlocProvider.of<GeneralBloc>(context);
     final lang = S.of(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final storeBloc = BlocProvider.of<StoreBloc>(context);
-    final validatedPhoneForm = MultiValidator([
-      RequiredValidator(errorText: lang.auth_registry_error_phone_required),
-      MinLengthValidator(10,
-          errorText: lang.auth_registry_error_phone_must_10_digits)
-    ]);
 
-    final validatedEmail = MultiValidator([
-      RequiredValidator(errorText: lang.auth_registry_error_email_required),
-      EmailValidator(errorText: lang.auth_registry_error_email_invalid)
-    ]);
-
-    final passwordValidator = MultiValidator([
-      RequiredValidator(errorText: lang.auth_registry_error_password_required),
-      MinLengthValidator(8,
-          errorText: lang.auth_registry_error_password_minimum_10_characters)
-    ]);
     ScrollController scrollController = ScrollController();
 
     return BlocListener<AuthBloc, AuthState>(
@@ -168,219 +101,102 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                     width: 10.0,
                   ),
           ),
-          body: BlocBuilder<GeneralBloc, GeneralState>(
-            builder: (context, state) => Form(
-              key: _keyForm,
-              child: ListView(
-                controller: scrollController,
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 10.0),
-                children: [
-                  const SizedBox(
-                      height: AppConstants.space_height_between_group),
-                  _buildSelectAvatar(),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_group),
-                  _buildFirstName(lang),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_widget),
-                  _buildLastName(lang),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_widget),
-                  _buildPhoneNumber(lang, validatedPhoneForm),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_widget),
-                  _buildEmail(lang, validatedEmail),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_widget),
-                  _buildFirstPassword(
-                      lang, state, generalBloc, passwordValidator),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_widget),
-                  _buildSecondPassword(lang, state, generalBloc),
-                  const SizedBox(
-                      height: AppConstants.space_height_between_group),
-                  CenaButton(
-                    height: AppConstants.button_height,
-                    color: Theme.of(context).primaryColor,
-                    text: lang.register_button,
-                    fontWeight: FontWeight.bold,
-                    onPressed: () => _registerAction(userBloc),
-                  ),
-                ],
-              ),
-            ),
+          body: ListView(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            children: [
+              const SizedBox(height: AppConstants.space_height_between_group),
+              // _buildSelectAvatar(),
+              Image.asset('Assets/Logo/logo-black.png', height: 140),
+              const SizedBox(height: 10),
+              const CenaTextDescription(
+                  text: "Create CenaFoodie Account", fontSize: 20),
+              const SizedBox(height: 10),
+              _buildSwitchButton(context),
+              _registType == RegistType.byEmail
+                  ? const RegisterEmail()
+                  : const RegisterPhone()
+            ],
           ),
         ),
       ),
     );
   }
 
-  void _registerAction(UserBloc userBloc) {
-    if (_keyForm.currentState!.validate()) {
-      userBloc.add(OnRegisterClientEvent(
-          _nameController.text,
-          _lastNameController.text,
-          _phoneController.text,
-          _emailController.text,
-          _passwordController.text,
-          userBloc.state.pictureProfilePath));
-    }
-  }
-
-  Column _buildSecondPassword(
-      S lang, GeneralState state, GeneralBloc generalBloc) {
-    return Column(
+  Widget _buildSwitchButton(BuildContext context) {
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_repeat_password),
+      children: <Widget>[
+        Container(
+          width: 150,
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: _registType == RegistType.byPhone
+                    ? BorderSide(
+                        color: Theme.of(context).primaryColor,
+                        width: 1.5,
+                      )
+                    : BorderSide.none),
+          ),
+          child: OutlinedButton(
+            onPressed: () => setStateLoginType(RegistType.byPhone),
+            style: ButtonStyle(
+                side: MaterialStateProperty.all<BorderSide>(
+              const BorderSide(style: BorderStyle.none),
+            )),
+            child: Text(S.of(context).login_with_sms,
+                style: _registType == RegistType.byPhone
+                    ? TextStyle(
+                        fontSize: 17,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold)
+                    : const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal)),
+          ),
         ),
-        // const SizedBox(height: 5.0),
-        CenaInputPasswordShow(
-          controller: _passwordRepeatController,
-          isPassword: state.isRepeatpassword,
-          hintText: lang.register_enter_repeat_password,
-          suffixIcon: IconButton(
-              splashRadius: 20,
-              icon: !state.isRepeatpassword
-                  ? const Icon(Icons.remove_red_eye_outlined)
-                  : const Icon(Icons.visibility_off_rounded),
-              onPressed: () {
-                bool isShowPassword = !generalBloc.state.isRepeatpassword;
-                generalBloc
-                    .add(OnShowOrHideRepeatPasswordEvent(isShowPassword));
-              }),
-          validator: (val) {
-            if (val != _passwordController.text) {
-              return lang.register_password_notmath;
-            } else if (val!.isEmpty) {
-              return lang.register_required_repeat_password;
-            }
-            return null;
-          },
+        Container(
+          width: 150,
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: _registType == RegistType.byEmail
+                    ? BorderSide(
+                        color: Theme.of(context).primaryColor,
+                        width: 1.5,
+                      )
+                    : BorderSide.none),
+          ),
+          child: OutlinedButton(
+            onPressed: () => setStateLoginType(RegistType.byEmail),
+            style: ButtonStyle(
+                side: MaterialStateProperty.all<BorderSide>(
+              const BorderSide(style: BorderStyle.none),
+            )),
+            child: Text(S.of(context).login_with_email,
+                style: _registType == RegistType.byEmail
+                    ? TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold)
+                    : const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal)),
+          ),
         ),
       ],
     );
+    //
   }
 
-  Column _buildFirstPassword(S lang, GeneralState state,
-      GeneralBloc generalBloc, MultiValidator passwordValidator) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_password),
-        ),
-        CenaInputPasswordShow(
-          controller: _passwordController,
-          isPassword: state.isShowPassword,
-          focusNode: _focusPassword,
-          hintText: lang.register_enter_password,
-          suffixIcon: IconButton(
-              splashRadius: 20,
-              icon: !state.isShowPassword
-                  ? const Icon(Icons.remove_red_eye_outlined)
-                  : const Icon(Icons.visibility_off_rounded),
-              onPressed: () {
-                bool isShowPassword = !generalBloc.state.isShowPassword;
-                generalBloc.add(OnShowOrHidePasswordEvent(isShowPassword));
-              }),
-          validator: passwordValidator,
-        ),
-      ],
-    );
+  void setStateLoginType(RegistType registTypeState) {
+    setState(() {
+      _registType = registTypeState;
+    });
   }
-
-  Column _buildEmail(S lang, MultiValidator validatedEmail) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_email),
-        ),
-        // const SizedBox(height: 5.0),
-        CenaFormField(
-            controller: _emailController,
-            hintText: lang.register_enter_email,
-            focusNode: _focusEmail,
-            maxLength: 30,
-            keyboardType: TextInputType.emailAddress,
-            validator: validatedEmail),
-      ],
-    );
-  }
-
-  Column _buildPhoneNumber(S lang, MultiValidator validatedPhoneForm) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_phone),
-        ),
-        // const SizedBox(height: 5.0),
-        CenaFormField(
-          controller: _phoneController,
-          focusNode: _focusPhone,
-          readOnly: widget.phone != "",
-          hintText: lang.register_enter_phone,
-          maxLength: 11,
-          keyboardType: TextInputType.number,
-          validator: validatedPhoneForm,
-        ),
-      ],
-    );
-  }
-
-  Column _buildLastName(S lang) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_last_name),
-        ),
-        // const SizedBox(height: 5.0),
-        CenaFormField(
-          controller: _lastNameController,
-          hintText: lang.register_enter_last_name,
-          focusNode: _focusLastName,
-          maxLength: 49,
-          validator:
-              RequiredValidator(errorText: lang.register_required_last_name),
-        ),
-      ],
-    );
-  }
-
-  Column _buildFirstName(S lang) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: AppConstants.button_radius),
-          child: CenaTextDescription(text: lang.register_first_name),
-        ),
-        // const SizedBox(height: 5.0),
-        CenaFormField(
-          controller: _nameController,
-          focusNode: _focusFirstName,
-          hintText: lang.register_enter_first_name,
-          maxLength: 49,
-          validator:
-              RequiredValidator(errorText: lang.register_required_first_name),
-        ),
-      ],
-    );
-  }
-
-  Align _buildSelectAvatar() =>
-      Align(alignment: Alignment.center, child: _PictureRegister());
 
   void _registerFailureLogic(BuildContext context, FailureUserState state,
       S lang, ScrollController scrollController) {
@@ -388,15 +204,15 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     switch (state.error) {
       case "Email already exists":
         cenaToastError(lang.auth_registry_exist_email);
-        _focusEmail!.requestFocus();
+        // _focusEmail!.requestFocus();?
         break;
       case "Phone already exists":
         cenaToastError(lang.auth_registry_exist_phone);
-        _focusPhone!.requestFocus();
+        // _focusPhone!.requestFocus();
         break;
       case "FirstName has special character":
         cenaToastError(lang.auth_registry_have_special_character_firstName);
-        _focusFirstName!.requestFocus();
+        // _focusFirstName!.requestFocus();
         scrollController.animateTo(50.0,
             duration: const Duration(milliseconds: 1000), curve: Curves.ease);
         break;
@@ -404,7 +220,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
         cenaToastError(lang.auth_registry_have_special_character_lastName);
         scrollController.animateTo(100.0,
             duration: const Duration(milliseconds: 1000), curve: Curves.ease);
-        _focusLastName!.requestFocus();
+        // _focusLastName!.requestFocus();
         break;
       case "No avatar images":
         cenaToastError(lang.auth_registry_must_select_avatar);
@@ -424,7 +240,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     } else {
       NavigationUtils.replace(context, RouteConstants.verify_phone_number,
           args: PageArguments(data: {
-            AppConstants.key_phone: _phoneController.value.text,
+            // AppConstants.key_phone: _phoneController.value.text,
             AppConstants.key_is_register_page: true
           }));
     }

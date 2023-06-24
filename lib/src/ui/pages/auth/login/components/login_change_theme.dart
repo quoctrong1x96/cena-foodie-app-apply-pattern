@@ -1,10 +1,4 @@
-// ignore_for_file: unused_element, overridden_fields, unused_local_variable
-
-import 'package:cenafoodie/src/utils/log_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../../../../utils/themes/theme_maps.dart';
+part of './components.dart';
 
 class LoginChangeThemeButton extends StatefulWidget {
   final Widget parrentWidget;
@@ -99,7 +93,9 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
   void _changeTheme(BuildContext buildContext) {
     setState(() {
       _keys = _keys == MyThemeKeys.light ? MyThemeKeys.dark : MyThemeKeys.light;
+      Provider.of<ThemeManager>(context, listen: false).toggleTheme(_keys!);
     });
+
     CustomTheme.instanceOf(buildContext)
         .changeTheme(_keys ?? MyThemeKeys.light);
     LogUtils.debug('LoginChangeThemeButton', "_changeTheme", _keys.toString());

@@ -112,6 +112,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               CenaTextDescription(text: lang.store_product_add_store_name),
               const SizedBox(height: 5.0),
               CenaFormField(
+                controller: TextEditingController(),
                 hintText: '${store.id} - ${store.storeName}',
                 readOnly: true,
               ),

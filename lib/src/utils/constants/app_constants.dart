@@ -25,7 +25,7 @@ class AppConstants {
   static const String time_format = 'hh:mm aaa';
   // endregion
 
-  static const double border_radius = 22.0;
+  static const double border_radius = 5.0;
   static const double color_opacity = 0.2;
   static const double textbox_opacity = 0.05;
   static const double elevation_button = 2;

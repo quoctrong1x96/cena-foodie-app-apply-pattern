@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../../widgets/widgets.dart';
+part of './components.dart';
 
 class AppName extends StatelessWidget {
   const AppName({

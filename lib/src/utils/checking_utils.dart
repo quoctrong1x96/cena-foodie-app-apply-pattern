@@ -32,7 +32,7 @@ class CheckingUtils {
   static bool isEmail(String email) => GetUtils.isEmail(email);
 
   /// Checks if string is phone number.
-  static bool isPhoneNumber(String email) => GetUtils.isPhoneNumber(email);
+  static bool isPhoneNumber(String phone) => GetUtils.isPhoneNumber(phone);
 
   /// Checks if string is URL.
   static bool isURL(String url) => GetUtils.isURL(url);

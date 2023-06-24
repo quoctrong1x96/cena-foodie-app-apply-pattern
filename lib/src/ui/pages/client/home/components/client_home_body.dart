@@ -1,22 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cenafoodie/src/ui/pages/client/home/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../data/app_locator.dart';
 import '../../../../../data/models/entities/address/address.dart';
-import '../../../../../data/models/entities/category/category.dart';
 import '../../../../../data/models/entities/store/store.dart';
 import '../../../../../data/models/ui/page_arguments.dart';
 import '../../../../../data/models/ui/ui_response.dart';
-import '../../../../../data/services/entities/category_service.dart';
 import '../../../../../data/services/entities/store_service.dart';
 import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../../utils/constants/route_constants.dart';
-import '../../../../../utils/helpers/date.dart';
-import '../../../../../utils/image_ultils.dart';
 import '../../../../../utils/navigation_utils.dart';
-import '../../../../blocs/auth/auth_bloc.dart';
-import '../../../../blocs/cart/cart_bloc.dart';
 import '../../../../blocs/client_store/client_store_bloc.dart';
 import '../../../../blocs/user/user_bloc.dart';
 import '../../../../resources/generated/l10n.dart';
@@ -35,7 +29,6 @@ class ClientHomeBody extends StatefulWidget {
 
 class _ClientHomeBodyState extends State<ClientHomeBody> {
   final ScrollController _scrollController = ScrollController();
-  final _categoryService = locator<ICategoryService>();
 
   List<Store> stores = [];
   bool _isLoading = false, _allLoaded = false;
@@ -62,30 +55,20 @@ class _ClientHomeBodyState extends State<ClientHomeBody> {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
     final lang = S.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: ListView(
           controller: _scrollController,
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          physics: const BouncingScrollPhysics(),
+          // physics: const BouncingScrollPhysics(),
           children: [
-            const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildUserInformation(authBloc, context),
-                _buildCartButton(context)
-              ],
-            ),
-            const SizedBox(height: 20.0),
-            _buildQuestion(lang),
+            const ClientHomeHeader(),
             const SizedBox(height: 20.0),
             _buildAddress(context, lang),
             const SizedBox(height: 20.0),
-            _buildCategory(_categoryService),
+            const ClientHomeFeature(),
             const SizedBox(height: 20.0),
             _buildListStore(stores),
             const SizedBox(height: 20.0),
@@ -217,7 +200,7 @@ class _ClientHomeBodyState extends State<ClientHomeBody> {
 
   Future<void> storeFetchPerPage() async {
     final Address? address = BlocProvider.of<UserBloc>(context).state.address;
-    if (_allLoaded) {
+    if (_allLoaded || address == null) {
       return;
     }
     if (mounted) {
@@ -229,7 +212,7 @@ class _ClientHomeBodyState extends State<ClientHomeBody> {
     UiResponse<List<Store>> list = await _storeService.getNearby(
         limit: storesPerLoading,
         offset: whatIsPaginationOf(stores) * storesPerLoading,
-        lat: address!.latitude!,
+        lat: address.latitude!,
         lng: address.longitude!);
     await Future.delayed(const Duration(milliseconds: 500));
     if (list.hasData) {

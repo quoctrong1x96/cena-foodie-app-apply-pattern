@@ -34,7 +34,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 part "manual_market_map.dart";
 part "cena_text_description.dart";
 part 'cena_button.dart';
-part 'cena_form_field.dart';
+part 'textfields/cena_form_field.dart';
 part 'cena_shimmer.dart';
 
 part 'card_orders_delivery.dart';
@@ -82,3 +82,6 @@ part 'inputs/cena_input_nolabel_box.dart';
 part 'inputs/cena_input_nolabel_button.dart';
 part 'inputs/cena_input_password_show.dart';
 part 'textfields/cena_focus_text_field.dart';
+part 'textfields/cena_phone_field.dart';
+part 'textfields/cena_email_field.dart';
+// part 'textfields/cena_auto_complete_field.dart';
