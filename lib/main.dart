@@ -1,5 +1,6 @@
 // ignore_for_file: implementation_imports
 
+import 'package:cenafoodie/src/utils/themes/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'src/data/app_locator.dart';
 import 'src/data/services/google/push_notification.dart';
@@ -27,7 +29,6 @@ import 'src/ui/blocs/product/product_bloc.dart';
 import 'src/ui/blocs/store/store_bloc.dart';
 import 'src/ui/blocs/user/user_bloc.dart';
 import 'src/ui/resources/generated/l10n.dart';
-import 'src/utils/configs/cena_themes.dart';
 import 'src/utils/constants/route_constants.dart';
 import 'src/utils/getx_services/getx_settings_service.dart';
 import 'src/utils/log_utils.dart';
@@ -86,38 +87,49 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  void dispose() {
+    // _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
   void initState() {
+    // _themeManager.addListener(themeListener);
     pushNotification.onMessagingListener();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    _systemChromeConfig();
-    return MultiBlocProvider(
-      providers: _delareBlocProviders,
-      child: GestureDetector(
-        onTap: hideKeyboard,
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'CENA FOODIE - FOOD&DRINK DELIVERY',
-          initialRoute: RouteConstants.check_login,
-          onGenerateRoute: RouteUtils.generateRoute,
-          theme: CustomTheme.of(context),
-          darkTheme: CenaThemes.darkTheme,
-          themeMode: ThemeMode.light,
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            S.delegate,
-          ],
-          locale: Get.find<SettingService>().currentLocate.value,
-          supportedLocales: S.delegate.supportedLocales,
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+      create: (context) => ThemeManager(),
+      child: Consumer<ThemeManager>(builder: (context, state, child) {
+        _systemChromeConfig();
+        return MultiBlocProvider(
+          providers: _delareBlocProviders,
+          child: GestureDetector(
+            onTap: hideKeyboard,
+            child: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'CENA FOODIE - FOOD&DRINK DELIVERY',
+              initialRoute: RouteConstants.check_login,
+              onGenerateRoute: RouteUtils.generateRoute,
+              theme: state.themeMode == ThemeMode.light
+                  ? MyThemes.instance.getThemeFromKey(MyThemeKeys.light)
+                  : MyThemes.instance.getThemeFromKey(MyThemeKeys.dark),
+              darkTheme: MyThemes.instance.getThemeFromKey(MyThemeKeys.dark),
+              // themeMode: state.themeMode,
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                S.delegate,
+              ],
+              locale: Get.find<SettingService>().currentLocate.value,
+              supportedLocales: S.delegate.supportedLocales,
+            ),
+          ),
+        );
+      }));
 
   void _systemChromeConfig() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

@@ -8,8 +8,8 @@ class CenaInputPasswordShow extends StatefulWidget {
   final FocusNode? focusNode;
   final int maxLine;
   final int maxLength;
+  final IconButton? suffixIcon;
   final bool readOnly;
-  final Widget? suffixIcon;
   final FormFieldValidator<String>? validator;
 
   const CenaInputPasswordShow(
@@ -67,6 +67,10 @@ class _CenaInputPasswordShowState extends State<CenaInputPasswordShow> {
           suffixText:
               '${textLength.toString()}/${widget.maxLength.toString()}  ',
           counterText: "",
+          prefixIcon: const Icon(
+            FontAwesomeIcons.lock,
+            size: 16,
+          ),
           suffixIcon: widget.suffixIcon),
       validator: widget.validator,
       onChanged: (value) {

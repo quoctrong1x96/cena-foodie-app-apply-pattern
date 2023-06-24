@@ -95,7 +95,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CenaFormField(
-              controller: _textController,
+              controller: _textController!,
               focusNode: _focusText,
               width: MediaQuery.of(context).size.width - 110,
               hintText: "MÃ GIỚI THIỆU",
@@ -110,7 +110,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
               onPressed: () async {
                 var data = await _userService.enterReferenceCode(
                     userId: BlocProvider.of<UserBloc>(context).state.user!.id,
-                    code: _textController!.value.text);
+                    code: _textController.value.text);
                 if (!data.hasError) {
                   final userBloc = BlocProvider.of<UserBloc>(context);
                   userBloc.add(OnInitialCurrentAddressEvent(

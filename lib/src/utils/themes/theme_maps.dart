@@ -4,22 +4,148 @@ import '../importer_utils.dart';
 
 enum MyThemeKeys { light, dark, darker }
 
-class MyThemes {
+class MyThemes with ChangeNotifier {
   MyThemes._internal();
   static final MyThemes _instance = MyThemes._internal();
+
+  static Color lightPrimaryColor = UtilsImporter().colorUtils.primaryColor;
+  static Color lightSecondaryColor = UtilsImporter().colorUtils.secondaryColor;
 
   static MyThemes get instance => _instance;
 
   static MyThemeKeys? _currentTheme;
 
+  static ThemeMode? _themeMode;
+
   MyThemeKeys? get currentThemeKey => _currentTheme;
 
+  ThemeMode? get currentThemeMode => _themeMode;
+
   final ThemeData _lightTheme = ThemeData(
+    brightness: Brightness.light,
+
+    //Scaffol
+    scaffoldBackgroundColor: Colors.white,
+
+    textTheme: TextTheme(
+      button: TextStyle(
+          color: lightPrimaryColor,
+          // backgroundColor: Colors.white70,
+          fontSize: 15,
+          decorationColor: lightPrimaryColor),
+      headline1: TextStyle(
+          color: lightPrimaryColor,
+          // backgroundColor: Colors.white70,
+          fontSize: 18),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
+        alignment: Alignment.center,
+        elevation: MaterialStateProperty.all<double>(0.0),
+        foregroundColor: MaterialStateProperty.all<Color>(lightPrimaryColor),
+        textStyle: MaterialStateProperty.all<TextStyle>(
+          TextStyle(
+            color: lightPrimaryColor,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+            // decorationColor: lightPrimaryColor,
+            // backgroundColor: Colors.white70,
+            fontSize: 17,
+          ),
+        ),
+      ),
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+          alignment: Alignment.center,
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.all(2.0)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+          minimumSize:
+              MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
+          side: MaterialStateProperty.all(
+            BorderSide(
+              color: lightPrimaryColor,
+              width: 1.0,
+            ),
+          ),
+          overlayColor: MaterialStateProperty.all<Color>(Colors.black87),
+          mouseCursor:
+              MaterialStateProperty.all<MouseCursor>(MouseCursor.uncontrolled),
+          foregroundColor: MaterialStateProperty.all<Color>(lightPrimaryColor),
+          elevation: MaterialStateProperty.all<double>(0.0),
+          textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+            color: lightPrimaryColor,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+            // decorationColor: lightPrimaryColor,
+            // backgroundColor: Colors.white70,
+            fontSize: 17,
+          ))),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+            alignment: Alignment.center,
+            backgroundColor: MaterialStateProperty.all(lightPrimaryColor),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.all(2.0)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+            minimumSize:
+                MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
+            // side: MaterialStateProperty.all(
+            //   BorderSide(
+            //     color: lightPrimaryColor,
+            //     width: 1.0,
+            //   ),
+            // ),
+            overlayColor: MaterialStateProperty.all<Color>(Colors.black87),
+            mouseCursor: MaterialStateProperty.all<MouseCursor>(
+                MouseCursor.uncontrolled),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            elevation: MaterialStateProperty.all<double>(0.0),
+            textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+              // decorationColor: lightPrimaryColor,
+              // backgroundColor: Colors.white70,
+              fontSize: 17,
+            )))),
+
+    buttonTheme: const ButtonThemeData(
+        disabledColor: Colors.white12,
+        layoutBehavior: ButtonBarLayoutBehavior.padded,
+        materialTapTargetSize: MaterialTapTargetSize.padded),
+
+    //fontFamily
+    // fontFamily: ,
+
+    toggleButtonsTheme: ToggleButtonsThemeData(
+      // textStyle: TextStyle(),
+      borderColor: lightPrimaryColor,
+      borderRadius: BorderRadius.zero,
+      borderWidth: 1.0,
+      color: Colors.black,
+      disabledBorderColor: Colors.black38,
+      fillColor: Colors.white24,
+      disabledColor: Colors.white10,
+    ),
+    // backgroundColor: UtilsImporter().colorUtils.primaryColor,
     primaryColor: UtilsImporter().colorUtils.primaryColor,
     primaryColorLight: Colors.white,
     highlightColor: UtilsImporter().colorUtils.secondaryColor,
     primaryColorDark: Colors.black,
-    brightness: Brightness.light,
     inputDecorationTheme: InputDecorationTheme(
         focusedBorder: UnderlineInputBorder(
             borderSide:
@@ -29,6 +155,7 @@ class MyThemes {
   final ThemeData _darkTheme = ThemeData(
     primaryColor: UtilsImporter().colorUtils.primaryColor,
     highlightColor: UtilsImporter().colorUtils.secondaryColor,
+    scaffoldBackgroundColor: UtilsImporter().colorUtils.primaryColor,
     primaryColorLight: Colors.black,
     primaryColorDark: Colors.white,
     brightness: Brightness.dark,
@@ -45,6 +172,8 @@ class MyThemes {
 
   ThemeData getThemeFromKey(MyThemeKeys themeKey) {
     _currentTheme = themeKey;
+    _themeMode =
+        themeKey == MyThemeKeys.dark ? ThemeMode.dark : ThemeMode.light;
     switch (themeKey) {
       case MyThemeKeys.light:
         return _lightTheme;

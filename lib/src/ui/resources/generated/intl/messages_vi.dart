@@ -583,7 +583,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "login_phone_otp": MessageLookupByLibrary.simpleMessage(
             "Gửi OTP - Đăng nhập hoặc đăng ký"),
-        "login_register": MessageLookupByLibrary.simpleMessage("Đăng ký ngay"),
+        "login_register":
+            MessageLookupByLibrary.simpleMessage("Đăng ký tài khoản mới!!!"),
         "login_start": MessageLookupByLibrary.simpleMessage(
             "---------------------------------------"),
         "login_welcome":

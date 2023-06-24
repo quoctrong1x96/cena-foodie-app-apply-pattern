@@ -1,10 +1,4 @@
-import 'package:cenafoodie/src/utils/constants/app_constants.dart';
-import 'package:flag/flag.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../utils/getx_services/getx_settings_service.dart';
-import '../../../../resources/generated/l10n.dart';
+part of './components.dart';
 
 class LoginLanguageOptions extends StatelessWidget {
   const LoginLanguageOptions({

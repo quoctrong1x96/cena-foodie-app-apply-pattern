@@ -73,6 +73,9 @@ class CenaFieldWithLabel extends StatelessWidget {
             maxLines: 1,
             maxLength: maxLength,
             decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
               enabledBorder: const UnderlineInputBorder(
                 borderSide:
                     BorderSide(color: CenaColors.textFieldEnabledBorder),

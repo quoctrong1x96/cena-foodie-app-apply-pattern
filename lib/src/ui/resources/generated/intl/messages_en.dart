@@ -582,7 +582,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phone number"),
         "login_phone_otp": MessageLookupByLibrary.simpleMessage(
             "Send OTP - Login or Register"),
-        "login_register": MessageLookupByLibrary.simpleMessage("Register"),
+        "login_register":
+            MessageLookupByLibrary.simpleMessage("I haven't already account!!"),
         "login_start": MessageLookupByLibrary.simpleMessage(
             "---------------------------------------"),
         "login_welcome": MessageLookupByLibrary.simpleMessage("Welcome back!"),
