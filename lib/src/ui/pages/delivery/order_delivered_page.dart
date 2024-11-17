@@ -18,7 +18,7 @@ class OrderDeliveredPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
-    final _orderService = locator<IOrderService>();
+    final orderService = locator<IOrderService>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CenaAppbarDefault(
@@ -26,7 +26,7 @@ class OrderDeliveredPage extends StatelessWidget {
         title: lang.delivery_detail_delivered_title,
       ),
       body: FutureBuilder<UiResponse<List<Order>>>(
-          future: _orderService.fetchAllByStatusForDelivery(
+          future: orderService.fetchAllByStatusForDelivery(
               deliveryId: BlocProvider.of<UserBloc>(context).state.user!.id,
               status: 'DELIVERED'),
           builder: (context, snapshot) => (!snapshot.hasData)

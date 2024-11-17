@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../data/models/entities/order/order.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/client_map/map_client_bloc.dart';
 import '../../../widgets/widgets.dart';
 
@@ -114,7 +114,7 @@ class _InfoCardClient extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                            ImagesUltils.getImageApiUrl(
+                            ImagesUtil.getImageApiUrl(
                                 orderClient.deliveryImage)))),
               ),
               const SizedBox(width: 10.0),

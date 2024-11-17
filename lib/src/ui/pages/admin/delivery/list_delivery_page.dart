@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cenafoodie/src/data/services/entities/delivery_service.dart';
-import 'package:cenafoodie/src/utils/image_ultils.dart';
+import 'package:cenafoodie/src/utils/image_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +14,7 @@ import '../../../resources/generated/l10n.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../admin/delivery/add_new_delivery_page.dart';
 
@@ -130,7 +130,7 @@ class _ListDelivery extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
-                                    ImagesUltils.getImageApiUrl(
+                                    ImagesUtil.getImageApiUrl(
                                         listDelivery![i].image)),
                                 fit: BoxFit.cover)),
                       ),

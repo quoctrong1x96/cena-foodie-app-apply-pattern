@@ -5,8 +5,8 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/constants/network_constants.dart';
-import '../../../utils/json_utils.dart';
-import '../../../utils/log_utils.dart';
+import '../../../utils/json_util.dart';
+import '../../../utils/log_util2.dart';
 import '../../enums/network_request_type.dart';
 
 class NetworkClient {
@@ -173,13 +173,13 @@ class NetworkClient {
       if (body != null) {
         logMap['Body'] = body.toString();
       }
-      LogUtils.debug(
+      LogUtil2.debug(
         'NetworkRequest',
         requestType.toUpperCase(),
         logMap.toString(),
       );
     } on Exception catch (ex) {
-      LogUtils.error(
+      LogUtil2.error(
         'NetworkRequest',
         requestType.toUpperCase(),
         ex.toString(),
@@ -201,13 +201,13 @@ class NetworkClient {
       if (exception != null) {
         logMap['Exception'] = exception.toString();
       }
-      LogUtils.debug(
+      LogUtil2.debug(
         'NetworkResponse',
         requestType.toUpperCase(),
         logMap.toString(),
       );
     } on Exception catch (ex) {
-      LogUtils.error(
+      LogUtil2.error(
         'NetworkResponse',
         requestType.toUpperCase(),
         ex.toString(),

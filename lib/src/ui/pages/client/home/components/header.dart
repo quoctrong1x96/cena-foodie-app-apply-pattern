@@ -105,7 +105,7 @@ class ClientHomeHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: CachedNetworkImageProvider(
-                        ImagesUltils.getImageApiUrl(
+                        ImagesUtil.getImageApiUrl(
                           authBloc.state.user!.image.toString(),
                         ),
                       ),

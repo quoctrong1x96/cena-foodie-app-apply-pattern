@@ -1,30 +1,46 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class CenaWebViewWidget extends StatelessWidget {
+class CenaWebViewWidget extends StatefulWidget {
   final String url;
-  CenaWebViewWidget({Key? key, required this.url}) : super(key: key);
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  const CenaWebViewWidget({Key? key, required this.url}) : super(key: key);
+
+  @override
+  State<CenaWebViewWidget> createState() => _CenaWebViewWidgetState();
+}
+
+class _CenaWebViewWidgetState extends State<CenaWebViewWidget> {
+  late final WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    // #doc region webview_controller
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String urls) {},
+          onPageFinished: (String urls) {},
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
+    // #end doc region webview_controller
+  }
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      // initialUrl should always be given, can't be omitted
-      initialUrl: url,
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) async {
-        // finally signal a complete() to the completer
-        _controller.complete(webViewController);
-      },
-      navigationDelegate: (NavigationRequest request) {
-        if (request.url.contains("about")) {
-          return NavigationDecision.prevent;
-        }
-        return NavigationDecision.navigate;
-      },
-      gestureNavigationEnabled: true,
-    );
+    return WebViewWidget(controller: controller);
   }
 }

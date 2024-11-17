@@ -22,6 +22,9 @@ class LoadingRowWidget extends StatelessWidget {
       height: height,
       padding: padding,
       child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: AppShadow.boxShadow),
         child: Shimmer.fromColors(
           baseColor: Colors.grey[350]!,
           highlightColor: Colors.grey[100]!,
@@ -33,9 +36,6 @@ class LoadingRowWidget extends StatelessWidget {
                 color: Colors.white,
               )),
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: AppShadow.boxShadow),
       ),
     );
   }

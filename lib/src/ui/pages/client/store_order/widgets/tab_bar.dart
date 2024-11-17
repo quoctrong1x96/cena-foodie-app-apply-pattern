@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 import '../../../../../data/app_locator.dart';
@@ -17,23 +19,20 @@ class CustomTabs extends StatefulWidget {
 
 class _CustomTabsState extends State<CustomTabs>
     with SingleTickerProviderStateMixin {
-  late PageController _pageController;
   late List<Product> _foodAndDrinks;
   late List<String> _categories = [];
-  late List<double> _categoriesHeight = [];
   final _productService = locator<IProductService>();
   bool _isLoading = true;
-  bool _isAnimation = false;
   final double _productHeight = 100.0;
   final double _categoryHeight = 50.0;
   late TabController _tabCategoryController;
   List<TabCategory> _listTabCategory = [];
 
   Future<void> _getProductsOfStore() async {
-    final int _storeId = widget.store.id;
+    final int storeId = widget.store.id;
 
     List<Product> cenaProducts = await _productService
-        .fetchAll(storeId: _storeId)
+        .fetchAll(storeId: storeId)
         .then((value) => value.data!);
     List<String> categories = [];
     List<double> categoriesHeight = [];
@@ -79,7 +78,6 @@ class _CustomTabsState extends State<CustomTabs>
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
     _getProductsOfStore();
     setState(() {});
   }
@@ -132,7 +130,7 @@ class _CustomTabsState extends State<CustomTabs>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 1.0),
-                    Container(
+                    SizedBox(
                       height: _categoryHeight,
                       width: MediaQuery.of(context).size.width,
                       child: CenaTextGroup(

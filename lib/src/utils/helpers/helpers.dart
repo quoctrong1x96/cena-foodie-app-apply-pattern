@@ -19,7 +19,7 @@ import '../../ui/blocs/product/product_bloc.dart';
 import '../../ui/resources/generated/l10n.dart';
 import '../../ui/widgets/widgets.dart';
 import '../configs/cena_colors.dart';
-import '../image_ultils.dart';
+import '../image_util.dart';
 
 part 'navigator_route_fade_in.dart';
 part 'modal_loading.dart';

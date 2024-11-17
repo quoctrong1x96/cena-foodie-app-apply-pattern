@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/constants/network_constants.dart';
-import '../../../utils/log_utils.dart';
+import '../../../utils/log_util2.dart';
 import '../../apis/api_cenaservice.dart';
 import '../../app_locator.dart';
 import '../../enums/network_request_type.dart';
@@ -865,7 +865,7 @@ class CenaRepository implements ICenaService {
       }
       return ApiResponse(message: bodyJson['message'] ?? 'error_unknown');
     } catch (e) {
-      LogUtils.error('NetworkRepository', '_getApiResponse<T>', e.toString());
+      LogUtil2.error('NetworkRepository', '_getApiResponse<T>', e.toString());
       return ApiResponse(message: 'error_unknown');
     }
   }
@@ -894,7 +894,7 @@ class CenaRepository implements ICenaService {
   }
 
   @override
-  Future<ApiResponse<Address>> fisrtAddress({required int userId}) async {
+  Future<ApiResponse<Address>> firstAddress({required int userId}) async {
     final token = await _storageService.getAccessToken();
 
     final response = await NetworkClient.instance.request(

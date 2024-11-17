@@ -35,7 +35,7 @@ class MapClientBloc extends Bloc<MapClientEvent, MapClientState> {
   }
 
   void initSocketDelivery(String idOrder) {
-    _socket = io.io(CenaServiceConstants.BASE_URL + '/orders-delivery-socket', {
+    _socket = io.io('${CenaServiceConstants.BASE_URL}/orders-delivery-socket', {
       'transports': ['websocket'],
       'autoConnect': true,
     });

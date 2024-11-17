@@ -12,6 +12,7 @@ class ErrorListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+        onRefresh: onRefresh ?? _onRefreshData,
         child: ListView.builder(
           itemBuilder: (context, index) {
             return SizedBox(
@@ -26,8 +27,7 @@ class ErrorListWidget extends StatelessWidget {
             );
           },
           itemCount: 1,
-        ),
-        onRefresh: onRefresh ?? _onRefreshData);
+        ));
   }
 
   Future<void> _onRefreshData() async {}

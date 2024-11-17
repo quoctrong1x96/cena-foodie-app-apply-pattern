@@ -9,7 +9,7 @@ class CenaServiceAPIv1 {
   static CenaServiceAPIv1 get instance => _instance;
 
   static const String _apiBaseUrl = CenaServiceConstants.BASE_URL;
-  static const int? _port = CenaServiceConstants.URL_PORT;
+  static const int _port = CenaServiceConstants.URL_PORT;
   static const String _apiPathVersionV1 = CenaServiceConstants.URL_API_PATHv1;
   static const String _scheme = CenaServiceConstants.URL_SCHEME;
 
@@ -539,8 +539,7 @@ class CenaServiceAPIv1 {
     return Uri(
         scheme: _scheme,
         host: _apiBaseUrl,
-        path: "$_apiPathVersionV1/$groupEndpoint" +
-            (endpoint != null ? "/$endpoint" : ""),
+        path: "$_apiPathVersionV1/$groupEndpoint${endpoint != null ? "/$endpoint" : ""}",
         port: _port,
         queryParameters: parameterBuilder());
   }

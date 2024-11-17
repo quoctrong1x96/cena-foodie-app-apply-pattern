@@ -1,8 +1,8 @@
+import 'package:cenafoodie/src/utils/log_util2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../../../../utils/log_utils.dart';
 import '../../../../blocs/general/general_bloc.dart';
 import '../../../../blocs/user/user_bloc.dart';
 import '../../../../resources/generated/l10n.dart';

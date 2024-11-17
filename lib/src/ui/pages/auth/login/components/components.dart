@@ -18,7 +18,7 @@ import '../../../../../data/models/ui/page_arguments.dart';
 import '../../../../../utils/constants/app_constants.dart';
 import '../../../../../utils/constants/route_constants.dart';
 import '../../../../../utils/getx_services/getx_settings_service.dart';
-import '../../../../../utils/log_utils.dart';
+import '../../../../../utils/log_util2.dart';
 import '../../../../../utils/navigation_utils.dart';
 import '../../../../../utils/themes/theme_manager.dart';
 import '../../../../../utils/themes/theme_maps.dart';

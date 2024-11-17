@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../../utils/json_utils.dart';
+import '../../../../utils/json_util.dart';
 import '../../base_model.dart';
 
 part 'api_response.freezed.dart';

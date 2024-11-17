@@ -12,7 +12,6 @@ class CenaThemes {
   static const Color _darkPrimaryColor = Color(0xFF1a222d);
 
   //Secondary
-  static const Color _lightSecondaryColor = Color(0xFFd74315);
   static const Color _darkSecondaryColor = Color(0xFFd74315);
 
   //Background
@@ -35,41 +34,40 @@ class CenaThemes {
 
   //Text themes
   static const TextTheme _lightTextTheme = TextTheme(
-    headline1: TextStyle(fontSize: 96.0, color: _lightTextColor),
-    headline2: TextStyle(fontSize: 60.0, color: _lightTextColor),
-    headline3: TextStyle(fontSize: 48.0, color: _lightTextColor),
-    headline4: TextStyle(fontSize: 34.0, color: _lightTextColor),
-    headline5: TextStyle(fontSize: 24.0, color: _lightTextColor),
-    headline6: TextStyle(
+    headlineLarge: TextStyle(fontSize: 96.0, color: _lightTextColor),
+    headlineMedium: TextStyle(fontSize: 60.0, color: _lightTextColor),
+    headlineSmall: TextStyle(fontSize: 48.0, color: _lightTextColor),
+    titleLarge: TextStyle(
         fontSize: 20.0, color: _lightTextColor, fontWeight: FontWeight.w500),
-    subtitle1: TextStyle(fontSize: 16.0, color: _lightTextColor),
-    subtitle2: TextStyle(
+    titleMedium: TextStyle(fontSize: 16.0, color: _lightTextColor),
+    titleSmall: TextStyle(
         fontSize: 14.0, color: _lightTextColor, fontWeight: FontWeight.w500),
-    bodyText1: TextStyle(fontSize: 16.0, color: _lightTextColor),
-    bodyText2: TextStyle(fontSize: 14.0, color: _lightTextColor),
-    button: TextStyle(
+    bodyLarge: TextStyle(fontSize: 18.0, color: _lightTextColor),
+    bodyMedium: TextStyle(fontSize: 16.0, color: _lightTextColor),
+    bodySmall: TextStyle(fontSize: 14.0, color: _lightTextColor),
+    labelLarge: TextStyle(
         fontSize: 14.0, color: _lightTextColor, fontWeight: FontWeight.w500),
-    caption: TextStyle(fontSize: 12.0, color: _lightTextColor),
-    overline: TextStyle(fontSize: 14.0, color: _lightTextColor),
+    labelSmall: TextStyle(fontSize: 12.0, color: _lightTextColor),
+    labelMedium: TextStyle(fontSize: 14.0, color: _lightTextColor),
   );
 
   static const TextTheme _darkTextTheme = TextTheme(
-    headline1: TextStyle(fontSize: 96.0, color: _darkTextColor),
-    headline2: TextStyle(fontSize: 60.0, color: _darkTextColor),
-    headline3: TextStyle(fontSize: 48.0, color: _darkTextColor),
-    headline4: TextStyle(fontSize: 34.0, color: _darkTextColor),
-    headline5: TextStyle(fontSize: 24.0, color: _darkTextColor),
-    headline6: TextStyle(
+    headlineLarge: TextStyle(fontSize: 96.0, color: _darkTextColor),
+    headlineMedium: TextStyle(fontSize: 60.0, color: _darkTextColor),
+    headlineSmall: TextStyle(fontSize: 48.0, color: _darkTextColor),
+    titleLarge: TextStyle(
         fontSize: 20.0, color: _darkTextColor, fontWeight: FontWeight.w500),
-    subtitle1: TextStyle(fontSize: 16.0, color: _darkTextColor),
-    subtitle2: TextStyle(
+    titleMedium: TextStyle(fontSize: 16.0, color: _darkTextColor),
+    titleSmall: TextStyle(
         fontSize: 14.0, color: _darkTextColor, fontWeight: FontWeight.w500),
-    bodyText1: TextStyle(fontSize: 16.0, color: _darkTextColor),
-    bodyText2: TextStyle(fontSize: 14.0, color: _darkTextColor),
-    button: TextStyle(
+    bodyLarge: TextStyle(fontSize: 18.0, color: _darkTextColor),
+    bodyMedium: TextStyle(fontSize: 16.0, color: _darkTextColor),
+    bodySmall: TextStyle(fontSize: 14.0, color: _darkTextColor),
+    labelLarge: TextStyle(
         fontSize: 14.0, color: _darkTextColor, fontWeight: FontWeight.w500),
-    caption: TextStyle(fontSize: 12.0, color: _darkTextColor),
-    overline: TextStyle(fontSize: 14.0, color: _darkTextColor),
+    labelSmall: TextStyle(fontSize: 12.0, color: _darkTextColor),
+    labelMedium: TextStyle(fontSize: 14.0, color: _darkTextColor),
+
   );
 
   ///Light theme
@@ -77,14 +75,17 @@ class CenaThemes {
     brightness: Brightness.light,
     primaryColor: _lightPrimaryColor,
     // ignore: deprecated_member_use
-    accentColor: _lightSecondaryColor,
+    colorScheme: ColorScheme(brightness: Brightness.light, 
+    primary: _lightPrimaryColor, onPrimary: _lightPrimaryColor, secondary: _darkSecondaryColor, 
+    onSecondary: _darkSecondaryColor, error: _darkSecondaryColor, onError: _darkSecondaryColor, 
+    surface: _lightPrimaryColor, onSurface: _lightPrimaryColor) ,
     fontFamily: darkFont,
     scaffoldBackgroundColor: _lightBackgroundColor,
     appBarTheme: const AppBarTheme(
       color: _lightBackgroundColor,
       iconTheme: IconThemeData(color: _lightIconColor),
       // ignore: deprecated_member_use
-      textTheme: _lightTextTheme,
+      // textTheme: _lightTextTheme,
     ),
     iconTheme: const IconThemeData(
       color: _lightIconColor,
@@ -99,15 +100,14 @@ class CenaThemes {
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: _darkPrimaryColor,
-    // ignore: deprecated_member_use
-    accentColor: _darkSecondaryColor,
+    // accentColor: _darkSecondaryColor,
     fontFamily: darkFont,
     scaffoldBackgroundColor: _darkBackgroundColor,
     appBarTheme: const AppBarTheme(
       color: _darkBackgroundColor,
       iconTheme: IconThemeData(color: _darkIconColor),
       // ignore: deprecated_member_use
-      textTheme: _darkTextTheme,
+      // textTheme: _darkTextTheme,
     ),
     iconTheme: const IconThemeData(
       color: _darkIconColor,

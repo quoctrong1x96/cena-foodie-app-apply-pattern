@@ -35,6 +35,7 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
     if (!state.isReadyMapDelivery) {
       _mapController = controller;
 
+      // ignore: deprecated_member_use
       _mapController.setMapStyle(jsonEncode(MyThemes));
 
       add(OnMapReadyEvent());
@@ -47,7 +48,7 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
   }
 
   void initSocketDelivery() {
-    _socket = io.io(CenaServiceConstants.BASE_URL + '/orders-delivery-socket', {
+    _socket = io.io('${CenaServiceConstants.BASE_URL}/orders-delivery-socket', {
       'transports': ['websocket'],
       'autoConnect': true,
     });

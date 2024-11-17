@@ -17,7 +17,6 @@ class MyLocationMapBloc extends Bloc<MyLocationMapEvent, MyLocationMapState> {
     on<OnGetAddressLocationEvent>(_onGetAddressLocation);
   }
 
-  late GoogleMapController _mapController;
   late StreamSubscription<Position> _positionSubscription;
 
   void initialLocation() async {
@@ -33,7 +32,6 @@ class MyLocationMapBloc extends Bloc<MyLocationMapEvent, MyLocationMapState> {
 
   void initMapLocation(GoogleMapController controller) {
     if (!state.mapReady) {
-      _mapController = controller;
       // Change Style from Map TODO
       // _mapController.setMapStyle(jsonEncode(MyThemes.instance
       //     .getThemeFromKey(MyThemes.instance.currentThemeKey!)));

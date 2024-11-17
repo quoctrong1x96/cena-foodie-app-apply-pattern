@@ -7,7 +7,7 @@ class CenaServiceConstants {
   static const String BASE_URL = '13.55.111.89';
   static const String URL_API = '$BASE_URL/api';
   static const String URL_API_PATHv1 = '/api/v1';
-  static const int? URL_PORT = 7070;
+  static const int URL_PORT = 7070;
   static const String URL_SCHEME = 'http';
   // endregion
 

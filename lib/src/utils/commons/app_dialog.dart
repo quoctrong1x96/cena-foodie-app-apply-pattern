@@ -48,8 +48,8 @@ class AppDialog {
       maxTime: maxTime,
       onConfirm: onConfirm,
       locale: LocaleType.vi,
-      currentTime: currentTime,
-      theme: const DatePickerTheme(),
+      currentTime: currentTime
+      // theme: 
     );
   }
 
@@ -68,7 +68,6 @@ class AppDialog {
       onConfirm: onConfirm,
       locale: LocaleType.vi,
       currentTime: currentTime,
-      theme: const DatePickerTheme(),
     );
   }
 }

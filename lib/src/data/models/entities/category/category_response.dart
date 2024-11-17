@@ -7,9 +7,9 @@ class CategoryFetchResponse implements IModel {
   CategoryFetchResponse({this.categories});
 
   factory CategoryFetchResponse.fromJson(List<dynamic>? list) {
-    final List<Category>? data = [];
+    final List<Category> data = [];
     list?.forEach((value) {
-      data?.add(Category.fromJson(value));
+      data.add(Category.fromJson(value));
     });
     return CategoryFetchResponse(categories: data);
   }

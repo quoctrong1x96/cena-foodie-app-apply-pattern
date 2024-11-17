@@ -13,52 +13,29 @@ class CenaAppBarAction extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.zero,
       child: SizedBox(
-        width: 50,
-        height: 50,
-        // ignore: deprecated_member_use
-        child: FlatButton(
-          onPressed: action,
-          padding: EdgeInsets.zero,
-          color: CenaColors.WHITE,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 21,
-                color: CenaColors.GREEN,
+          width: 50,
+          height: 50,
+          // ignore: deprecated_member_use
+          child: TextButton(
+            onPressed: action,
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: CenaColors.WHITE,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
-              // Visibility(
-              //   // ignore: unnecessary_null_comparison
-              //   // visible: quantity != null,
-              //   child: Positioned(
-              //     top: -5,
-              //     right: -10,
-              //     child: Container(
-              //       width: 15,
-              //       height: 15,
-              //       alignment: Alignment.center,
-              //       decoration: BoxDecoration(
-              //           color: AppColors.DARK,
-              //           borderRadius: BorderRadius.circular(15)),
-              //       child: Text(
-              //         quantity.toString(),
-              //         style: TextStyle(
-              //           fontSize: 11,
-              //           color: AppColors.WHITE,
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-      ),
+            ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: <Widget>[
+                Icon(
+                  icon,
+                  size: 21,
+                  color: CenaColors.GREEN,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

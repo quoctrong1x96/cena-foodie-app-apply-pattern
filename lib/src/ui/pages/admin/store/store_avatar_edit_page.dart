@@ -8,7 +8,7 @@ import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../Admin/store/store_edit_page.dart';
 
@@ -74,12 +74,12 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
 
   void _changeStoreImages() {
     final userBloc = BlocProvider.of<StoreBloc>(context);
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     modalPictureRegister(
         ctx: context,
         onPressedChange: () async {
           Navigator.pop(context);
-          final XFile? imagePath = await _picker.pickImage(
+          final XFile? imagePath = await picker.pickImage(
               source: ImageSource.gallery, imageQuality: 50);
           if (imagePath != null) {
             userBloc.add(OnChangeImageStoreEvent(
@@ -89,7 +89,7 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
         },
         onPressedTake: () async {
           Navigator.pop(context);
-          final XFile? photoPath = await _picker.pickImage(
+          final XFile? photoPath = await picker.pickImage(
               source: ImageSource.camera, imageQuality: 50);
           if (photoPath != null) {
             userBloc.add(OnChangeImageStoreEvent(

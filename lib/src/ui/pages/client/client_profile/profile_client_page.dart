@@ -11,7 +11,7 @@ import '../../../blocs/auth/auth_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/cena_bottom_avigation.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../app/app_privacy_policy.dart';
 import '../../app/app_terms_conditions.dart';

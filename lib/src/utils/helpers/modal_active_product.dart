@@ -43,7 +43,7 @@ void modalActiveOrInactiveProduct(BuildContext context, int storeId, int status,
                       image: DecorationImage(
                           scale: 7,
                           image: CachedNetworkImageProvider(
-                              ImagesUltils.getImageApiUrl(picture)))),
+                              ImagesUtil.getImageApiUrl(picture)))),
                 ),
                 const SizedBox(width: 10.0),
                 CenaTextDescription(

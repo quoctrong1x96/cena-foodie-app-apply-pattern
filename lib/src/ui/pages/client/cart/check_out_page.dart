@@ -15,14 +15,14 @@ import '../../../../data/services/entities/address_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
 import '../../../../utils/helpers/helpers.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../blocs/order/orders_bloc.dart';
 import '../../../blocs/payment/payments_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../address/list_addresses_page.dart';
 import '../home/client_home_page.dart';
@@ -215,7 +215,7 @@ class CheckOutPage extends StatelessWidget {
                           Row(
                             children: [
                               CenaImageCache(
-                                  url: ImagesUltils.getImageApiUrl(
+                                  url: ImagesUtil.getImageApiUrl(
                                       listProduct[i].productImage),
                                   height: 20,
                                   width: 20,

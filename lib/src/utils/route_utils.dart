@@ -45,7 +45,7 @@ import '../ui/pages/intro/checking_login_page.dart';
 import '../ui/pages/map/add_street_address_page.dart';
 import 'constants/app_constants.dart';
 import 'constants/route_constants.dart';
-import 'log_utils.dart';
+import 'log_util2.dart';
 
 class RouteUtils {
   const RouteUtils._internal();
@@ -57,7 +57,7 @@ class RouteUtils {
 
     final route = settings.name;
     final args = settings.arguments as PageArguments?;
-    LogUtils.debug(
+    LogUtil2.debug(
       'RouteUtils',
       'generateRoute',
       '$route, ${args?.toJson()}',

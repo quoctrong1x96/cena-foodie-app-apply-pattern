@@ -187,16 +187,16 @@ class _DropdownMenuItemButtonState<T>
     // An [InkWell] is added to the item only if it is enabled
     // isNoSelectedItem to avoid first item highlight when no item selected
     if (dropdownMenuItem.enabled) {
-      final _isSelectedItem = !widget.route.isNoSelectedItem &&
+      final isSelectedItem = !widget.route.isNoSelectedItem &&
           widget.itemIndex == widget.route.selectedIndex;
       child = InkWell(
-        autofocus: _isSelectedItem,
+        autofocus: isSelectedItem,
         enableFeedback: widget.enableFeedback,
         onTap: _handleOnTap,
         onFocusChange: _handleFocusChange,
         child: Container(
           color:
-              _isSelectedItem ? widget.route.selectedItemHighlightColor : null,
+              isSelectedItem ? widget.route.selectedItemHighlightColor : null,
           child: child,
         ),
       );
@@ -325,8 +325,8 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             type: MaterialType.transparency,
             textStyle: route.style,
             child: ScrollConfiguration(
-              // Dropdown menus should never overscroll or display an overscroll indicator.
-              // Scrollbars are built-in below.
+              // Dropdown menus should never overscore or display an overscore indicator.
+              // Scrollbar are built-in below.
               // Platform must use Theme and ScrollPhysics must be Clamping.
               behavior: ScrollConfiguration.of(context).copyWith(
                 scrollbars: false,
@@ -339,7 +339,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                 child: Scrollbar(
                   radius: widget.scrollbarRadius,
                   thickness: widget.scrollbarThickness,
-                  isAlwaysShown: widget.scrollbarAlwaysShow,
+                  thumbVisibility: widget.scrollbarAlwaysShow,
                   child: ClipRRect(
                     //Prevent items from going beyond the menu rounded border boundaries when scrolling.
                     borderRadius: widget.dropdownDecoration?.borderRadius
@@ -1156,7 +1156,7 @@ class DropdownButton2<T> extends StatefulWidget {
   /// To use a separate text style for selected item when it's displayed within
   /// the dropdown button, consider using [selectedItemBuilder].
   ///
-  /// {@tool dartpad}
+  /// {@tool darted}
   /// This sample shows a `DropdownButton` with a dropdown button text style
   /// that is different than its menu items.
   ///
@@ -1314,7 +1314,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _removeDropdownRoute();
     focusNode!.removeListener(_handleFocusChanged);
     _internalNode?.dispose();
@@ -1374,7 +1374,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
   }
 
   TextStyle? get _textStyle =>
-      widget.style ?? Theme.of(context).textTheme.subtitle1;
+      widget.style ?? Theme.of(context).textTheme.titleMedium;
 
   void _handleTap() {
     final TextDirection? textDirection = Directionality.maybeOf(context);
@@ -1454,7 +1454,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
   // would be clipped.
   double get _denseButtonHeight {
     final double fontSize = _textStyle!.fontSize ??
-        Theme.of(context).textTheme.subtitle1!.fontSize!;
+        Theme.of(context).textTheme.titleMedium!.fontSize!;
     return math.max(fontSize, math.max(widget.iconSize, _kDenseButtonHeight));
   }
 
@@ -1525,8 +1525,8 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
           _enabled ? widget.hint! : widget.disabledHint ?? widget.hint!;
       if (widget.selectedItemBuilder == null) {
         displayedHint = _DropdownMenuItemContainer(
-          child: displayedHint,
           alignment: widget.alignment,
+          child: displayedHint,
         );
       }
 
@@ -1534,7 +1534,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
       items.add(DefaultTextStyle(
         style: _textStyle!.copyWith(color: Theme.of(context).hintColor),
         child: IgnorePointer(
-          ignoringSemantics: false,
+          // ignoringSemantics: false,
           child: displayedHint,
         ),
       ));
@@ -1628,10 +1628,10 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
     }
 
     final MouseCursor effectiveMouseCursor =
-        MaterialStateProperty.resolveAs<MouseCursor>(
-      MaterialStateMouseCursor.clickable,
-      <MaterialState>{
-        if (!_enabled) MaterialState.disabled,
+        WidgetStateProperty.resolveAs<MouseCursor>(
+      WidgetStateMouseCursor.clickable,
+      <WidgetState>{
+        if (!_enabled) WidgetState.disabled,
       },
     );
 
@@ -1658,9 +1658,9 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>>
               widget.focusColor ??
               Theme.of(context).focusColor,
           enableFeedback: false,
-          child: result,
           borderRadius: widget.dropdownDecoration?.borderRadius
               ?.resolve(Directionality.of(context)),
+          child: result,
         ),
       ),
     );
@@ -1788,7 +1788,7 @@ class DropdownButtonFormField2<T> extends FormField<T> {
             final bool isEmpty =
                 !showSelectedItem && !isHintOrDisabledHintAvailable();
 
-            // An unfocusable Focus widget so that this widget can detect if its
+            // An unexcusable Focus widget so that this widget can detect if its
             // descendants have focus or not.
             return Focus(
               canRequestFocus: false,

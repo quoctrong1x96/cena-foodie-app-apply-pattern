@@ -3,7 +3,7 @@ import 'package:cenafoodie/src/data/models/entities/product/product.dart';
 import 'package:cenafoodie/src/data/models/ui/page_arguments.dart';
 import 'package:cenafoodie/src/data/services/entities/product_service.dart';
 import 'package:cenafoodie/src/utils/constants/route_constants.dart';
-import 'package:cenafoodie/src/utils/image_ultils.dart';
+import 'package:cenafoodie/src/utils/image_util.dart';
 import 'package:cenafoodie/src/utils/navigation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -79,7 +79,7 @@ class ListProducts extends StatelessWidget {
                         Hero(
                             tag: listProduct[i].id,
                             child: CenaImageCache(
-                                url: ImagesUltils.getImageApiUrl(
+                                url: ImagesUtil.getImageApiUrl(
                                     listProduct[i].picture),
                                 height: 150)),
                         CenaTextDescription(

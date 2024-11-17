@@ -11,7 +11,7 @@ import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import 'list_delivery_page.dart';
 
@@ -133,7 +133,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
                   controller: _nameController,
                   maxLength: 50,
                   validator: RequiredValidator(
-                      errorText: lang.delivery_add_name_error),
+                      errorText: lang.delivery_add_name_error).call,
                 ),
                 const SizedBox(height: 20.0),
                 CenaTextDescription(text: lang.delivery_add_lastName_title),
@@ -143,7 +143,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
                   hintText: lang.delivery_add_lastName_hint,
                   maxLength: 50,
                   validator: RequiredValidator(
-                      errorText: lang.delivery_add_lastName_error),
+                      errorText: lang.delivery_add_lastName_error).call,
                 ),
                 const SizedBox(height: 20.0),
                 CenaTextDescription(text: lang.delivery_add_phone_title),
@@ -154,7 +154,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
                   maxLength: 50,
                   keyboardType: TextInputType.number,
                   validator: RequiredValidator(
-                      errorText: lang.delivery_add_phone_error),
+                      errorText: lang.delivery_add_phone_error).call,
                 ),
                 const SizedBox(height: 15.0),
                 CenaTextDescription(text: lang.delivery_add_email_title),
@@ -164,7 +164,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
                     hintText: lang.delivery_add_email_hint,
                     maxLength: 50,
                     keyboardType: TextInputType.emailAddress,
-                    validator: validatedEmail),
+                    validator: validatedEmail.call),
                 const SizedBox(height: 15.0),
                 CenaTextDescription(text: lang.delivery_add_password_title),
                 const SizedBox(height: 5.0),
@@ -182,7 +182,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
                         generalBloc
                             .add(OnShowOrHidePasswordEvent(isShowPassword));
                       }),
-                  validator: passwordValidator,
+                  validator: passwordValidator.call,
                 ),
                 // CenaFormField(
                 //   maxLength: 25,

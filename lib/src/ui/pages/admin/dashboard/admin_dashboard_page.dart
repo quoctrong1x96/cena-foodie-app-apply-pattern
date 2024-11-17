@@ -204,7 +204,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage>
                                               titleTxt: lang
                                                   .admin_dashboard_status_order,
                                               subTxt: lang
-                                                  .admin_dashboard_stauts_detail,
+                                                  .admin_dashboard_status_detail,
                                               animation: Tween<double>(
                                                       begin: 0.0, end: 1.0)
                                                   .animate(CurvedAnimation(

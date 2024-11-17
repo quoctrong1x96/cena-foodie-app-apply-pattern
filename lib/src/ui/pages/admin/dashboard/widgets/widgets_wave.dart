@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math.dart' as vector;
 
 import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../../utils/configs/cena_text_styles.dart';
@@ -41,8 +40,9 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
           Offset(
             i.toDouble() + bottleOffset1.dx.toInt(),
             math.sin((waveAnimationController!.value * 360 - i) %
-                        360 *
-                        vector.degrees2Radians) *
+                        360 * 90
+                        // vector.degrees2Radians
+                        ) *
                     4 +
                 (((100 - widget.percentageValue) * 160 / 100)),
           ),
@@ -54,8 +54,9 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
           Offset(
             i.toDouble() + bottleOffset2.dx.toInt(),
             math.sin((waveAnimationController!.value * 360 - i) %
-                        360 *
-                        vector.degrees2Radians) *
+                        360 * 90
+                        // vector.degrees2Radians
+                        ) *
                     4 +
                 (((100 - widget.percentageValue) * 160 / 100)),
           ),
@@ -86,6 +87,7 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
         builder: (context, child) => Stack(
           children: <Widget>[
             ClipPath(
+              clipper: WaveClipper(animationController!.value, animList1),
               child: Container(
                 decoration: BoxDecoration(
                   color: CenaColors.primary.withOpacity(0.5),
@@ -104,9 +106,9 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              clipper: WaveClipper(animationController!.value, animList1),
             ),
             ClipPath(
+              clipper: WaveClipper(animationController!.value, animList2),
               child: Container(
                 decoration: BoxDecoration(
                   color: CenaColors.primary,
@@ -125,7 +127,6 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                       topRight: Radius.circular(80.0)),
                 ),
               ),
-              clipper: WaveClipper(animationController!.value, animList2),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 48),

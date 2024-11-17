@@ -6,7 +6,7 @@ import '../../../../utils/helpers/helpers.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class EditProfilePage extends StatefulWidget {

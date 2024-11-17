@@ -771,10 +771,10 @@ class S {
   }
 
   /// `Details`
-  String get admin_dashboard_stauts_detail {
+  String get admin_dashboard_status_detail {
     return Intl.message(
       'Details',
-      name: 'admin_dashboard_stauts_detail',
+      name: 'admin_dashboard_status_detail',
       desc: '',
       args: [],
     );
@@ -851,10 +851,10 @@ class S {
   }
 
   /// `Paid out`
-  String get admin_dashboard_meals_paidout {
+  String get admin_dashboard_meals_payout {
     return Intl.message(
       'Paid out',
-      name: 'admin_dashboard_meals_paidout',
+      name: 'admin_dashboard_meals_payout',
       desc: '',
       args: [],
     );
@@ -931,60 +931,60 @@ class S {
   }
 
   /// `Delivered`
-  String get admin_dashboard_mediteranean_delivered {
+  String get admin_dashboard_mediterranean_delivered {
     return Intl.message(
       'Delivered',
-      name: 'admin_dashboard_mediteranean_delivered',
+      name: 'admin_dashboard_mediterranean_delivered',
       desc: '',
       args: [],
     );
   }
 
   /// `orders`
-  String get admin_dashboard_mediteranean_order {
+  String get admin_dashboard_mediterranean_order {
     return Intl.message(
       'orders',
-      name: 'admin_dashboard_mediteranean_order',
+      name: 'admin_dashboard_mediterranean_order',
       desc: '',
       args: [],
     );
   }
 
   /// `Sales`
-  String get admin_dashboard_mediteranean_sales {
+  String get admin_dashboard_mediterranean_sales {
     return Intl.message(
       'Sales',
-      name: 'admin_dashboard_mediteranean_sales',
+      name: 'admin_dashboard_mediterranean_sales',
       desc: '',
       args: [],
     );
   }
 
   /// `Total orders`
-  String get admin_dashboard_mediteranean_total_order {
+  String get admin_dashboard_mediterranean_total_order {
     return Intl.message(
       'Total orders',
-      name: 'admin_dashboard_mediteranean_total_order',
+      name: 'admin_dashboard_mediterranean_total_order',
       desc: '',
       args: [],
     );
   }
 
   /// `Sold`
-  String get admin_dashboard_mediteranean_sold {
+  String get admin_dashboard_mediterranean_sold {
     return Intl.message(
       'Sold',
-      name: 'admin_dashboard_mediteranean_sold',
+      name: 'admin_dashboard_mediterranean_sold',
       desc: '',
       args: [],
     );
   }
 
   /// `Have not already data!`
-  String get admin_dashboard_mediteranean_no_data {
+  String get admin_dashboard_mediterranean_no_data {
     return Intl.message(
       'Have not already data!',
-      name: 'admin_dashboard_mediteranean_no_data',
+      name: 'admin_dashboard_mediterranean_no_data',
       desc: '',
       args: [],
     );
@@ -1210,10 +1210,10 @@ class S {
     );
   }
 
-  /// `Oders`
+  /// `Orders`
   String get settings_store_orders {
     return Intl.message(
-      'Oders',
+      'Orders',
       name: 'settings_store_orders',
       desc: '',
       args: [],
@@ -1280,10 +1280,10 @@ class S {
     );
   }
 
-  /// `Secutiry`
+  /// `Security`
   String get settings_system_security {
     return Intl.message(
-      'Secutiry',
+      'Security',
       name: 'settings_system_security',
       desc: '',
       args: [],
@@ -1451,10 +1451,10 @@ class S {
   }
 
   /// `Phone number`
-  String get login_phone_number_hintext {
+  String get login_phone_number_hinttext {
     return Intl.message(
       'Phone number',
-      name: 'login_phone_number_hintext',
+      name: 'login_phone_number_hinttext',
       desc: '',
       args: [],
     );
@@ -1761,10 +1761,10 @@ class S {
   }
 
   /// `example@cenafoodie.com`
-  String get forgot_password_examble {
+  String get forgot_password_example {
     return Intl.message(
       'example@cenafoodie.com',
-      name: 'forgot_password_examble',
+      name: 'forgot_password_example',
       desc: '',
       args: [],
     );
@@ -1811,10 +1811,10 @@ class S {
   }
 
   /// `Store management`
-  String get admin_group_store_managerment {
+  String get admin_group_store_management {
     return Intl.message(
       'Store management',
-      name: 'admin_group_store_managerment',
+      name: 'admin_group_store_management',
       desc: '',
       args: [],
     );
@@ -1891,10 +1891,10 @@ class S {
   }
 
   /// `Categories`
-  String get admin_categoris {
+  String get admin_categories {
     return Intl.message(
       'Categories',
-      name: 'admin_categoris',
+      name: 'admin_categories',
       desc: '',
       args: [],
     );
@@ -2240,10 +2240,10 @@ class S {
     );
   }
 
-  /// `Withou orders here`
+  /// `Without orders here`
   String get delivery_order_list_assigned_non {
     return Intl.message(
-      'Withou orders here',
+      'Without orders here',
       name: 'delivery_order_list_assigned_non',
       desc: '',
       args: [],
@@ -2251,10 +2251,10 @@ class S {
   }
 
   /// `Orders delivered!`
-  String get delivery_map_susscess {
+  String get delivery_map_success {
     return Intl.message(
       'Orders delivered!',
-      name: 'delivery_map_susscess',
+      name: 'delivery_map_success',
       desc: '',
       args: [],
     );
@@ -2270,10 +2270,10 @@ class S {
     );
   }
 
-  /// `PRESS - If deliverd`
+  /// `PRESS - If delivered`
   String get delivery_map_button_delivered {
     return Intl.message(
-      'PRESS - If deliverd',
+      'PRESS - If delivered',
       name: 'delivery_map_button_delivered',
       desc: '',
       args: [],
@@ -2380,10 +2380,10 @@ class S {
     );
   }
 
-  /// `REVIEVER`
+  /// `RECEIVER`
   String get delivery_detail_title_receiver {
     return Intl.message(
-      'REVIEVER',
+      'RECEIVER',
       name: 'delivery_detail_title_receiver',
       desc: '',
       args: [],
@@ -2491,7 +2491,7 @@ class S {
   }
 
   /// `Delivery address`
-  String get delivery_detail_cart_dilivery_address {
+  String get delivery_detail_cart_delivery_address {
     return Intl.message(
       'Delivery address',
       name: 'delivery_detail_cart_dilivery_address',
@@ -2631,10 +2631,10 @@ class S {
   }
 
   /// `First name`
-  String get profile_edit_firtname {
+  String get profile_edit_firstname {
     return Intl.message(
       'First name',
-      name: 'profile_edit_firtname',
+      name: 'profile_edit_firstname',
       desc: '',
       args: [],
     );
@@ -3001,10 +3001,10 @@ class S {
   }
 
   /// `Categories`
-  String get store_info_catregories {
+  String get store_info_categories {
     return Intl.message(
       'Categories',
-      name: 'store_info_catregories',
+      name: 'store_info_categories',
       desc: '',
       args: [],
     );
@@ -3271,20 +3271,20 @@ class S {
   }
 
   /// `Cena Foodie is not allowed to access location`
-  String get client_location_permition_error {
+  String get client_location_permission_error {
     return Intl.message(
       'Cena Foodie is not allowed to access location',
-      name: 'client_location_permition_error',
+      name: 'client_location_permission_error',
       desc: '',
       args: [],
     );
   }
 
   /// `Location permission is permanently denied, Cena Foodie cannot claim permission`
-  String get client_location_permition_disabled {
+  String get client_location_permission_disabled {
     return Intl.message(
       'Location permission is permanently denied, Cena Foodie cannot claim permission',
-      name: 'client_location_permition_disabled',
+      name: 'client_location_permission_disabled',
       desc: '',
       args: [],
     );
@@ -3340,10 +3340,10 @@ class S {
     );
   }
 
-  /// `Address revieve`
+  /// `Address receive`
   String get client_home_address_title {
     return Intl.message(
-      'Address revieve',
+      'Address receive',
       name: 'client_home_address_title',
       desc: '',
       args: [],
@@ -3370,10 +3370,10 @@ class S {
     );
   }
 
-  /// `Looking for your lacation ...`
+  /// `Looking for your location ...`
   String get client_home_looking_for_address {
     return Intl.message(
-      'Looking for your lacation ...',
+      'Looking for your location ...',
       name: 'client_home_looking_for_address',
       desc: '',
       args: [],
@@ -3581,10 +3581,10 @@ class S {
   }
 
   /// `REMOVE ITS`
-  String get client_cart_checkout_diolog_confirm_yes {
+  String get client_cart_checkout_dialog_confirm_yes {
     return Intl.message(
       'REMOVE ITS',
-      name: 'client_cart_checkout_diolog_confirm_yes',
+      name: 'client_cart_checkout_dialog_confirm_yes',
       desc: '',
       args: [],
     );
@@ -3811,10 +3811,10 @@ class S {
   }
 
   /// `UnAssign`
-  String get client_orders_unasignee {
+  String get client_orders_unsigned {
     return Intl.message(
       'UnAssign',
-      name: 'client_orders_unasignee',
+      name: 'client_orders_unsigned',
       desc: '',
       args: [],
     );
@@ -4071,10 +4071,10 @@ class S {
   }
 
   /// `Did not receive the code? `
-  String get auth_verify_phone_did_not_recieve_otp {
+  String get auth_verify_phone_did_not_receive_otp {
     return Intl.message(
       'Did not receive the code? ',
-      name: 'auth_verify_phone_did_not_recieve_otp',
+      name: 'auth_verify_phone_did_not_receive_otp',
       desc: '',
       args: [],
     );
@@ -4230,10 +4230,10 @@ class S {
     );
   }
 
-  /// `Password not less than 10 chacracter`
+  /// `Password not less than 10 character`
   String get auth_registry_error_password_minimum_10_characters {
     return Intl.message(
-      'Password not less than 10 chacracter',
+      'Password not less than 10 character',
       name: 'auth_registry_error_password_minimum_10_characters',
       desc: '',
       args: [],

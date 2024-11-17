@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../resources/generated/l10n.dart';
-import '../../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../../widgets/snackbar/cena_snackbar_toast.dart';
 
 class GlassView extends StatelessWidget {
   final AnimationController? animationController;

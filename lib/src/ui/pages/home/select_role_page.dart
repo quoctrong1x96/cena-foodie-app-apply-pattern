@@ -72,9 +72,7 @@ class SelectRolePage extends StatelessWidget {
                         if (userBloc.state.address == null) {
                           userBloc.add(OnInitialCurrentAddressEvent(
                               userBloc.state.user!.id,
-                              authBloc.user!.firstName +
-                                  " " +
-                                  authBloc.user!.lastName,
+                              "${authBloc.user!.firstName} ${authBloc.user!.lastName}",
                               authBloc.user!.phone));
                         }
                         Navigator.pushReplacement(

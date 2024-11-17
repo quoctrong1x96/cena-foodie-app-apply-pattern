@@ -10,7 +10,7 @@ class CardOrdersDelivery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _storeService = locator<IStoreService>();
+    final storeService = locator<IStoreService>();
     final lang = S.of(context);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
@@ -43,7 +43,7 @@ class CardOrdersDelivery extends StatelessWidget {
                       color: CenaColors.secondary),
                   FutureBuilder<UiResponse<Store?>>(
                       future:
-                          _storeService.byId(storeId: orderResponse.storeId!),
+                          storeService.byId(storeId: orderResponse.storeId!),
                       builder: (_, snapshot) {
                         return CenaTextDescription(
                             text: snapshot.hasData
@@ -63,7 +63,7 @@ class CardOrdersDelivery extends StatelessWidget {
                       color: CenaColors.secondary),
                   FutureBuilder<UiResponse<Store?>>(
                       future:
-                          _storeService.byId(storeId: orderResponse.storeId!),
+                          storeService.byId(storeId: orderResponse.storeId!),
                       builder: (_, snapshot) {
                         return CenaTextDescription(
                             text: snapshot.hasData
@@ -106,7 +106,7 @@ class CardOrdersDelivery extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CenaTextDescription(
-                      text: lang.delivery_detail_cart_dilivery_address,
+                      text: lang.delivery_detail_cart_delivery_address,
                       fontSize: 12,
                       color: CenaColors.secondary),
                   CenaTextDescription(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../importer_utils.dart';
+import '../importer_util.dart';
 
 enum MyThemeKeys { light, dark, darker }
 
@@ -24,27 +24,27 @@ class MyThemes with ChangeNotifier {
   final ThemeData _lightTheme = ThemeData(
     brightness: Brightness.light,
 
-    //Scaffol
+    //Scaffold
     scaffoldBackgroundColor: Colors.white,
 
     textTheme: TextTheme(
-      button: TextStyle(
+      titleMedium: TextStyle(
           color: lightPrimaryColor,
           // backgroundColor: Colors.white70,
           fontSize: 15,
           decorationColor: lightPrimaryColor),
-      headline1: TextStyle(
+      headlineMedium: TextStyle(
           color: lightPrimaryColor,
           // backgroundColor: Colors.white70,
           fontSize: 18),
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
+        minimumSize: WidgetStateProperty.all<Size>(const Size.fromHeight(45)),
         alignment: Alignment.center,
-        elevation: MaterialStateProperty.all<double>(0.0),
-        foregroundColor: MaterialStateProperty.all<Color>(lightPrimaryColor),
-        textStyle: MaterialStateProperty.all<TextStyle>(
+        elevation: WidgetStateProperty.all<double>(0.0),
+        foregroundColor: WidgetStateProperty.all<Color>(lightPrimaryColor),
+        textStyle: WidgetStateProperty.all<TextStyle>(
           TextStyle(
             color: lightPrimaryColor,
             fontStyle: FontStyle.normal,
@@ -60,28 +60,28 @@ class MyThemes with ChangeNotifier {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
           alignment: Alignment.center,
-          backgroundColor: MaterialStateProperty.all(Colors.white),
-          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+          backgroundColor: WidgetStateProperty.all(Colors.white),
+          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
               const EdgeInsets.all(2.0)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             ),
           ),
           minimumSize:
-              MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
-          side: MaterialStateProperty.all(
+              WidgetStateProperty.all<Size>(const Size.fromHeight(45)),
+          side: WidgetStateProperty.all(
             BorderSide(
               color: lightPrimaryColor,
               width: 1.0,
             ),
           ),
-          overlayColor: MaterialStateProperty.all<Color>(Colors.black87),
+          overlayColor: WidgetStateProperty.all<Color>(Colors.black87),
           mouseCursor:
-              MaterialStateProperty.all<MouseCursor>(MouseCursor.uncontrolled),
-          foregroundColor: MaterialStateProperty.all<Color>(lightPrimaryColor),
-          elevation: MaterialStateProperty.all<double>(0.0),
-          textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+              WidgetStateProperty.all<MouseCursor>(MouseCursor.uncontrolled),
+          foregroundColor: WidgetStateProperty.all<Color>(lightPrimaryColor),
+          elevation: WidgetStateProperty.all<double>(0.0),
+          textStyle: WidgetStateProperty.all<TextStyle>(TextStyle(
             color: lightPrimaryColor,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
@@ -94,28 +94,28 @@ class MyThemes with ChangeNotifier {
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             alignment: Alignment.center,
-            backgroundColor: MaterialStateProperty.all(lightPrimaryColor),
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            backgroundColor: WidgetStateProperty.all(lightPrimaryColor),
+            padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(2.0)),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
             minimumSize:
-                MaterialStateProperty.all<Size>(const Size.fromHeight(45)),
-            // side: MaterialStateProperty.all(
+                WidgetStateProperty.all<Size>(const Size.fromHeight(45)),
+            // side: WidgetStateProperty.all(
             //   BorderSide(
             //     color: lightPrimaryColor,
             //     width: 1.0,
             //   ),
             // ),
-            overlayColor: MaterialStateProperty.all<Color>(Colors.black87),
-            mouseCursor: MaterialStateProperty.all<MouseCursor>(
+            overlayColor: WidgetStateProperty.all<Color>(Colors.black87),
+            mouseCursor: WidgetStateProperty.all<MouseCursor>(
                 MouseCursor.uncontrolled),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            elevation: MaterialStateProperty.all<double>(0.0),
-            textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+            elevation: WidgetStateProperty.all<double>(0.0),
+            textStyle: WidgetStateProperty.all<TextStyle>(const TextStyle(
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
               // decorationColor: lightPrimaryColor,

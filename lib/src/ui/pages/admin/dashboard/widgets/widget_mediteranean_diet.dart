@@ -89,7 +89,7 @@ class MediterranesnDietView extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   left: 4, bottom: 2),
                                               child: Text(
-                                                lang.admin_dashboard_mediteranean_sales,
+                                                lang.admin_dashboard_mediterranean_sales,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
@@ -139,7 +139,7 @@ class MediterranesnDietView extends StatelessWidget {
                                                       const EdgeInsets.only(
                                                           left: 4, bottom: 3),
                                                   child: Text(
-                                                    lang.admin_dashboard_mediteranean_order,
+                                                    lang.admin_dashboard_mediterranean_order,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontWeight:
@@ -186,7 +186,7 @@ class MediterranesnDietView extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   left: 4, bottom: 2),
                                               child: Text(
-                                                lang.admin_dashboard_mediteranean_sales,
+                                                lang.admin_dashboard_mediterranean_sales,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
@@ -291,7 +291,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            lang.admin_dashboard_mediteranean_delivered,
+                                            lang.admin_dashboard_mediterranean_delivered,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            lang.admin_dashboard_mediteranean_total_order,
+                                            lang.admin_dashboard_mediterranean_total_order,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -432,7 +432,7 @@ class MediterranesnDietView extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.only(top: 6),
                                         child: Text(
-                                          'x ${dashboardProduct![0].quantity} ${lang.admin_dashboard_mediteranean_sold}',
+                                          'x ${dashboardProduct![0].quantity} ${lang.admin_dashboard_mediterranean_sold}',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
@@ -510,7 +510,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 6),
                                             child: Text(
-                                              'x ${dashboardProduct![1].quantity} ${lang.admin_dashboard_mediteranean_sold}',
+                                              'x ${dashboardProduct![1].quantity} ${lang.admin_dashboard_mediterranean_sold}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -589,7 +589,7 @@ class MediterranesnDietView extends StatelessWidget {
                                             padding:
                                                 const EdgeInsets.only(top: 6),
                                             child: Text(
-                                              'x ${dashboardProduct![2].quantity} ${lang.admin_dashboard_mediteranean_sold}',
+                                              'x ${dashboardProduct![2].quantity} ${lang.admin_dashboard_mediterranean_sold}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -607,7 +607,7 @@ class MediterranesnDietView extends StatelessWidget {
                               ],
                             ),
                           )
-                        : Text(lang.admin_dashboard_mediteranean_no_data)
+                        : Text(lang.admin_dashboard_mediterranean_no_data)
                   ],
                 ),
               ),

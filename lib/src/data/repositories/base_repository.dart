@@ -1,7 +1,7 @@
 // A concrete implementation to service contract
 import 'package:flutter/material.dart';
 
-import '../../utils/internet_utils.dart';
+import '../../utils/internet_util.dart';
 import '../app_locator.dart';
 import '../services/base_service.dart';
 import '../services/cena/cena_service.dart';

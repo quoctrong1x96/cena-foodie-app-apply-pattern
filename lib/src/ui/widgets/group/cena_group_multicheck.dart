@@ -26,33 +26,33 @@ class CenaGroupMultipleCheck extends StatelessWidget {
           bottom: AppConstants.padding_all5,
           top: AppConstants.padding_all5),
       child: GroupButton(
-        disabledButtons: isDisabled ? [] : checkedList!,
+        // disabledButtons: isDisabled ? [] : checkedList!,
         controller: controller,
         isRadio: false,
-        onSelected: (index, isSelected) {},
+        onSelected: (value, index, isSelected) {},
         buttons: options,
-        selectedButtons: checkedList,
-        mainGroupAlignment: MainGroupAlignment.start,
-        selectedTextStyle: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-          color: CenaColors.primary,
-        ),
-        unselectedTextStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-          color: isDisabled ? CenaColors.primary : Colors.grey[600],
-        ),
-        selectedColor: Colors.white,
-        unselectedColor: Colors.grey[300],
-        selectedBorderColor: CenaColors.primary,
-        unselectedBorderColor:
-            isDisabled ? CenaColors.primary : Colors.grey[500],
-        // borderRadius: BorderRadius.circular(5.0),
-        selectedShadow: const <BoxShadow>[BoxShadow(color: Colors.transparent)],
-        unselectedShadow: const <BoxShadow>[
-          BoxShadow(color: Colors.transparent)
-        ],
+        // selectedButtons: checkedList,
+        // mainGroupAlignment: MainGroupAlignment.start,
+        // selectedTextStyle: const TextStyle(
+        //   fontWeight: FontWeight.w600,
+        //   fontSize: 16,
+        //   color: CenaColors.primary,
+        // ),
+        // unselectedTextStyle: TextStyle(
+        //   fontWeight: FontWeight.w600,
+        //   fontSize: 14,
+        //   color: isDisabled ? CenaColors.primary : Colors.grey[600],
+        // ),
+        // selectedColor: Colors.white,
+        // unselectedColor: Colors.grey[300],
+        // selectedBorderColor: CenaColors.primary,
+        // unselectedBorderColor:
+        //     isDisabled ? CenaColors.primary : Colors.grey[500],
+        // // borderRadius: BorderRadius.circular(5.0),
+        // selectedShadow: const <BoxShadow>[BoxShadow(color: Colors.transparent)],
+        // unselectedShadow: const <BoxShadow>[
+        //   BoxShadow(color: Colors.transparent)
+        // ],
         // buttonHeight: 30,
       ),
     );

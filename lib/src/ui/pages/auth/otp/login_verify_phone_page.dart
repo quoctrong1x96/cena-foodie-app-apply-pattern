@@ -19,13 +19,13 @@ import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
 import '../../../widgets/loading_more_row_widget.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import '../../Admin/admin_home_page.dart';
 import '../reference/enter_references_page.dart';
 import '../register/register_client_page.dart';
 
-enum authProblems { userNotFound, passwordNotValid, networkError }
+enum AuthProblems { userNotFound, passwordNotValid, networkError }
 
 class LoginVerifyOtpPage extends StatefulWidget {
   final String phoneNumber;
@@ -150,9 +150,9 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
             });
           },
           // forceResendingToken:,
-          codeSent: (String verficationID, int? resendToken) async {
+          codeSent: (String verificationID, int? resendToken) async {
             startTimer();
-            _verificationId = verficationID;
+            _verificationId = verificationID;
             setState(() {
               _isLoading = false;
             });
@@ -251,6 +251,19 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
           )
         : Container(
             margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
+            decoration: BoxDecoration(
+                color: Colors.green.shade300,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.green.shade200,
+                      offset: const Offset(1, -2),
+                      blurRadius: 5),
+                  BoxShadow(
+                      color: Colors.green.shade200,
+                      offset: const Offset(-1, 2),
+                      blurRadius: 5)
+                ]),
             child: ButtonTheme(
               height: 50,
               child: TextButton(
@@ -280,19 +293,6 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
                 )),
               ),
             ),
-            decoration: BoxDecoration(
-                color: Colors.green.shade300,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.green.shade200,
-                      offset: const Offset(1, -2),
-                      blurRadius: 5),
-                  BoxShadow(
-                      color: Colors.green.shade200,
-                      offset: const Offset(-1, 2),
-                      blurRadius: 5)
-                ]),
           );
   }
 
@@ -316,7 +316,7 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    lang.auth_verify_phone_did_not_recieve_otp,
+                    lang.auth_verify_phone_did_not_receive_otp,
                     style: const TextStyle(color: Colors.black54, fontSize: 15),
                   ),
                   TextButton(
@@ -453,7 +453,7 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
 
   void _verifyFailure(BuildContext context, FailureAuthState state) {
     Navigator.pop(context);
-    if (state.error == "Phone not exsit") {
+    if (state.error == "Phone not exist") {
       Navigator.pushReplacement(context,
           routeCena(page: RegisterClientPage(phone: widget.phoneNumber)));
     } else {
@@ -479,7 +479,7 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
         } else if (userBloc.state.address == null) {
           userBloc.add(OnInitialCurrentAddressEvent(
               state.user!.id,
-              state.user!.firstName + " " + state.user!.lastName,
+              "${state.user!.firstName} ${state.user!.lastName}",
               state.user!.phone));
           NavigationUtils.clearStack(context,
               newRouteName: RouteConstants.get_current_address_of_user);

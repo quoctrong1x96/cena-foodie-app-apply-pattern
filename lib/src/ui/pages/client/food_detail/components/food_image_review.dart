@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../utils/image_ultils.dart';
+import '../../../../../utils/image_util.dart';
 import '../../../../widgets/widgets.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +16,7 @@ class FoodImageReview extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             height: 300,
-            child: CenaImageCache(url: ImagesUltils.getImageApiUrl(image)),
+            child: CenaImageCache(url: ImagesUtil.getImageApiUrl(image)),
           ),
         ],
       ),

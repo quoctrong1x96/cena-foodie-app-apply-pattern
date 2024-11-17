@@ -9,7 +9,7 @@ import '../../../../data/services/entities/user_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/user/user_bloc.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class EnterReferencePage extends StatefulWidget {
@@ -59,9 +59,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
                           final userBloc = BlocProvider.of<UserBloc>(context);
                           userBloc.add(OnInitialCurrentAddressEvent(
                               userBloc.state.user!.id,
-                              userBloc.state.user!.firstName +
-                                  " " +
-                                  userBloc.state.user!.lastName,
+                              "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
                               userBloc.state.user!.phone));
 
                           NavigationUtils.clearStack(context,
@@ -101,7 +99,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
               hintText: "MÃ GIỚI THIỆU",
               maxLength: 10,
               validator: RequiredValidator(
-                  errorText: "Bạn phải nhập mã hoặc nhấn bỏ qua"),
+                  errorText: "Bạn phải nhập mã hoặc nhấn bỏ qua").call,
             ),
             CenaIconButton(
               width: 50.0,
@@ -115,9 +113,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
                   final userBloc = BlocProvider.of<UserBloc>(context);
                   userBloc.add(OnInitialCurrentAddressEvent(
                       userBloc.state.user!.id,
-                      userBloc.state.user!.firstName +
-                          " " +
-                          userBloc.state.user!.lastName,
+                      "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
                       userBloc.state.user!.phone));
                   NavigationUtils.clearStack(context,
                       newRouteName: RouteConstants.get_current_address_of_user);

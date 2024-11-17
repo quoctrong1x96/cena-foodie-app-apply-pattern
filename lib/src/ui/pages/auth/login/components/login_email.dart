@@ -95,7 +95,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                   ElevatedButton(
                     child: Text(S.of(context).login_login),
                     onPressed: () {
-                      LogUtils.debug(
+                      LogUtil2.debug(
                         'LoginPage',
                         'Login Button Press',
                         "Pressed",

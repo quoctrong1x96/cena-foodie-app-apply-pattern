@@ -18,7 +18,7 @@ class DashboardView {
   int storeId;
   String? storeName;
   DashboardStatus? dashboardStatus;
-  List<DashboardDelivered>? dashboardDelivereds;
+  List<DashboardDelivered>? dashboardDelivered;
   DashboardPayType? dashboardPayType;
   List<DashboardPersonal>? dashboardPersonal;
   List<DashboardProduct>? dashboardProducts;
@@ -27,7 +27,7 @@ class DashboardView {
       {required this.storeId,
       this.storeName,
       this.dashboardStatus,
-      this.dashboardDelivereds,
+      this.dashboardDelivered,
       this.dashboardPayType,
       this.dashboardPersonal,
       this.dashboardProducts});
@@ -36,7 +36,7 @@ class DashboardView {
         storeId: json["store_id"],
         storeName: json["store_name"],
         dashboardStatus: DashboardStatus.fromJson(json["dashboardByStatus"]),
-        dashboardDelivereds: List<DashboardDelivered>.from(
+        dashboardDelivered: List<DashboardDelivered>.from(
             json["dashboardDelivered"]
                 .map((x) => DashboardDelivered.fromJson(x))).toList(),
         dashboardPayType: DashboardPayType.fromJson(json["dashboardPayType"]),
@@ -53,7 +53,7 @@ class DashboardView {
         "store_name": storeName,
         "dashboardByStatus": dashboardStatus?.toJson(),
         "dashboardDelivered":
-            List<dynamic>.from(dashboardDelivereds!.map((x) => x.toJson())),
+            List<dynamic>.from(dashboardDelivered!.map((x) => x.toJson())),
         "dashboardPayType": dashboardPayType!.toJson(),
         "dashboardByPersonal":
             List<dynamic>.from(dashboardPersonal!.map((x) => x.toJson())),
@@ -62,39 +62,39 @@ class DashboardView {
       };
   Future<void> updateAll(TypeOfTime typeOfTime, int storeId,
       String timeFormatDDmmYYYY, int page) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardDelivereds = (await _dashboardService.deliveredByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardDelivered = (await dashboardService.deliveredByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY,
             page: page))
         .data;
-    dashboardPayType = (await _dashboardService.paymentByPeriod(
+    dashboardPayType = (await dashboardService.paymentByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
         .data;
-    dashboardStatus = (await _dashboardService.statusByPeriod(
+    dashboardStatus = (await dashboardService.statusByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
         .data;
-    dashboardPersonal = (await _dashboardService.personalByPeriod(
+    dashboardPersonal = (await dashboardService.personalByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
         .data;
-    dashboardProducts = (await _dashboardService.productByPeriod(
+    dashboardProducts = (await dashboardService.productByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
         .data;
   }
 
-  Future<void> updateDashboardDelivereds(TypeOfTime typeOfTime, int storeId,
+  Future<void> updateDashboardDelivered(TypeOfTime typeOfTime, int storeId,
       String timeFormatDDmmYYYY, int page) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardDelivereds = (await _dashboardService.deliveredByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardDelivered = (await dashboardService.deliveredByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY,
@@ -104,8 +104,8 @@ class DashboardView {
 
   Future<void> updateDashboardProducts(
       TypeOfTime typeOfTime, int storeId, String timeFormatDDmmYYYY) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardProducts = (await _dashboardService.productByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardProducts = (await dashboardService.productByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
@@ -114,8 +114,8 @@ class DashboardView {
 
   Future<void> updateDashboardPayType(
       TypeOfTime typeOfTime, int storeId, String timeFormatDDmmYYYY) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardPayType = (await _dashboardService.paymentByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardPayType = (await dashboardService.paymentByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
@@ -124,8 +124,8 @@ class DashboardView {
 
   Future<void> updateDashboardStatus(
       TypeOfTime typeOfTime, int storeId, String timeFormatDDmmYYYY) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardStatus = (await _dashboardService.statusByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardStatus = (await dashboardService.statusByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))
@@ -134,8 +134,8 @@ class DashboardView {
 
   Future<void> updateDashboardPersonal(
       TypeOfTime typeOfTime, int storeId, String timeFormatDDmmYYYY) async {
-    final IDashboardService _dashboardService = locator<IDashboardService>();
-    dashboardPersonal = (await _dashboardService.personalByPeriod(
+    final IDashboardService dashboardService = locator<IDashboardService>();
+    dashboardPersonal = (await dashboardService.personalByPeriod(
             typeOfTime: typeOfTime,
             storeId: storeId,
             timeFormatDDmmYYYY: timeFormatDDmmYYYY))

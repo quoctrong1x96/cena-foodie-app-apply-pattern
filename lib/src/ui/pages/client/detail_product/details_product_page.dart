@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../data/models/entities/product/product.dart';
 import '../../../../data/models/entities/product/product_image.dart';
 import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
@@ -153,7 +153,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
                             itemBuilder: (context, i, realIndex) => SizedBox(
                               width: size.width,
                               child: CenaImageCache(
-                                  url: ImagesUltils.getImageApiUrl(
+                                  url: ImagesUtil.getImageApiUrl(
                                       imagesProducts[i].networkUrl),
                                   fit: BoxFit.fitHeight),
                             ),

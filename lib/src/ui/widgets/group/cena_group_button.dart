@@ -21,32 +21,32 @@ class CenaGroupRadio extends StatelessWidget {
       child: GroupButton(
         controller: controller,
         isRadio: true,
-        onSelected: (index, isSelected) => debugPrint(
+        onSelected: (value, index, isSelected) => debugPrint(
           '$index button is ${isSelected ? 'selected' : 'unselected'}',
         ),
         buttons: options,
-        selectedButton: 1,
-        mainGroupAlignment: MainGroupAlignment.start,
-        selectedTextStyle: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-          color: Color.fromARGB(255, 243, 25, 189),
-        ),
-        unselectedTextStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-          color: Colors.grey[600],
-        ),
-        selectedColor: Colors.white,
-        unselectedColor: Colors.grey[300],
-        selectedBorderColor: const Color.fromARGB(255, 243, 25, 189),
-        unselectedBorderColor: Colors.grey[500],
-        // borderRadius: BorderRadius.circular(5.0),
-        selectedShadow: const <BoxShadow>[BoxShadow(color: Colors.transparent)],
-        unselectedShadow: const <BoxShadow>[
-          BoxShadow(color: Colors.transparent)
-        ],
-        buttonHeight: 30,
+        // selectedButton: 1,
+        // mainGroupAlignment: MainGroupAlignment.start,
+        // selectedTextStyle: const TextStyle(
+        //   fontWeight: FontWeight.w600,
+        //   fontSize: 16,
+        //   color: Color.fromARGB(255, 243, 25, 189),
+        // ),
+        // unselectedTextStyle: TextStyle(
+        //   fontWeight: FontWeight.w600,
+        //   fontSize: 14,
+        //   color: Colors.grey[600],
+        // ),
+        // selectedColor: Colors.white,
+        // unselectedColor: Colors.grey[300],
+        // selectedBorderColor: const Color.fromARGB(255, 243, 25, 189),
+        // unselectedBorderColor: Colors.grey[500],
+        // // borderRadius: BorderRadius.circular(5.0),
+        // selectedShadow: const <BoxShadow>[BoxShadow(color: Colors.transparent)],
+        // unselectedShadow: const <BoxShadow>[
+        //   BoxShadow(color: Colors.transparent)
+        // ],
+        // buttonHeight: 30,
       ),
     );
   }

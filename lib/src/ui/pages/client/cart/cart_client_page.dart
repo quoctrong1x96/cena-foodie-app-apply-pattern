@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../../data/models/entities/cart/cart.dart';
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../resources/generated/l10n.dart';
@@ -62,8 +62,8 @@ class CartClientPage extends StatelessWidget {
           productCarts = state.products!
               .where((element) => element.storeId == storeItem.id);
           List<Cart> listProduct = [];
-          for (var productcart in productCarts) {
-            listProduct.add(productcart);
+          for (var productCart in productCarts) {
+            listProduct.add(productCart);
           }
           if (listProduct.isNotEmpty) {
             listCarts
@@ -83,8 +83,8 @@ class CartClientPage extends StatelessWidget {
             productCarts =
                 state.products!.where((element) => element.storeId == storeId);
             List<Cart> listProduct = [];
-            for (var productcart in productCarts) {
-              listProduct.add(productcart);
+            for (var productCart in productCarts) {
+              listProduct.add(productCart);
             }
             if (listProduct.isNotEmpty) {
               listCarts.add(CartShowList(
@@ -154,7 +154,7 @@ class CartClientPage extends StatelessWidget {
                                     child: Icon(Icons.delete_sweep_rounded,
                                         color: CenaColors.WHITE, size: 40),
                                   ),
-                                  onDismissed: (direccion) => cartBloc.add(
+                                  onDismissed: (direction) => cartBloc.add(
                                       OnDeleteProductToCartByIdEvent(
                                           listCarts[0].listCart[i].productId)),
                                   confirmDismiss:
@@ -196,7 +196,7 @@ class CartClientPage extends StatelessWidget {
                                                           .pop(true),
                                                   child: CenaTextDescription(
                                                     text: lang
-                                                        .client_cart_checkout_diolog_confirm_yes,
+                                                        .client_cart_checkout_dialog_confirm_yes,
                                                     fontSize: 14,
                                                     color: CenaColors.GREY,
                                                   ),
@@ -227,7 +227,7 @@ class CartClientPage extends StatelessWidget {
                                                 image: DecorationImage(
                                                     scale: 8,
                                                     image: CachedNetworkImageProvider(
-                                                        ImagesUltils.getImageApiUrl(
+                                                        ImagesUtil.getImageApiUrl(
                                                             listCarts[0]
                                                                 .listCart[i]
                                                                 .productImage)),

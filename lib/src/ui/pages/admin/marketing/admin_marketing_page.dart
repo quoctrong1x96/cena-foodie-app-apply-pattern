@@ -107,13 +107,13 @@ class AdminMarketingPage extends StatelessWidget {
                 onPressed: () {},
                 elevation: 0,
                 fillColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                padding: const EdgeInsets.all(15.0),
+                shape: const CircleBorder(),
                 child: Icon(
                   icon,
                   size: 25.0,
                   color: Theme.of(context).primaryColor,
                 ),
-                padding: const EdgeInsets.all(15.0),
-                shape: const CircleBorder(),
               ),
               Positioned(
                 top: 0,
@@ -129,7 +129,7 @@ class AdminMarketingPage extends StatelessWidget {
                     textBadge,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .copyWith(color: Theme.of(context).primaryColorLight),
                   ),
                 ),
@@ -140,15 +140,15 @@ class AdminMarketingPage extends StatelessWidget {
             height: 10.0,
           ),
           SizedBox(
+            width: 80,
             child: Text(
               buttonText,
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(color: Theme.of(context).primaryColorDark),
             ),
-            width: 80,
           )
         ],
       )),
@@ -177,28 +177,28 @@ class AdminMarketingPage extends StatelessWidget {
             child: RawMaterialButton(
               onPressed: () {},
               elevation: 0,
+              padding: const EdgeInsets.all(5.0),
+              shape: const CircleBorder(),
               child: Icon(
                 icon,
                 size: 20.0,
                 color: Theme.of(context).primaryColor,
               ),
-              padding: const EdgeInsets.all(5.0),
-              shape: const CircleBorder(),
             ),
           ),
           const SizedBox(
             height: 10.0,
           ),
           SizedBox(
+            width: 70,
             child: Text(
               buttonText,
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(color: Theme.of(context).primaryColorDark),
             ),
-            width: 70,
           )
         ],
       )),

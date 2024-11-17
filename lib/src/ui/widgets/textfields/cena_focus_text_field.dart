@@ -117,7 +117,7 @@ class CenaFocusTextFieldState extends State<CenaFocusTextField> {
           );
         },
       );
-      Overlay.of(context)?.insert(_overlayEntry!);
+      Overlay.of(context).insert(_overlayEntry!);
     }
   }
 

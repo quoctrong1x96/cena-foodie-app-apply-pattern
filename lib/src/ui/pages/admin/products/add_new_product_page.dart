@@ -15,7 +15,7 @@ import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class AddNewProductPage extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   Widget build(BuildContext context) {
     final productBloc = BlocProvider.of<ProductsBloc>(context);
     final storeBloc = BlocProvider.of<StoreBloc>(context);
-    final _productService = locator<ICategoryService>();
+    final productService = locator<ICategoryService>();
     store = storeBloc.state.store!;
     final lang = S.of(context);
 
@@ -123,7 +123,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 controller: _nameController,
                 hintText: lang.store_product_add_product_name,
                 validator: RequiredValidator(
-                    errorText: lang.store_product_add_product_name_error),
+                    errorText: lang.store_product_add_product_name_error).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(
@@ -134,7 +134,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 maxLine: 5,
                 validator: RequiredValidator(
                     errorText:
-                        lang.store_product_add_product_description_error),
+                        lang.store_product_add_product_description_error).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(text: lang.store_product_add_price),
@@ -144,21 +144,19 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                 hintText: lang.store_product_add_price_hint,
                 keyboardType: TextInputType.number,
                 validator: RequiredValidator(
-                    errorText: lang.store_product_add_price_erorr),
+                    errorText: lang.store_product_add_price_erorr).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(text: lang.store_product_add_picture),
               const SizedBox(height: 10.0),
               InkWell(
                 onTap: () async {
-                  final ImagePicker _picker = ImagePicker();
+                  final ImagePicker picker = ImagePicker();
 
-                  final List<XFile>? images = await _picker.pickMultiImage();
+                  final List<XFile> images = await picker.pickMultiImage();
 
-                  if (images != null) {
-                    productBloc.add(OnSelectMultipleImagesEvent(images));
-                  }
-                },
+                  productBloc.add(OnSelectMultipleImagesEvent(images));
+                                },
                 child: Container(
                   height: 150,
                   width: MediaQuery.of(context).size.width,
@@ -211,7 +209,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                       ]),
                   child: InkWell(
                     onTap: () => modalSelectionCategory(
-                        context, storeBloc.state.store!.id, _productService),
+                        context, storeBloc.state.store!.id, productService),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

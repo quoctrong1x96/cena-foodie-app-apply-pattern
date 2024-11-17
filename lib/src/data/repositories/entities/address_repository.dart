@@ -61,7 +61,7 @@ class AddressRepository extends BaseRepository implements IAddressService {
         errorMessage: "error_internet_unavailable",
       );
     }
-    final response = await cenaService.fisrtAddress(userId: userId);
+    final response = await cenaService.firstAddress(userId: userId);
     return UiResponse.map(response);
   }
 }

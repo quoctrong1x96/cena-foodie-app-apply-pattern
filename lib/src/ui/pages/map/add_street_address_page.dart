@@ -11,7 +11,7 @@ import '../../blocs/my_location/my_location_map_bloc.dart';
 import '../../../utils/configs/cena_colors.dart';
 import '../../blocs/user/user_bloc.dart';
 import '../../../utils/helpers/helpers.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
 import 'map_address_page.dart';
 

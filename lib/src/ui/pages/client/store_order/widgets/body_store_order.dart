@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../../data/models/entities/store/store.dart';
-import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../../utils/configs/cena_text_styles.dart';
 import '../../../../resources/generated/l10n.dart';
-import '../../../../widgets/widgets.dart';
-import 'store_image_review.dart';
-import 'tab_bar.dart';
 
 class Body extends StatelessWidget {
   final Store store;
@@ -43,71 +39,14 @@ class Body extends StatelessWidget {
               Container(
                 height: 30,
                 color: Colors.orange,
-                child: Text("orage"),
+                child: Text("orange"),
               )
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text('''...............
-          fdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-fdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsdfdsfafiasofsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
-          fsdfsd
+          
           '''),
           )
         ],

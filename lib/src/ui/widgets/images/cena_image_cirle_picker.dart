@@ -52,7 +52,7 @@ class CenaImageCirclePicker extends StatelessWidget {
                           image: image.toString() != ""
                               ? DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                      ImagesUltils.getImageApiUrl(
+                                      ImagesUtil.getImageApiUrl(
                                           image.toString())),
                                   fit: BoxFit.cover)
                               : null),
@@ -70,7 +70,7 @@ class CenaImageCirclePicker extends StatelessWidget {
                               image: state.user!.image.toString() != ""
                                   ? DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                          ImagesUltils.getImageApiUrl(
+                                          ImagesUtil.getImageApiUrl(
                                               state.user!.image.toString())),
                                       fit: BoxFit.cover)
                                   : null),

@@ -40,13 +40,13 @@ class CenaButton extends StatelessWidget {
             elevation: AppConstants.elevation_button, //Defines Elevation
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius))),
+        onPressed: onPressed,
         child: CenaTextDescription(
           text: text,
           fontSize: fontSize,
           color: textColor,
           fontWeight: fontWeight,
         ),
-        onPressed: onPressed,
       ),
     );
   }

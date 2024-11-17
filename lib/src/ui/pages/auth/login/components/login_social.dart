@@ -112,16 +112,16 @@ class SocialButtons extends StatelessWidget {
   void _loginWithFacebook() async {
     // ignore: unused_local_variable
     Map<String, dynamic>? userData;
-    AccessToken? _accessToken;
-    _accessToken = await FacebookAuth.instance.accessToken;
-    if (_accessToken != null) {
+    AccessToken? accessToken;
+    accessToken = await FacebookAuth.instance.accessToken;
+    if (accessToken != null) {
       userData = await FacebookAuth.instance.getUserData(
           fields:
               "id,first_name,last_name,middle_name,about,birthday,picture,email,gender,languages,link");
     } else {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
-        _accessToken = result.accessToken;
+        accessToken = result.accessToken;
         userData = await FacebookAuth.instance.getUserData(
             fields:
                 "id,first_name,last_name,middle_name,about,birthday,picture,email,gender,languages,link");

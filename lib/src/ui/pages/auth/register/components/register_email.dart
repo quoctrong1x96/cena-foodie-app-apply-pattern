@@ -101,7 +101,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
                   ElevatedButton(
                     child: Text(S.of(context).register_button),
                     onPressed: () {
-                      LogUtils.debug(
+                      LogUtil2.debug(
                         'Register Page',
                         'Register with email',
                         "Pressed",

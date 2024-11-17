@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'log_utils.dart';
+import 'log_util2.dart';
 
 class DateTimeUtils {
   const DateTimeUtils._internal();
@@ -11,7 +11,7 @@ class DateTimeUtils {
         formattedDate = DateFormat(pattern).format(dateTime);
       }
     } on Exception catch (e) {
-      LogUtils.error('DateUtils', 'format', e.toString());
+      LogUtil2.error('DateUtils', 'format', e.toString());
     }
     return formattedDate;
   }
@@ -23,7 +23,7 @@ class DateTimeUtils {
         dateTime = DateTime.tryParse(formattedDate);
       }
     } on Exception catch (e) {
-      LogUtils.error('DateUtils', 'parse', e.toString());
+      LogUtil2.error('DateUtils', 'parse', e.toString());
     }
     return dateTime;
   }

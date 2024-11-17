@@ -113,8 +113,10 @@ class DialogUtils {
     VoidCallback? callback,
   ) {
     if (text != null) {
-      return FlatButton(
-        textColor: CenaColors.secondary,
+      return TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: CenaColors.secondary,
+        ),
         child: Text(text.toUpperCase()),
         onPressed: () {
           NavigationUtils.pop(context, result: false);
@@ -132,8 +134,10 @@ class DialogUtils {
     String text,
     VoidCallback? callback,
   ) {
-    return FlatButton(
-      textColor: Theme.of(context).accentColor,
+    return TextButton(
+      style: TextButton.styleFrom(
+          foregroundColor: Theme.of(context).colorScheme.secondary,
+        ),
       child: Text(text.toUpperCase()),
       onPressed: () {
         NavigationUtils.pop(context, result: true);

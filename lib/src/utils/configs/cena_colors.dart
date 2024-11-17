@@ -95,7 +95,7 @@ class CenaColors {
   }
 
   static int _getColorHexFromStr(String colorStr) {
-    colorStr = "FF" + colorStr;
+    colorStr = "FF$colorStr";
     colorStr = colorStr.replaceAll("#", "");
     int val = 0;
     int len = colorStr.length;

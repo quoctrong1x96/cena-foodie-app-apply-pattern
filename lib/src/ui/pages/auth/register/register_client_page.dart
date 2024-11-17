@@ -17,10 +17,10 @@ import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
-enum RegistType { byPhone, byEmail, byGoogle, byFacebook }
+enum RegisType { byPhone, byEmail, byGoogle, byFacebook }
 
 class RegisterClientPage extends StatefulWidget {
   final String? phone;
@@ -31,7 +31,7 @@ class RegisterClientPage extends StatefulWidget {
 }
 
 class _RegisterClientPageState extends State<RegisterClientPage> {
-  var _registType = RegistType.byEmail;
+  var _registType = RegisType.byEmail;
 
   @override
   void initState() {
@@ -115,7 +115,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                   text: "Create CenaFoodie Account", fontSize: 20),
               const SizedBox(height: 10),
               _buildSwitchButton(context),
-              _registType == RegistType.byEmail
+              _registType == RegisType.byEmail
                   ? const RegisterEmail()
                   : const RegisterPhone()
             ],
@@ -133,7 +133,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
           width: 150,
           decoration: BoxDecoration(
             border: Border(
-                bottom: _registType == RegistType.byPhone
+                bottom: _registType == RegisType.byPhone
                     ? BorderSide(
                         color: Theme.of(context).primaryColor,
                         width: 1.5,
@@ -141,13 +141,13 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                     : BorderSide.none),
           ),
           child: OutlinedButton(
-            onPressed: () => setStateLoginType(RegistType.byPhone),
+            onPressed: () => setStateLoginType(RegisType.byPhone),
             style: ButtonStyle(
-                side: MaterialStateProperty.all<BorderSide>(
+                side: WidgetStateProperty.all<BorderSide>(
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_sms,
-                style: _registType == RegistType.byPhone
+                style: _registType == RegisType.byPhone
                     ? TextStyle(
                         fontSize: 17,
                         color: Theme.of(context).primaryColor,
@@ -162,7 +162,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
           width: 150,
           decoration: BoxDecoration(
             border: Border(
-                bottom: _registType == RegistType.byEmail
+                bottom: _registType == RegisType.byEmail
                     ? BorderSide(
                         color: Theme.of(context).primaryColor,
                         width: 1.5,
@@ -170,13 +170,13 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                     : BorderSide.none),
           ),
           child: OutlinedButton(
-            onPressed: () => setStateLoginType(RegistType.byEmail),
+            onPressed: () => setStateLoginType(RegisType.byEmail),
             style: ButtonStyle(
-                side: MaterialStateProperty.all<BorderSide>(
+                side: WidgetStateProperty.all<BorderSide>(
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_email,
-                style: _registType == RegistType.byEmail
+                style: _registType == RegisType.byEmail
                     ? TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).primaryColor,
@@ -192,7 +192,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     //
   }
 
-  void setStateLoginType(RegistType registTypeState) {
+  void setStateLoginType(RegisType registTypeState) {
     setState(() {
       _registType = registTypeState;
     });
@@ -305,6 +305,9 @@ class _PictureRegister extends StatelessWidget {
                 case PermissionStatus.permanentlyDenied:
                   openAppSettings();
                   break;
+                case PermissionStatus.provisional:
+                  // TODO: Handle this case.
+                  break;
               }
             },
             onPressedTake: () async {
@@ -325,6 +328,9 @@ class _PictureRegister extends StatelessWidget {
                 case PermissionStatus.limited:
                 case PermissionStatus.permanentlyDenied:
                   openAppSettings();
+                  break;
+                case PermissionStatus.provisional:
+                  // TODO: Handle this case.
                   break;
               }
             }),

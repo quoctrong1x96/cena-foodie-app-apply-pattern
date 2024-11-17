@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,7 +68,7 @@ class AdminHomePage extends StatelessWidget {
           children: <Widget>[
             TextButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(
                     horizontal: 8,
                   ),
@@ -81,7 +83,7 @@ class AdminHomePage extends StatelessWidget {
             ),
             TextButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(
                     horizontal: 8,
                   ),
@@ -114,7 +116,6 @@ class AdminHomePage extends StatelessWidget {
             modalLoading(context);
           } else if (state is SuccessUserState) {
             Navigator.pop(context);
-            // cenaToastSuccess("Thay đổi ảnh đại diện thành công");
             Navigator.pushReplacement(
                 context, routeCena(page: const AdminHomePage()));
             Navigator.pop(context);
@@ -140,9 +141,7 @@ class AdminHomePage extends StatelessWidget {
                       child: BlocBuilder<UserBloc, UserState>(
                           builder: (_, state) => CenaTextDescription(
                                 text: (state.user != null)
-                                    ? state.user!.firstName.toUpperCase() +
-                                        ' ' +
-                                        state.user!.lastName.toUpperCase()
+                                    ? '${state.user!.firstName.toUpperCase()} ${state.user!.lastName.toUpperCase()}'
                                     : '',
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -180,8 +179,7 @@ class AdminHomePage extends StatelessWidget {
                       colorIcon: const Color(0xffE62755),
                       onPressed: () => NavigationUtils.clearStack(context,
                           newRouteName: RouteConstants.select_role),
-                    ),
-                  CenaTextGroup(text: lang.admin_group_store_managerment),
+                    ),//,admin_group_store_management(text: lang.admin_group_store_management)
                   CenaButtonLineIcon(
                     text: lang.admin_store,
                     icon: Icons.store,
@@ -190,7 +188,7 @@ class AdminHomePage extends StatelessWidget {
                         context, RouteConstants.admin_edit),
                   ),
                   CenaButtonLineIcon(
-                    text: lang.admin_categoris,
+                    text: lang.admin_categories,
                     icon: Icons.category_rounded,
                     colorIcon: const Color(0xff5E65CD),
                     onPressed: () => NavigationUtils.push(

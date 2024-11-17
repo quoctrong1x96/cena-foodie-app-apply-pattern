@@ -13,12 +13,12 @@ import '../../../data/services/entities/order_service.dart';
 import '../../../utils/../utils/helpers/helpers.dart';
 import '../../../utils/configs/cena_colors.dart';
 import '../../../utils/helpers/date.dart';
-import '../../../utils/image_ultils.dart';
+import '../../../utils/image_util.dart';
 import '../../blocs/my_location/my_location_map_bloc.dart';
 import '../../blocs/order/orders_bloc.dart';
 import '../../resources/generated/l10n.dart';
 import '../../widgets/animation_route.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
 import 'map_delivery_page.dart';
 
@@ -34,24 +34,24 @@ class OrdersDetailsDeliveryPage extends StatefulWidget {
 }
 
 class _OrdersDetailsDeliveryPageState extends State<OrdersDetailsDeliveryPage> {
-  late MyLocationMapBloc mylocationmapBloc;
+  late MyLocationMapBloc myLocationMapBloc;
   final _orderService = locator<IOrderService>();
 
-  Future<void> _getPermistion() async {
+  Future<void> _getPermission() async {
     accessGps(await Permission.location.request(), context);
   }
 
   @override
   void initState() {
-    _getPermistion();
-    mylocationmapBloc = BlocProvider.of<MyLocationMapBloc>(context);
-    mylocationmapBloc.initialLocation();
+    _getPermission();
+    myLocationMapBloc = BlocProvider.of<MyLocationMapBloc>(context);
+    myLocationMapBloc.initialLocation();
     super.initState();
   }
 
   @override
   void dispose() {
-    mylocationmapBloc.cancelLocation();
+    myLocationMapBloc.cancelLocation();
     super.dispose();
   }
 
@@ -66,6 +66,9 @@ class _OrdersDetailsDeliveryPageState extends State<OrdersDetailsDeliveryPage> {
       case PermissionStatus.limited:
       case PermissionStatus.permanentlyDenied:
         openAppSettings();
+        break;
+      case PermissionStatus.provisional:
+        // TODO: Handle this case.
         break;
     }
   }
@@ -172,9 +175,9 @@ class _OrdersDetailsDeliveryPageState extends State<OrdersDetailsDeliveryPage> {
                                 image: DecorationImage(
                                     image: CachedNetworkImageProvider(
                                         (widget.order.clientImage != null)
-                                            ? ImagesUltils.getImageApiUrl(
+                                            ? ImagesUtil.getImageApiUrl(
                                                 widget.order.clientImage)
-                                            : ImagesUltils.getImageApiUrl(
+                                            : ImagesUtil.getImageApiUrl(
                                                 'without-image.png')))),
                           ),
                           const SizedBox(width: 10.0),
@@ -286,7 +289,7 @@ class _ListProductsDetails extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: CachedNetworkImageProvider(
-                          ImagesUltils.getImageApiUrl(
+                          ImagesUtil.getImageApiUrl(
                               listProductDetails[i].picture!)))),
             ),
             const SizedBox(width: 15.0),

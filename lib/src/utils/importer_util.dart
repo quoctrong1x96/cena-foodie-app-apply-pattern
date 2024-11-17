@@ -1,5 +1,5 @@
-import 'checking_utils.dart';
-import 'color_utils.dart';
+import 'checking_util.dart';
+import 'color_util.dart';
 
 class UtilsImporter {
   ColorUtils colorUtils = ColorUtils();

@@ -35,7 +35,7 @@ class CenaImageSquare extends StatelessWidget {
                         image: image != ""
                             ? DecorationImage(
                                 image: CachedNetworkImageProvider(
-                                    ImagesUltils.getImageApiUrl(
+                                    ImagesUtil.getImageApiUrl(
                                         image.toString())),
                                 fit: BoxFit.cover)
                             : null),

@@ -10,13 +10,15 @@ class CenaButtonOrganic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
-    return FlatButton(
+    return TextButton(
       onPressed: action,
-      color: CenaColors.buttonBGWhite,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100),
+      style: TextButton.styleFrom(
+        backgroundColor: CenaColors.buttonBGWhite,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

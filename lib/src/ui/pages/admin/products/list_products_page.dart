@@ -14,12 +14,12 @@ import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/configs/cena_text_styles.dart';
 import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class ListProductsPage extends StatefulWidget {
@@ -152,7 +152,7 @@ class _GridViewListProduct extends StatelessWidget {
                               image: DecorationImage(
                                   scale: 7,
                                   image: CachedNetworkImageProvider(
-                                      ImagesUltils.getImageApiUrl(
+                                      ImagesUtil.getImageApiUrl(
                                           productGroupByCategory[categories[i]]!
                                               .elementAt(j)
                                               .picture)),
@@ -200,7 +200,7 @@ class _GridViewListProduct extends StatelessWidget {
                             ),
                             const SizedBox(width: 5.0),
                             CenaTextDescription(
-                                text: lang.admin_product_sales + " ",
+                                text: "${lang.admin_product_sales} ",
                                 fontSize: 14,
                                 color: CenaColors.textBlack.withOpacity(0.8)),
                             CenaTextDescription(
@@ -219,7 +219,7 @@ class _GridViewListProduct extends StatelessWidget {
                                 color: CenaColors.textBlack.withOpacity(0.8)),
                             const SizedBox(width: 5.0),
                             CenaTextDescription(
-                              text: lang.admin_product_liked + " ",
+                              text: "${lang.admin_product_liked} ",
                               fontSize: 14,
                               color: CenaColors.textBlack.withOpacity(0.8),
                             ),
@@ -239,7 +239,7 @@ class _GridViewListProduct extends StatelessWidget {
                                 color: CenaColors.textBlack.withOpacity(0.8)),
                             const SizedBox(width: 5.0),
                             CenaTextDescription(
-                              text: lang.admin_product_viewer + " ",
+                              text: "${lang.admin_product_viewer} ",
                               fontSize: 14,
                               color: CenaColors.textBlack.withOpacity(0.8),
                             ),
@@ -281,6 +281,9 @@ class _GridViewListProduct extends StatelessWidget {
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: CenaColors.GREY),
+                                  borderRadius: BorderRadius.circular(2.0)),
                               child: Center(
                                   child: productGroupByCategory[categories[i]]!
                                               .elementAt(j)
@@ -291,10 +294,7 @@ class _GridViewListProduct extends StatelessWidget {
                                           lang.admin_product_show,
                                           style: const TextStyle(
                                               color: CenaColors.primary),
-                                        )),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: CenaColors.GREY),
-                                  borderRadius: BorderRadius.circular(2.0))),
+                                        ))),
                         ),
                         TextButton(
                           onPressed: () => NavigationUtils.push(
@@ -307,11 +307,11 @@ class _GridViewListProduct extends StatelessWidget {
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),
-                              child:
-                                  Center(child: Text(lang.admin_product_edit)),
                               decoration: BoxDecoration(
                                   border: Border.all(color: CenaColors.GREY),
-                                  borderRadius: BorderRadius.circular(2.0))),
+                                  borderRadius: BorderRadius.circular(2.0)),
+                              child:
+                                  Center(child: Text(lang.admin_product_edit))),
                         ),
                         TextButton(
                           onPressed: () => modalDeleteProduct(
@@ -331,11 +331,11 @@ class _GridViewListProduct extends StatelessWidget {
                           child: Container(
                               width: 100,
                               padding: const EdgeInsets.all(5.0),
-                              child: Center(
-                                  child: Text(lang.admin_product_delete)),
                               decoration: BoxDecoration(
                                   border: Border.all(color: CenaColors.GREY),
-                                  borderRadius: BorderRadius.circular(2.0))),
+                                  borderRadius: BorderRadius.circular(2.0)),
+                              child: Center(
+                                  child: Text(lang.admin_product_delete))),
                         )
                       ],
                     )

@@ -110,7 +110,7 @@ class _ListDeliveryModal extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.0),
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                            ImagesUltils.getImageApiUrl(
+                            ImagesUtil.getImageApiUrl(
                                 listDelivery[i].image!)))),
               ),
               const SizedBox(width: 15.0),

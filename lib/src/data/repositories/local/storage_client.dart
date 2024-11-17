@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constants/app_constants.dart';
-import '../../../utils/json_utils.dart';
+import '../../../utils/json_util.dart';
 import '../../models/entities/user/user.dart';
 
 class StorageClient {

@@ -106,7 +106,7 @@ class _AddCategoryAdminPageState extends State<AddCategoryAdminPage> {
                   hintText: S.of(context).admin_category_example,
                   maxLength: 50,
                   validator: RequiredValidator(
-                      errorText: S.of(context).admin_category_name_required),
+                      errorText: S.of(context).admin_category_name_required).call,
                 ),
                 const SizedBox(height: 25.0),
                 CenaTextDescription(

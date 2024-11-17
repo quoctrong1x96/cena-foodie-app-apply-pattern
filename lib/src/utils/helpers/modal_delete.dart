@@ -43,7 +43,7 @@ void modalDelete(
                       image: DecorationImage(
                           scale: 7,
                           image: CachedNetworkImageProvider(
-                              ImagesUltils.getImageApiUrl(image)))),
+                              ImagesUtil.getImageApiUrl(image)))),
                 ),
                 const SizedBox(width: 10.0),
                 CenaTextDescription(

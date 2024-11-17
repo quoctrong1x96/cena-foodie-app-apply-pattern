@@ -10,7 +10,7 @@ import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import 'components/components.dart';
 
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
       if (userBloc.state.address == null) {
         userBloc.add(OnInitialCurrentAddressEvent(
             state.user!.id,
-            state.user!.firstName + " " + state.user!.lastName,
+            "${state.user!.firstName} ${state.user!.lastName}",
             state.user!.phone));
       }
       NavigationUtils.clearStack(context,
@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
           child: OutlinedButton(
             onPressed: () => setStateLoginType(LoginType.byPhone),
             style: ButtonStyle(
-                side: MaterialStateProperty.all<BorderSide>(
+                side: WidgetStateProperty.all<BorderSide>(
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_sms,
@@ -189,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
           child: OutlinedButton(
             onPressed: () => setStateLoginType(LoginType.byEmail),
             style: ButtonStyle(
-                side: MaterialStateProperty.all<BorderSide>(
+                side: WidgetStateProperty.all<BorderSide>(
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_email,
@@ -210,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildDivide(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -222,16 +222,16 @@ class _LoginPageState extends State<LoginPage> {
             Container(
                 height: 1,
                 width: 50,
-                color: _theme.primaryColorDark.withAlpha(60)),
+                color: theme.primaryColorDark.withAlpha(60)),
             CenaTextDescription(
               text: S.of(context).login_or,
               fontSize: 16,
-              color: _theme.primaryColorDark.withAlpha(60),
+              color: theme.primaryColorDark.withAlpha(60),
             ),
             Container(
                 height: 1,
                 width: 50,
-                color: _theme.primaryColorDark.withAlpha(60)),
+                color: theme.primaryColorDark.withAlpha(60)),
             const SizedBox(height: 10),
           ],
         ),

@@ -7,7 +7,7 @@ import '../../../../../data/models/entities/cart/cart.dart';
 import '../../../../../data/models/entities/product/product.dart';
 import '../../../../../utils/configs/cena_colors.dart';
 import '../../../../../utils/configs/cena_text_styles.dart';
-import '../../../../../utils/image_ultils.dart';
+import '../../../../../utils/image_util.dart';
 import '../../../../blocs/cart/cart_bloc.dart';
 import '../../../../resources/generated/l10n.dart';
 import '../../../../widgets/widgets.dart';
@@ -48,7 +48,7 @@ class FoodRow extends StatelessWidget {
         child: Row(
           children: <Widget>[
             CenaImageCache(
-              url: ImagesUltils.getImageApiUrl(product.picture),
+              url: ImagesUtil.getImageApiUrl(product.picture),
               fit: BoxFit.cover,
               height: 100,
               width: 100,

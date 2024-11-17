@@ -1,5 +1,4 @@
 import 'package:cenafoodie/src/data/app_locator.dart';
-import 'package:cenafoodie/src/data/models/entities/category/category.dart';
 import 'package:cenafoodie/src/data/models/ui/ui_response.dart';
 import 'package:cenafoodie/src/data/services/entities/category_service.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ import '../../../../utils/helpers/helpers.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/row/cena_row_store.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class EditStorePage extends StatefulWidget {
@@ -121,9 +120,9 @@ class _EditStorePageState extends State<EditStorePage> {
                               ctx: context,
                               onPressedChange: () async {
                                 Navigator.pop(context);
-                                final ImagePicker _picker = ImagePicker();
+                                final ImagePicker picker0 = ImagePicker();
                                 final XFile? imagePath =
-                                    await _picker.pickImage(
+                                    await picker0.pickImage(
                                         source: ImageSource.gallery,
                                         imageQuality: 50);
                                 if (imagePath != null) {
@@ -137,9 +136,9 @@ class _EditStorePageState extends State<EditStorePage> {
                               },
                               onPressedTake: () async {
                                 Navigator.pop(context);
-                                final ImagePicker _picker = ImagePicker();
+                                final ImagePicker picker = ImagePicker();
                                 final XFile? photoPath =
-                                    await _picker.pickImage(
+                                    await picker.pickImage(
                                         source: ImageSource.camera,
                                         imageQuality: 50);
                                 if (photoPath != null) {
@@ -176,7 +175,7 @@ class _EditStorePageState extends State<EditStorePage> {
                           star: 4.5,
                         ),
                         CenaTextGroup(
-                            text: lang.store_info_catregories,
+                            text: lang.store_info_categories,
                             color: Colors.grey),
                         store.id == -1
                             ? const SizedBox(width: 5)

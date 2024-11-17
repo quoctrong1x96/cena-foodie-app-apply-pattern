@@ -1,12 +1,12 @@
 part of './components.dart';
 
 class LoginChangeThemeButton extends StatefulWidget {
-  final Widget parrentWidget;
+  final Widget parentWidget;
   final MyThemeKeys? myThemeKey;
   @override
   final GlobalKey? key;
   const LoginChangeThemeButton(
-      {this.key, required this.myThemeKey, required this.parrentWidget})
+      {this.key, required this.myThemeKey, required this.parentWidget})
       : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
   @override
   void didUpdateWidget(Widget oldWidget) {
     if (_oldKeys != _keys) {
-      _getSwitcherCoodinates();
+      _getSwitcherCoordinates();
       _controller.reset();
       _controller.forward().then(
         (_) {
@@ -55,7 +55,7 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
     super.didUpdateWidget(oldWidget as LoginChangeThemeButton);
   }
 
-  void _getSwitcherCoodinates() {
+  void _getSwitcherCoordinates() {
     RenderBox renderObject =
         widget.key!.currentContext!.findRenderObject() as RenderBox;
     switcherOffset = renderObject.localToGlobal(Offset.zero);
@@ -63,7 +63,7 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return IconButton(
       onPressed: () => _changeTheme(context),
       icon: Container(
@@ -71,19 +71,19 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
         height: 30.0,
         decoration: BoxDecoration(
           border: Border.all(
-            color: _theme.primaryColorDark,
+            color: theme.primaryColorDark,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(40)),
         ),
         child: _keys == MyThemeKeys.dark
             ? Icon(
                 FontAwesomeIcons.moon,
-                color: _theme.primaryColorDark,
+                color: theme.primaryColorDark,
                 size: 20.0,
               )
             : Icon(
                 FontAwesomeIcons.sun,
-                color: _theme.primaryColorDark,
+                color: theme.primaryColorDark,
                 size: 20.0,
               ),
       ),
@@ -98,10 +98,10 @@ class _LoginChangeThemeButtonState extends State<LoginChangeThemeButton>
 
     CustomTheme.instanceOf(buildContext)
         .changeTheme(_keys ?? MyThemeKeys.light);
-    LogUtils.debug('LoginChangeThemeButton', "_changeTheme", _keys.toString());
+    LogUtil2.debug('LoginChangeThemeButton', "_changeTheme", _keys.toString());
     // AnimatedBuilder(
     //   animation: _controller,
-    //   child: widget.parrentWidget,
+    //   child: widget.parentWidget,
     //   builder: (_, child) {
     //     return ClipPath(
     //       clipper: MyClipper(
@@ -134,6 +134,7 @@ class MyClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
+// ignore: unused_element
 class _InheritedBrandTheme extends InheritedWidget {
   final CustomTheme data;
 
@@ -176,10 +177,10 @@ Widget transitionsBuilder(
   Animation<double> secondaryAnimation,
   Widget child,
 ) {
-  var _animation = Tween<double>(
-    begin: 0,
-    end: 100,
-  ).animate(animation);
+  // var _animation = Tween<double>(
+  //   begin: 0,
+  //   end: 100,
+  // ).animate(animation);
   return SlideTransition(
     position: Tween<Offset>(
       begin: const Offset(0, 1),

@@ -13,18 +13,18 @@ class MapLocationAddressPage extends StatefulWidget {
 }
 
 class _MapLocationAddressPageState extends State<MapLocationAddressPage> {
-  late MyLocationMapBloc mylocationmapBloc;
+  late MyLocationMapBloc myLocationMapBloc;
 
   @override
   void initState() {
-    mylocationmapBloc = BlocProvider.of<MyLocationMapBloc>(context);
-    mylocationmapBloc.initialLocation();
+    myLocationMapBloc = BlocProvider.of<MyLocationMapBloc>(context);
+    myLocationMapBloc.initialLocation();
     super.initState();
   }
 
   @override
   void dispose() {
-    mylocationmapBloc.cancelLocation();
+    myLocationMapBloc.cancelLocation();
     super.dispose();
   }
 

@@ -105,7 +105,7 @@ class _UpdateCategoryAdminPageState extends State<UpdateCategoryAdminPage> {
                   controller: _nameCategoryController,
                   hintText: S.of(context).admin_category_example,
                   validator: RequiredValidator(
-                      errorText: S.of(context).admin_category_name_required),
+                      errorText: S.of(context).admin_category_name_required).call,
                 ),
                 const SizedBox(height: 25.0),
                 CenaTextDescription(

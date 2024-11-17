@@ -155,7 +155,7 @@ abstract class ICenaService {
       {required int userId, required Address address});
 
   /// get first address for user
-  Future<ApiResponse<Address>> fisrtAddress({required int userId});
+  Future<ApiResponse<Address>> firstAddress({required int userId});
 
   // #endregion
 

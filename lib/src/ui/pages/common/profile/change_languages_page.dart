@@ -46,7 +46,7 @@ class _ChangeLanguagesPageState extends State<ChangeLanguagesPage> {
         children: [
           Text(
             "Theme mode",
-            style: theme.textTheme.headline6,
+            style: theme.textTheme.titleLarge,
           ),
           RadioListTile(
             title: const Text("System"),

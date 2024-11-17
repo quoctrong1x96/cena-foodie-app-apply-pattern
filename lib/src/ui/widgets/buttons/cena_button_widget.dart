@@ -41,20 +41,19 @@ class CenaButtonWidget extends StatelessWidget {
       height: height ?? AppDimens.buttonHeight,
       width: width ?? double.infinity,
       child: ElevatedButton(
-        child: _buildChildWidget(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
                 cornerRadius ?? AppDimens.buttonCornerRadius),
-          ),
+          ), backgroundColor: backgroundColor,
           side: BorderSide(
             color: borderColor ?? Colors.transparent,
             width: borderWidth ?? 0,
           ),
-          primary: backgroundColor,
           padding: const EdgeInsets.all(0),
         ),
         onPressed: onPressed,
+        child: _buildChildWidget(),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../utils/configs/cena_colors.dart';
-import '../../../../utils/configs/cena_text_styles.dart';
 import '../../../widgets/widgets.dart';
 import 'widgets/body_store_order.dart';
 import 'widgets/store_image_review.dart';
@@ -61,34 +60,34 @@ class _StoreOrderPageState extends State<StoreOrderPage> {
   }
 }
 
-class _StoreAppbar extends SliverPersistentHeaderDelegate {
-  final double maxExtented;
-  final double minExtented;
-  final Size size;
-  final Store store;
+// class _StoreAppbar extends SliverPersistentHeaderDelegate {
+//   final double maxExtented;
+//   final double minExtented;
+//   final Size size;
+//   final Store store;
 
-  const _StoreAppbar(
-      {required this.maxExtented,
-      required this.minExtented,
-      required this.size,
-      required this.store});
+//   const _StoreAppbar(
+//       {required this.maxExtented,
+//       required this.minExtented,
+//       required this.size,
+//       required this.store});
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return StoreImageReview(
-      store: store,
-      height: maxExtented,
-    );
-  }
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return StoreImageReview(
+//       store: store,
+//       height: maxExtented,
+//     );
+//   }
 
-  @override
-  double get maxExtent => maxExtented;
+//   @override
+//   double get maxExtent => maxExtented;
 
-  @override
-  double get minExtent => minExtented;
+//   @override
+//   double get minExtent => minExtented;
 
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
-}
+//   @override
+//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+//       false;
+// }

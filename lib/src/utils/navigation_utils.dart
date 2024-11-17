@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/models/ui/page_arguments.dart';
 import 'constants/route_constants.dart';
-import 'log_utils.dart';
+import 'log_util2.dart';
 
 class NavigationUtils {
   const NavigationUtils._internal();
@@ -24,7 +24,7 @@ class NavigationUtils {
         return true;
       }
     } on Exception catch (ex) {
-      LogUtils.error('NavigationUtils', 'push', ex.toString());
+      LogUtil2.error('NavigationUtils', 'push', ex.toString());
       return false;
     }
   }
@@ -37,7 +37,7 @@ class NavigationUtils {
       }
       return true;
     } on Exception catch (ex) {
-      LogUtils.error('NavigationUtils', 'pop', ex.toString());
+      LogUtil2.error('NavigationUtils', 'pop', ex.toString());
       return false;
     }
   }
@@ -60,7 +60,7 @@ class NavigationUtils {
         return true;
       }
     } on Exception catch (ex) {
-      LogUtils.error('NavigationUtils', 'replace', ex.toString());
+      LogUtil2.error('NavigationUtils', 'replace', ex.toString());
       return false;
     }
   }
@@ -76,7 +76,7 @@ class NavigationUtils {
       );
       return true;
     } on Exception catch (ex) {
-      LogUtils.error('NavigationUtils', 'clearStack', ex.toString());
+      LogUtil2.error('NavigationUtils', 'clearStack', ex.toString());
       return false;
     }
   }

@@ -22,8 +22,13 @@ class CenaImageCache extends StatelessWidget {
     return Container(
       width: width ?? double.infinity,
       height: height ?? double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.circular(borderRadius ?? 0),
+      ),
       child: isValidUrl
           ? ClipRRect(
+              borderRadius: BorderRadius.circular(borderRadius ?? 0),
               child: CachedNetworkImage(
                 imageUrl: url,
                 progressIndicatorBuilder: (context, url, downloadProgress) {
@@ -48,13 +53,8 @@ class CenaImageCache extends StatelessWidget {
                 },
                 fit: fit,
               ),
-              borderRadius: BorderRadius.circular(borderRadius ?? 0),
             )
           : _buildPlaceHolderImage(),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.circular(borderRadius ?? 0),
-      ),
     );
   }
 

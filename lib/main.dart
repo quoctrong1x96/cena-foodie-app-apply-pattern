@@ -31,7 +31,6 @@ import 'src/ui/blocs/user/user_bloc.dart';
 import 'src/ui/resources/generated/l10n.dart';
 import 'src/utils/constants/route_constants.dart';
 import 'src/utils/getx_services/getx_settings_service.dart';
-import 'src/utils/log_utils.dart';
 import 'src/utils/route_utils.dart';
 import 'src/utils/themes/theme_maps.dart';
 
@@ -46,7 +45,6 @@ Future initServices() async {
   /// or moor connection, or whatever that's async.
 
   initLocator();
-  LogUtils.init();
   await Get.putAsync(() => SettingService().init());
 }
 

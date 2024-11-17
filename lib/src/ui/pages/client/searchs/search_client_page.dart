@@ -7,7 +7,7 @@ import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/product/product.dart';
 import '../../../../data/models/ui/ui_response.dart';
 import '../../../../data/services/entities/product_service.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../widgets/animation_route.dart';
@@ -169,7 +169,7 @@ class _ListProductSearch extends StatelessWidget {
                             image: DecorationImage(
                                 scale: 8,
                                 image: CachedNetworkImageProvider(
-                                    ImagesUltils.getImageApiUrl(
+                                    ImagesUtil.getImageApiUrl(
                                         listProduct[i].picture)))),
                       ),
                       const SizedBox(width: 5.0),

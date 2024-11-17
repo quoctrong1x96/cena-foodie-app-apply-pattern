@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'log_utils.dart';
+import 'log_util2.dart';
 
 class InternetUtils {
   const InternetUtils._internal();
@@ -14,14 +14,14 @@ class InternetUtils {
         final result = await InternetAddress.lookup('google.com');
         availableStatus = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
       }
-      LogUtils.debug(
+      LogUtil2.debug(
         'InternetUtils',
         'isInternetAvailable',
         'Status: $availableStatus',
       );
       return availableStatus;
     } on Exception catch (e) {
-      LogUtils.error(
+      LogUtil2.error(
         'InternetUtils',
         'isInternetAvailable',
         e.toString(),

@@ -58,7 +58,7 @@ class CenaRowStore extends StatelessWidget {
                         Icons.home_sharp,
                         color: CenaColors.primary,
                       ),
-                      Text(" " + name,
+                      Text(" $name",
                           textAlign: TextAlign.left,
                           style: CenaTextStyles.blackS14Bold)
                     ],
@@ -121,7 +121,7 @@ class CenaRowStore extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      for (var item in categories.split(',')) Text(item + ", "),
+                      for (var item in categories.split(',')) Text("$item, "),
                     ],
                   ),
                 ),

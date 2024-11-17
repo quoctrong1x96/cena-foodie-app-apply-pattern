@@ -107,7 +107,7 @@ class _MealsListViewState extends State<MealsListView>
                             ? 0
                             : widget.dashboardStatus!.paidoutAmount,
                         image: 'Assets/Logo/logo-white.png',
-                        name: lang.admin_dashboard_meals_paidout,
+                        name: lang.admin_dashboard_meals_payout,
                         orders: widget.dashboardStatus == null
                             ? 0
                             : widget.dashboardStatus!.paidout),

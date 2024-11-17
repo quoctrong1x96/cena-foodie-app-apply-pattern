@@ -1,6 +1,6 @@
 import 'dart:convert' as convert;
 
-import 'log_utils.dart';
+import 'log_util2.dart';
 
 class JsonUtils {
   const JsonUtils._internal();
@@ -12,7 +12,7 @@ class JsonUtils {
       }
       return convert.json.encode(data);
     } on Exception catch (e) {
-      LogUtils.error('JsonUtils', 'toJson', e.toString());
+      LogUtil2.error('JsonUtils', 'toJson', e.toString());
       return null;
     }
   }
@@ -24,7 +24,7 @@ class JsonUtils {
       }
       return convert.json.decode(json!);
     } on Exception catch (e) {
-      LogUtils.error('JsonUtils', 'fromJson', e.toString());
+      LogUtil2.error('JsonUtils', 'fromJson', e.toString());
       return null;
     }
   }

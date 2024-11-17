@@ -16,7 +16,7 @@ import '../../../../data/services/entities/address_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/date.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
@@ -41,6 +41,9 @@ class ClientDetailsOrderPage extends StatelessWidget {
       case PermissionStatus.limited:
       case PermissionStatus.permanentlyDenied:
         openAppSettings();
+        break;
+      case PermissionStatus.provisional:
+        // TODO: Handle this case.
         break;
     }
   }
@@ -123,9 +126,9 @@ class ClientDetailsOrderPage extends StatelessWidget {
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                       (orderClient.deliveryImage != null)
-                                          ? ImagesUltils.getImageApiUrl(
+                                          ? ImagesUtil.getImageApiUrl(
                                               orderClient.deliveryImage)
-                                          : ImagesUltils.getImageApiUrl(
+                                          : ImagesUtil.getImageApiUrl(
                                               'without-image.jpg')))),
                         ),
                         const SizedBox(width: 10.0),
@@ -133,7 +136,7 @@ class ClientDetailsOrderPage extends StatelessWidget {
                             text: (orderClient.deliveryId != 0)
                                 ? orderClient.deliveryName ??
                                     "No name" //!TODO : Thêm tên của người giao hàng
-                                : lang.client_orders_unasignee,
+                                : lang.client_orders_unsigned,
                             fontSize: 17),
                       ],
                     ),
@@ -226,7 +229,7 @@ class _ListProductsDetails extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: CachedNetworkImageProvider(
-                          ImagesUltils.getImageApiUrl(
+                          ImagesUtil.getImageApiUrl(
                               listProductDetails[i].picture)))),
             ),
             const SizedBox(width: 15.0),

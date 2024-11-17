@@ -12,12 +12,12 @@ import '../../../../data/services/entities/category_service.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../../utils/navigation_utils.dart';
 import '../../../blocs/product/product_bloc.dart';
 import '../../../blocs/store/store_bloc.dart';
 import '../../../resources/generated/l10n.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 
 class UpdateProductPage extends StatefulWidget {
@@ -136,7 +136,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                 controller: _nameController,
                 hintText: lang.store_product_add_product_hint,
                 validator: RequiredValidator(
-                    errorText: lang.store_product_add_product_name_error),
+                    errorText: lang.store_product_add_product_name_error).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(
@@ -147,7 +147,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                 maxLine: 5,
                 validator: RequiredValidator(
                     errorText:
-                        lang.store_product_add_product_description_error),
+                        lang.store_product_add_product_description_error).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(text: lang.store_product_add_price),
@@ -157,21 +157,19 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                 hintText: lang.store_product_add_price_hint,
                 keyboardType: TextInputType.number,
                 validator: RequiredValidator(
-                    errorText: lang.store_product_add_price_erorr),
+                    errorText: lang.store_product_add_price_erorr).call,
               ),
               const SizedBox(height: 20.0),
               CenaTextDescription(text: lang.store_product_add_picture),
               const SizedBox(height: 10.0),
               InkWell(
                 onTap: () async {
-                  final ImagePicker _picker = ImagePicker();
+                  final ImagePicker picker = ImagePicker();
 
-                  final List<XFile>? images = await _picker.pickMultiImage();
+                  final List<XFile> images = await picker.pickMultiImage();
 
-                  if (images != null) {
-                    productBloc.add(OnSelectMultipleImagesEvent(images));
-                  }
-                },
+                  productBloc.add(OnSelectMultipleImagesEvent(images));
+                                },
                 child: Container(
                   height: 150,
                   width: MediaQuery.of(context).size.width,
@@ -197,7 +195,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                                             fit: BoxFit.cover)),
                                   ))
                           : CenaImageCache(
-                              url: ImagesUltils.getImageApiUrl(
+                              url: ImagesUtil.getImageApiUrl(
                                   widget.product.picture))),
                 ),
               ),

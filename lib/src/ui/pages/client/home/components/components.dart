@@ -8,7 +8,7 @@ import '../../../../../data/models/entities/category/category.dart';
 import '../../../../../data/models/ui/ui_response.dart';
 import '../../../../../data/services/entities/category_service.dart';
 import '../../../../../utils/constants/route_constants.dart';
-import '../../../../../utils/image_ultils.dart';
+import '../../../../../utils/image_util.dart';
 import '../../../../../utils/navigation_utils.dart';
 import '../../../../blocs/auth/auth_bloc.dart';
 import '../../../../blocs/cart/cart_bloc.dart';

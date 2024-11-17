@@ -88,7 +88,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       OnChangeLastNameProfileEvent event, Emitter<UserState> emit) async {
     try {
       final Address? address = state.address;
-      final User? user = state.user as User;
+      final User user = state.user as User;
       final String picture = state.pictureProfilePath;
       emit(LoadingUserState());
 
@@ -98,7 +98,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if (!uiResponse.hasError) {
         emit(SuccessUserState());
         emit(state.copyWith(
-            user: user!.copyWith(lastName: uiResponse.data!),
+            user: user.copyWith(lastName: uiResponse.data!),
             address: address,
             pictureProfilePath: picture));
       } else {
@@ -452,6 +452,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       Address address = await GeolocatorUtil.getCurrentAddress();
       Position location =
+          // ignore: body_might_complete_normally_catch_error
           await GeolocatorUtil.getGeoLocationPosition().catchError((error) {
         emit(FailureUserState(error));
       });
@@ -484,7 +485,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
 
         // emit(SuccessUserState());
-
       }
       emit(state.copyWith(address: address));
     } catch (e) {

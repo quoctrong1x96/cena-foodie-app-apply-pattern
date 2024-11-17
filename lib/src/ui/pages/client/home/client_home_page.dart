@@ -71,7 +71,7 @@ class _ClientHomePageState extends State<ClientHomePage>
           children: <Widget>[
             TextButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(
                     horizontal: 8,
                   ),
@@ -86,7 +86,7 @@ class _ClientHomePageState extends State<ClientHomePage>
             ),
             TextButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(
                     horizontal: 8,
                   ),

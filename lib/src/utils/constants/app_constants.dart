@@ -6,7 +6,7 @@ class AppConstants {
 
   static const String companyName = "Cena";
   static const String appName = "Foodie";
-  static const String fullAppName = companyName + " " + appName;
+  static const String fullAppName = "$companyName $appName";
 
   // region map keys
   static const String key_id = 'id';
@@ -27,7 +27,7 @@ class AppConstants {
 
   static const double border_radius = 5.0;
   static const double color_opacity = 0.2;
-  static const double textbox_opacity = 0.05;
+  static const double text_box_opacity = 0.05;
   static const double elevation_button = 2;
   static const double button_radius = 10.0;
   static const double button_height = 45;

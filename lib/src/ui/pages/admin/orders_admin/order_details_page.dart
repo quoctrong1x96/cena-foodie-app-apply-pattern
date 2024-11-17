@@ -10,13 +10,13 @@ import '../../../../data/app_locator.dart';
 import '../../../../data/models/entities/order/order.dart';
 import '../../../../data/models/entities/store/store.dart';
 import '../../../../utils/helpers/date.dart';
-import '../../../../utils/image_ultils.dart';
+import '../../../../utils/image_util.dart';
 import '../../../blocs/order/orders_bloc.dart';
 import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/animation_route.dart';
-import '../../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../../widgets/widgets.dart';
 import 'orders_admin_page.dart';
 
@@ -174,12 +174,12 @@ class OrderDetailsPage extends StatelessWidget {
                                               BorderRadius.circular(20.0),
                                           image: DecorationImage(
                                               image: order.deliveryImage == null
-                                                  ? AssetImage(ImagesUltils
+                                                  ? AssetImage(ImagesUtil
                                                           .getImageApiUrl(order
                                                               .deliveryImage))
                                                       as ImageProvider
                                                   : CachedNetworkImageProvider(
-                                                      ImagesUltils
+                                                      ImagesUtil
                                                           .getImageApiUrl(order
                                                               .deliveryImage)))),
                                     ),
@@ -262,7 +262,7 @@ class _ListProductsDetails extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                            ImagesUltils.getImageApiUrl(
+                            ImagesUtil.getImageApiUrl(
                                 listProductDetails[i].picture)),
                         fit: BoxFit.cover)),
               ),

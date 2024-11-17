@@ -29,13 +29,13 @@ class _ListAddressesPageState extends State<ListAddressesPage>
     with WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -52,13 +52,19 @@ class _ListAddressesPageState extends State<ListAddressesPage>
     switch (status) {
       case PermissionStatus.granted:
         Navigator.push(context, routeCena(page: const AddStreetAddressPage()));
-        break;
+        break;// TODO: Handle this case.
       case PermissionStatus.limited:
-        break;
+        break;// TODO: Handle this case.
       case PermissionStatus.denied:
+        break;// TODO: Handle this case.
       case PermissionStatus.restricted:
+       break;// TODO: Handle this case.
       case PermissionStatus.permanentlyDenied:
         openAppSettings();
+        break;
+      case PermissionStatus.provisional:
+        // TODO: Handle this case.
+        break;
     }
   }
 

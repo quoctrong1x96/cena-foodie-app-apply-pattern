@@ -8,13 +8,13 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../data/models/entities/order/order.dart';
 import '../../../utils/../utils/helpers/helpers.dart';
 import '../../../utils/configs/cena_colors.dart';
-import '../../../utils/image_ultils.dart';
+import '../../../utils/image_util.dart';
 import '../../blocs/delivery_map/map_delivery_bloc.dart';
 import '../../blocs/my_location/my_location_map_bloc.dart';
 import '../../blocs/order/orders_bloc.dart';
 import '../../resources/generated/l10n.dart';
 import '../../widgets/animation_route.dart';
-import '../../widgets/snackbars/cena_snackbar_toast.dart';
+import '../../widgets/snackbar/cena_snackbar_toast.dart';
 import '../../widgets/widgets.dart';
 import '../delivery/delivery_home_page.dart';
 import 'order_delivered_page.dart';
@@ -30,30 +30,30 @@ class MapDeliveryPage extends StatefulWidget {
 
 class _MapDeliveryPageState extends State<MapDeliveryPage>
     with WidgetsBindingObserver {
-  late MyLocationMapBloc mylocationmapBloc;
+  late MyLocationMapBloc myLocationMapBloc;
   late MapDeliveryBloc mapDeliveryBloc;
 
   @override
   void initState() {
-    mylocationmapBloc = BlocProvider.of<MyLocationMapBloc>(context);
+    myLocationMapBloc = BlocProvider.of<MyLocationMapBloc>(context);
     mapDeliveryBloc = BlocProvider.of<MapDeliveryBloc>(context);
 
-    mylocationmapBloc.initialLocation();
+    myLocationMapBloc.initialLocation();
     mapDeliveryBloc.initSocketDelivery();
-    mylocationmapBloc.add(OnChangeLocationEvent(LatLng(
+    myLocationMapBloc.add(OnChangeLocationEvent(LatLng(
         double.parse(widget.order.storeLatitude.toString()),
         double.parse(widget.order.storeLongitude
             .toString())))); // them initial location tai5 quan1
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     super.initState();
   }
 
   @override
   void dispose() {
-    mylocationmapBloc.cancelLocation();
+    myLocationMapBloc.cancelLocation();
     mapDeliveryBloc.disconnectSocket();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -77,7 +77,7 @@ class _MapDeliveryPageState extends State<MapDeliveryPage>
           modalLoading(context);
         } else if (state is SuccessOrdersState) {
           Navigator.pop(context);
-          cenaToastSuccess(lang.delivery_map_susscess);
+          cenaToastSuccess(lang.delivery_map_success);
           Navigator.pushAndRemoveUntil(context,
               routeCena(page: const OrderDeliveredPage()), (route) => false);
         } else if (state is FailureOrdersState) {
@@ -172,7 +172,7 @@ class _InformationBottom extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                            ImagesUltils.getImageApiUrl(order.clientImage)))),
+                            ImagesUtil.getImageApiUrl(order.clientImage)))),
               ),
               CenaTextDescription(text: order.client!),
               const Spacer(),

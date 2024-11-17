@@ -25,7 +25,7 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
 
   @override
   Widget build(BuildContext context) {
-    final _keyForm = GlobalKey<FormState>();
+    final keyForm = GlobalKey<FormState>();
     final lang = S.of(context);
     final validatedPhoneForm = MultiValidator([
       RequiredValidator(errorText: lang.auth_registry_error_phone_required),
@@ -34,20 +34,20 @@ class _LoginWithPhoneState extends State<LoginWithPhone> {
     ]);
 
     return Form(
-      key: _keyForm,
+      key: keyForm,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CenaNumberField(
             maxLength: 11,
             controller: _phoneController,
-            hintText: S.of(context).login_phone_number_hintext,
-            validator: validatedPhoneForm,
+            hintText: S.of(context).login_phone_number_hinttext,
+            validator: validatedPhoneForm.call,
           ),
           const SizedBox(height: 50.0),
           ElevatedButton(
               onPressed: () {
-                if (_keyForm.currentState!.validate()) {
+                if (keyForm.currentState!.validate()) {
                   Navigator.push(
                       context,
                       routeCena(

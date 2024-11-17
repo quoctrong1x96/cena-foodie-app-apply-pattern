@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-// import '../../../../../utils/image_ultils.dart';
+// import '../../../../../utils/image_ultil.dart';
 // import '../../../../../utils/configs/cena_colors.dart';
 // import '../../../../configs/cena_text_styles.dart';
 // import '../../../../services/url.dart';
@@ -33,7 +33,7 @@
 //               SizedBox(
 //                 height: 20,
 //                 width: 20,
-//                 child: CenaImageCache(url: ImagesUltils.getImageApiUrl(avatar)),
+//                 child: CenaImageCache(url: ImagesUtil.getImageApiUrl(avatar)),
 //               ),
 //               SizedBox(
 //                 width: MediaQuery.of(context).size.width - 50,
