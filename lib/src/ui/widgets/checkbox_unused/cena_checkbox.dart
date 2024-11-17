@@ -16,7 +16,7 @@ class StylesExample extends StatelessWidget {
           backgroundColor: Colors.white,
           title: Text(
             'GroupButton 4.6.0',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         backgroundColor: Colors.grey[100],
@@ -26,7 +26,7 @@ class StylesExample extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ScrollIjector(
+                ScrollInjector(
                   groupingType: GroupingType.wrap,
                   child: GroupButton(
                     buttons: const [
@@ -48,10 +48,10 @@ class StylesExample extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    onSelected: (i, selected) {},
+                    onSelected: (value, i, selected) {},
                   ),
                 ),
-                ScrollIjector(
+                ScrollInjector(
                   groupingType: GroupingType.wrap,
                   child: GroupButton(
                     buttons: const [
@@ -76,10 +76,10 @@ class StylesExample extends StatelessWidget {
                     controller: GroupButtonController(
                       selectedIndexes: const [1, 3, 4],
                     ),
-                    onSelected: (i, selected) {},
+                    onSelected: (value, i, selected) {},
                   ),
                 ),
-                ScrollIjector(
+                ScrollInjector(
                   groupingType: GroupingType.wrap,
                   child: GroupButton(
                     buttons: const [
@@ -111,12 +111,12 @@ class StylesExample extends StatelessWidget {
                     controller: GroupButtonController(
                       selectedIndexes: const [0, 4, 6],
                     ),
-                    onSelected: (i, selected) {},
+                    onSelected: (value, i, selected) {},
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ScrollIjector(
+                  child: ScrollInjector(
                     groupingType: GroupingType.wrap,
                     child: GroupButton(
                       buttons: const [
@@ -152,7 +152,7 @@ class StylesExample extends StatelessWidget {
                       controller: GroupButtonController(
                         selectedIndexes: const [1, 3, 4],
                       ),
-                      onSelected: (i, selected) {},
+                      onSelected: (value, i, selected) {},
                     ),
                   ),
                 ),

@@ -275,7 +275,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
                         (widget.product.status == 1)
                             ? Container(
                                 height: 50,
-                                width: 220,
+                                // width: 220,
                                 decoration: BoxDecoration(
                                     color: CenaColors.primary,
                                     borderRadius: BorderRadius.circular(15.0)),

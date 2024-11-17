@@ -3,10 +3,10 @@
 import 'package:cenafoodie/src/utils/themes/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc/src/bloc_provider.dart' as bloc_provider;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -63,19 +63,18 @@ void main() async {
   await initServices();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackground);
   pushNotification.initNotification();
-  //Save file to phone's local
+
+  // Build the storage
   final storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getApplicationDocumentsDirectory(),
   );
-  HydratedBlocOverrides.runZoned(
-    () => runApp(
-      const CustomTheme(
-        initialThemeKey: MyThemeKeys.light,
-        child: MyApp(),
-      ),
-    ),
-    storage: storage,
-  );
+  // Assuming the storage to HydratedBloc
+  HydratedBloc.storage = storage;
+
+  // Run the
+  runApp(const CustomTheme(initialThemeKey: MyThemeKeys.light, child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -105,7 +104,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<ThemeManager>(builder: (context, state, child) {
         _systemChromeConfig();
         return MultiBlocProvider(
-          providers: _delareBlocProviders,
+          providers: _declareBlocProviders,
           child: GestureDetector(
             onTap: hideKeyboard,
             child: GetMaterialApp(
@@ -141,7 +140,7 @@ class _MyAppState extends State<MyApp> {
     ]);
   }
 
-  List<bloc_provider.BlocProviderSingleChildWidget> get _delareBlocProviders {
+  List<BlocProvider> get _declareBlocProviders {
     return [
       BlocProvider(create: (context) => AuthBloc()..add(CheckLoginEvent())),
       BlocProvider(create: (context) => GeneralBloc()),

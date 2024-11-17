@@ -42,7 +42,7 @@ class FoodRow extends StatelessWidget {
                     )));
       },
       child: Container(
-        color: CenaColors.WHITE,
+        color: Colors.indigo, //CenaColors.WHITE,
         height: (100),
         // width: double.infinity,
         child: Row(
@@ -53,8 +53,8 @@ class FoodRow extends StatelessWidget {
               height: 100,
               width: 100,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 200,
+            Container(
+              color: Colors.amber,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

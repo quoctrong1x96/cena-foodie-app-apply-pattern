@@ -4,19 +4,17 @@ import '../../../../../utils/image_ultils.dart';
 import '../../../../widgets/widgets.dart';
 
 class ImageReview extends StatelessWidget {
-  const ImageReview({Key? key, this.image}) : super(key: key);
+  const ImageReview({Key? key, this.image, required this.height})
+      : super(key: key);
   final String? image;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 250,
-          child: CenaImageCache(url: ImagesUltils.getImageApiUrl(image)),
-          decoration: const BoxDecoration(color: Colors.white),
-        )
-      ],
+    return Container(
+      height: height,
+      child: CenaImageCache(url: ImagesUltils.getImageApiUrl(image)),
+      decoration: const BoxDecoration(color: Colors.white),
     );
   }
 }

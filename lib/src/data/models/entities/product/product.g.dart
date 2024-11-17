@@ -20,7 +20,7 @@ _$_Product _$_$_ProductFromJson(Map<String, dynamic> json) {
     liked: json['liked'] as int? ?? 0,
     viewer: json['viewer'] as int? ?? 0,
     sales: json['sales'] as int? ?? 0,
-    totalSales: json['total_sales'] as int,
+    totalSales: json['total_sales'] as int? ?? 0,
   );
 }
 

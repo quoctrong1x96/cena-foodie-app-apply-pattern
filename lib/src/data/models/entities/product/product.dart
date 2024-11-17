@@ -22,7 +22,7 @@ class Product with _$Product implements IModel {
     @Default(0) int liked,
     @Default(0) int viewer,
     @Default(0) int sales,
-    @JsonKey(name: 'total_sales') @Default(0) int totalSales,
+    @JsonKey(name: 'total_sales', defaultValue: 0) @Default(0) int totalSales,
   }) = _Product;
 
   @override

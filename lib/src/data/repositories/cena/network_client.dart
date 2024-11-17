@@ -147,7 +147,10 @@ class NetworkClient {
   }
 
   Map<String, String> _getHeaders(String? token) {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+    };
     if (token?.isNotEmpty ?? false) {
       headers = {
         'Content-Type': 'application/json',

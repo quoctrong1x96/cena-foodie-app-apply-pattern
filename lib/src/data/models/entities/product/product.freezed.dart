@@ -33,7 +33,7 @@ class _$ProductTearOff {
       int liked = 0,
       int viewer = 0,
       int sales = 0,
-      @JsonKey(name: 'total_sales') int totalSales = 0}) {
+      @JsonKey(name: 'total_sales', defaultValue: 0) int totalSales = 0}) {
     return _Product(
       id: id,
       nameProduct: nameProduct,
@@ -76,7 +76,7 @@ mixin _$Product {
   int get liked => throw _privateConstructorUsedError;
   int get viewer => throw _privateConstructorUsedError;
   int get sales => throw _privateConstructorUsedError;
-  @JsonKey(name: 'total_sales')
+  @JsonKey(name: 'total_sales', defaultValue: 0)
   int get totalSales => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -101,7 +101,7 @@ abstract class $ProductCopyWith<$Res> {
       int liked,
       int viewer,
       int sales,
-      @JsonKey(name: 'total_sales') int totalSales});
+      @JsonKey(name: 'total_sales', defaultValue: 0) int totalSales});
 }
 
 /// @nodoc
@@ -203,7 +203,7 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int liked,
       int viewer,
       int sales,
-      @JsonKey(name: 'total_sales') int totalSales});
+      @JsonKey(name: 'total_sales', defaultValue: 0) int totalSales});
 }
 
 /// @nodoc
@@ -304,7 +304,7 @@ class _$_Product implements _Product {
       this.liked = 0,
       this.viewer = 0,
       this.sales = 0,
-      @JsonKey(name: 'total_sales') this.totalSales = 0});
+      @JsonKey(name: 'total_sales', defaultValue: 0) this.totalSales = 0});
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
       _$_$_ProductFromJson(json);
@@ -342,7 +342,7 @@ class _$_Product implements _Product {
   @override
   final int sales;
   @override
-  @JsonKey(name: 'total_sales')
+  @JsonKey(name: 'total_sales', defaultValue: 0)
   final int totalSales;
 
   @override
@@ -419,19 +419,20 @@ class _$_Product implements _Product {
 
 abstract class _Product implements Product {
   factory _Product(
-      {required int id,
-      @JsonKey(name: 'name') String? nameProduct,
-      String? description,
-      double price,
-      int status,
-      String? picture,
-      String? category,
-      @JsonKey(name: 'category_id') required int categoryId,
-      @JsonKey(name: 'store_id') required int storeId,
-      int liked,
-      int viewer,
-      int sales,
-      @JsonKey(name: 'total_sales') int totalSales}) = _$_Product;
+          {required int id,
+          @JsonKey(name: 'name') String? nameProduct,
+          String? description,
+          double price,
+          int status,
+          String? picture,
+          String? category,
+          @JsonKey(name: 'category_id') required int categoryId,
+          @JsonKey(name: 'store_id') required int storeId,
+          int liked,
+          int viewer,
+          int sales,
+          @JsonKey(name: 'total_sales', defaultValue: 0) int totalSales}) =
+      _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
@@ -463,7 +464,7 @@ abstract class _Product implements Product {
   @override
   int get sales => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'total_sales')
+  @JsonKey(name: 'total_sales', defaultValue: 0)
   int get totalSales => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

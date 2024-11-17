@@ -14,59 +14,115 @@ class Body extends StatelessWidget {
   const Body({Key? key, required this.store}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          physics: const BouncingScrollPhysics(),
-          children: [
-            StoreImageReview(store),
-            const SizedBox(height: 10),
-            storeName(store, context),
-            ratingStore(store, context),
-            const Divider(),
-            CustomTabs(store: store),
-          ]),
-    );
-  }
-
-  Widget storeName(Store store, BuildContext context) {
-    final lang = S.of(context);
     return Container(
-      color: CenaColors.secondary,
-      child: Wrap(
-        direction: Axis.horizontal,
-        alignment: WrapAlignment.start,
+      padding: const EdgeInsets.only(top: 10.0),
+      color: Colors.green,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (store.address != "")
-            Container(
-                height: 21,
-                width: 80,
-                alignment: Alignment.topCenter,
-                decoration: const BoxDecoration(
-                    color: CenaColors.primary,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(5.0),
-                        topRight: Radius.circular(5.0))),
-                child: Text(
-                  " ${lang.store_order_like} ",
-                  style: CenaTextStyles.whiteS14,
-                ))
-          else
-            const SizedBox(
-              width: 1,
-            ),
-          const SizedBox(
-            width: 7,
+          Row(
+            children: [
+              Container(
+                height: 30,
+                color: Colors.red,
+                child: Text("red"),
+              )
+            ],
           ),
-          CenaTextDescription(
-            text: store.storeName,
-            textAlign: TextAlign.left,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: CenaColors.WHITE,
+          Row(
+            children: [
+              Container(
+                height: 30,
+                color: Colors.blue,
+                child: Text("blue"),
+              )
+            ],
           ),
+          Row(
+            children: [
+              Container(
+                height: 30,
+                color: Colors.orange,
+                child: Text("orage"),
+              )
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text('''...............
+          fdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+fdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsdfdsfafiasofsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          fsdfsd
+          '''),
+          )
         ],
       ),
+      // child: ListView(
+      //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //     physics: const BouncingScrollPhysics(),
+      //     children: [
+      //       // StoreImageReview(store),
+      //       const SizedBox(height: 10),
+      //       storeName(store, context),
+      //       ratingStore(store, context),
+      //       const Divider(),
+      //       CustomTabs(store: store),
+      //     ]),
     );
   }
 
