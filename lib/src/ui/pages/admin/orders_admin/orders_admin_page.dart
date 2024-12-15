@@ -28,7 +28,7 @@ class OrdersAdminPage extends StatelessWidget {
         length: payType.length,
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: CenaAppbarDefault(
+          appBar: CenaAppBarDefault(
             preferredSizeInput: 80,
             title: lang.admin_order_title,
             leading: const CenaButtonDefaultBack(),

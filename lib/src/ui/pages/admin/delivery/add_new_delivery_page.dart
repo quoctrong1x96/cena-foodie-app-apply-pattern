@@ -92,7 +92,7 @@ class _AddNewDeliveryPageState extends State<AddNewDeliveryPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.delivery_add_title,
           leading: const CenaButtonDefaultBack(),
           actions: [

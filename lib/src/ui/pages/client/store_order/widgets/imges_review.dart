@@ -13,8 +13,8 @@ class ImageReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      child: CenaImageCache(url: ImagesUtil.getImageApiUrl(image)),
       decoration: const BoxDecoration(color: Colors.white),
+      child: CenaImageCache(url: ImagesUtil.getImageApiUrl(image)),
     );
   }
 }

@@ -1,14 +1,10 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:cenafoodie/src/ui/pages/auth/register/components/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../data/models/ui/page_arguments.dart';
-import '../../../../utils/configs/cena_colors.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../../../utils/constants/route_constants.dart';
 import '../../../../utils/helpers/helpers.dart';
@@ -31,7 +27,7 @@ class RegisterClientPage extends StatefulWidget {
 }
 
 class _RegisterClientPageState extends State<RegisterClientPage> {
-  var _registType = RegisType.byEmail;
+  var _regisType = RegisType.byEmail;
 
   @override
   void initState() {
@@ -92,7 +88,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
         },
         child: Scaffold(
           backgroundColor: Theme.of(context).primaryColorLight,
-          appBar: CenaAppbarDefault(
+          appBar: CenaAppBarDefault(
             centerTitle: true,
             title: lang.register_header,
             leading: widget.phone == ""
@@ -115,7 +111,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                   text: "Create CenaFoodie Account", fontSize: 20),
               const SizedBox(height: 10),
               _buildSwitchButton(context),
-              _registType == RegisType.byEmail
+              _regisType == RegisType.byEmail
                   ? const RegisterEmail()
                   : const RegisterPhone()
             ],
@@ -133,7 +129,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
           width: 150,
           decoration: BoxDecoration(
             border: Border(
-                bottom: _registType == RegisType.byPhone
+                bottom: _regisType == RegisType.byPhone
                     ? BorderSide(
                         color: Theme.of(context).primaryColor,
                         width: 1.5,
@@ -147,7 +143,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_sms,
-                style: _registType == RegisType.byPhone
+                style: _regisType == RegisType.byPhone
                     ? TextStyle(
                         fontSize: 17,
                         color: Theme.of(context).primaryColor,
@@ -162,7 +158,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
           width: 150,
           decoration: BoxDecoration(
             border: Border(
-                bottom: _registType == RegisType.byEmail
+                bottom: _regisType == RegisType.byEmail
                     ? BorderSide(
                         color: Theme.of(context).primaryColor,
                         width: 1.5,
@@ -176,7 +172,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
               const BorderSide(style: BorderStyle.none),
             )),
             child: Text(S.of(context).login_with_email,
-                style: _registType == RegisType.byEmail
+                style: _regisType == RegisType.byEmail
                     ? TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).primaryColor,
@@ -192,9 +188,9 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
     //
   }
 
-  void setStateLoginType(RegisType registTypeState) {
+  void setStateLoginType(RegisType regisTypeState) {
     setState(() {
-      _registType = registTypeState;
+      _regisType = regisTypeState;
     });
   }
 
@@ -267,97 +263,97 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
   }
 }
 
-class _PictureRegister extends StatelessWidget {
-  final ImagePicker _picker = ImagePicker();
+// class _PictureRegister extends StatelessWidget {
+//   final ImagePicker _picker = ImagePicker();
 
-  @override
-  Widget build(BuildContext context) {
-    final userBloc = BlocProvider.of<UserBloc>(context);
-    return Container(
-      height: 150,
-      width: 150,
-      decoration: BoxDecoration(
-          border: Border.all(
-              style: BorderStyle.solid,
-              color: Theme.of(context)
-                  .primaryColorDark
-                  .withOpacity(AppConstants.color_opacity)),
-          shape: BoxShape.circle),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(100),
-        onTap: () => modalPictureRegister(
-            ctx: context,
-            onPressedChange: () async {
-              final permissionGallery = await Permission.photos.request();
+//   @override
+//   Widget build(BuildContext context) {
+//     final userBloc = BlocProvider.of<UserBloc>(context);
+//     return Container(
+//       height: 150,
+//       width: 150,
+//       decoration: BoxDecoration(
+//           border: Border.all(
+//               style: BorderStyle.solid,
+//               color: Theme.of(context)
+//                   .primaryColorDark
+//                   .withOpacity(AppConstants.color_opacity)),
+//           shape: BoxShape.circle),
+//       child: InkWell(
+//         borderRadius: BorderRadius.circular(100),
+//         onTap: () => modalPictureRegister(
+//             ctx: context,
+//             onPressedChange: () async {
+//               final permissionGallery = await Permission.photos.request();
 
-              switch (permissionGallery) {
-                case PermissionStatus.granted:
-                  Navigator.pop(context);
-                  final XFile? imagePath = await _picker.pickImage(
-                      source: ImageSource.gallery, imageQuality: 50);
-                  if (imagePath != null) {
-                    userBloc.add(OnSelectPictureEvent(imagePath.path));
-                  }
-                  break;
-                case PermissionStatus.denied:
-                case PermissionStatus.restricted:
-                case PermissionStatus.limited:
-                case PermissionStatus.permanentlyDenied:
-                  openAppSettings();
-                  break;
-                case PermissionStatus.provisional:
-                  // TODO: Handle this case.
-                  break;
-              }
-            },
-            onPressedTake: () async {
-              final permissionPhotos = await Permission.camera.request();
+//               switch (permissionGallery) {
+//                 case PermissionStatus.granted:
+//                   Navigator.pop(context);
+//                   final XFile? imagePath = await _picker.pickImage(
+//                       source: ImageSource.gallery, imageQuality: 50);
+//                   if (imagePath != null) {
+//                     userBloc.add(OnSelectPictureEvent(imagePath.path));
+//                   }
+//                   break;
+//                 case PermissionStatus.denied:
+//                 case PermissionStatus.restricted:
+//                 case PermissionStatus.limited:
+//                 case PermissionStatus.permanentlyDenied:
+//                   openAppSettings();
+//                   break;
+//                 case PermissionStatus.provisional:
+//                   // TODO: Handle this case.
+//                   break;
+//               }
+//             },
+//             onPressedTake: () async {
+//               final permissionPhotos = await Permission.camera.request();
 
-              switch (permissionPhotos) {
-                case PermissionStatus.granted:
-                  Navigator.pop(context);
-                  final XFile? photoPath = await _picker.pickImage(
-                      source: ImageSource.camera, imageQuality: 50);
-                  if (photoPath != null) {
-                    userBloc.add(OnSelectPictureEvent(photoPath.path));
-                  }
-                  break;
+//               switch (permissionPhotos) {
+//                 case PermissionStatus.granted:
+//                   Navigator.pop(context);
+//                   final XFile? photoPath = await _picker.pickImage(
+//                       source: ImageSource.camera, imageQuality: 50);
+//                   if (photoPath != null) {
+//                     userBloc.add(OnSelectPictureEvent(photoPath.path));
+//                   }
+//                   break;
 
-                case PermissionStatus.denied:
-                case PermissionStatus.restricted:
-                case PermissionStatus.limited:
-                case PermissionStatus.permanentlyDenied:
-                  openAppSettings();
-                  break;
-                case PermissionStatus.provisional:
-                  // TODO: Handle this case.
-                  break;
-              }
-            }),
-        child: BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) => state.pictureProfilePath == ''
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.wallpaper_rounded,
-                        size: 60, color: CenaColors.primary),
-                    const SizedBox(height: 10.0),
-                    CenaTextDescription(
-                        text: S.of(context).register_picture,
-                        color: Colors.grey)
-                  ],
-                )
-              : Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: FileImage(File(state.pictureProfilePath)))),
-                ),
-        ),
-      ),
-    );
-  }
-}
+//                 case PermissionStatus.denied:
+//                 case PermissionStatus.restricted:
+//                 case PermissionStatus.limited:
+//                 case PermissionStatus.permanentlyDenied:
+//                   openAppSettings();
+//                   break;
+//                 case PermissionStatus.provisional:
+//                   // TODO: Handle this case.
+//                   break;
+//               }
+//             }),
+//         child: BlocBuilder<UserBloc, UserState>(
+//           builder: (context, state) => state.pictureProfilePath == ''
+//               ? Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     const Icon(Icons.wallpaper_rounded,
+//                         size: 60, color: CenaColors.primary),
+//                     const SizedBox(height: 10.0),
+//                     CenaTextDescription(
+//                         text: S.of(context).register_picture,
+//                         color: Colors.grey)
+//                   ],
+//                 )
+//               : Container(
+//                   height: 100,
+//                   width: 100,
+//                   decoration: BoxDecoration(
+//                       shape: BoxShape.circle,
+//                       image: DecorationImage(
+//                           fit: BoxFit.cover,
+//                           image: FileImage(File(state.pictureProfilePath)))),
+//                 ),
+//         ),
+//       ),
+//     );
+//   }
+// }

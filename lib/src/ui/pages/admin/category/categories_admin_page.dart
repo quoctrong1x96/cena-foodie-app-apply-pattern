@@ -22,7 +22,7 @@ class CategoriesAdminPage extends StatelessWidget {
     final lang = S.of(context);
     return Scaffold(
       backgroundColor: CenaColors.WHITE,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         centerTitle: true,
         leading: const CenaButtonDefaultBack(),
         title: lang.admin_category_title,

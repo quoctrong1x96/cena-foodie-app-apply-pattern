@@ -106,7 +106,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage>
         child: Container(
             color: CenaColors.WHITE,
             child: Scaffold(
-              appBar: CenaAppbarDefault(
+              appBar: CenaAppBarDefault(
                 title: lang.admin_dashboard_title,
                 leading: const CenaButtonDefaultBack(),
                 preferredSizeInput: 80,

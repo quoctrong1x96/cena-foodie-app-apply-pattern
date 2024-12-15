@@ -48,7 +48,7 @@ class CartClientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
-    String appbarHeader = lang.client_cart_checkout_appbar_header;
+    String appBarHeader = lang.client_cart_checkout_appbar_header;
     final cartBloc = BlocProvider.of<CartBloc>(context);
     NumberFormat numberFormat = NumberFormat('###,###', 'en_US');
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
@@ -58,7 +58,7 @@ class CartClientPage extends StatelessWidget {
       if (listStore != null) {
         Iterable<Cart> productCarts = [];
         for (var storeItem in listStore!) {
-          appbarHeader = storeItem.storeName;
+          appBarHeader = storeItem.storeName;
           productCarts = state.products!
               .where((element) => element.storeId == storeItem.id);
           List<Cart> listProduct = [];
@@ -109,8 +109,8 @@ class CartClientPage extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
-          title: appbarHeader,
+        appBar: CenaAppBarDefault(
+          title: appBarHeader,
           centerTitle: true,
           leading: const CenaButtonDefaultBack(),
           actions: [

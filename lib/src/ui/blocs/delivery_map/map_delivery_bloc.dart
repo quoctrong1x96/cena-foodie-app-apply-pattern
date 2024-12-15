@@ -5,7 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:polyline_do/polyline_do.dart' as polylinedo;
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../../../utils/constants/cena_service_constants.dart';
@@ -67,7 +66,7 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
 
   Future<void> _onMarkerDelivery(
       OnMarkerDeliveryEvent event, Emitter<MapDeliveryState> emit) async {
-    // Polylines
+    // List Polyline
 
     final mapBoxResponse =
         await mapBoxController.getCoordsOriginAndDestinationDelivery(
@@ -75,18 +74,16 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
 
     final geometry = mapBoxResponse.routes![0].geometry;
 
-    final points = polylinedo.Polyline.Decode(
-            encodedString: geometry.toString(), precision: 6)
-        .decodedCoords;
+    final points = decodePolyline(geometry.toString());
 
     final List<LatLng> routeCoords =
-        points.map((p) => LatLng(p[0], p[1])).toList();
+        points.map((p) => LatLng(p.latitude, p.longitude)).toList();
 
     _myRouteDestinationDelivery =
         _myRouteDestinationDelivery.copyWith(pointsParam: routeCoords);
 
-    final currentPolylines = state.polyline;
-    currentPolylines!['myRouteDestinationDelivery'] =
+    final listCurrentPolyline = state.polyline;
+    listCurrentPolyline!['myRouteDestinationDelivery'] =
         _myRouteDestinationDelivery;
 
     // ------------------------ Markets
@@ -110,7 +107,7 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
     newMarker['markerDelivery'] = markerDelivery;
     newMarker['markerDestination'] = markerDestination;
 
-    emit(state.copyWith(polyline: currentPolylines, markers: newMarker));
+    emit(state.copyWith(polyline: listCurrentPolyline, markers: newMarker));
   }
 
   Future<void> _onEmitLocationDelivery(
@@ -121,4 +118,35 @@ class MapDeliveryBloc extends Bloc<MapDeliveryEvent, MapDeliveryState> {
       'longitude': event.location.longitude
     });
   }
+
+  List<LatLng> decodePolyline(String encoded) {
+  List<LatLng> polyline = [];
+  int index = 0, len = encoded.length;
+  int lat = 0, lng = 0;
+
+  while (index < len) {
+    int b, shift = 0, result = 0;
+    do {
+      b = encoded.codeUnitAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    int dLat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+    lat += dLat;
+
+    shift = 0;
+    result = 0;
+    do {
+      b = encoded.codeUnitAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    int dLng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+    lng += dLng;
+
+    polyline.add(LatLng(lat / 1E5, lng / 1E5));
+  }
+
+  return polyline;
+}
 }

@@ -59,7 +59,7 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                     maxLength: 50,
                     controller: _phoneController,
                     hintText: S.of(context).login_phone,
-                    validator: validatedPhoneForm,
+                    validator: validatedPhoneForm.call,
                   ),
                   const SizedBox(height: 5.0),
                   CenaInputPasswordShow(
@@ -77,7 +77,7 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                           generalBloc
                               .add(OnShowOrHidePasswordEvent(isShowPassword));
                         }),
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                   ),
                   const SizedBox(height: 10.0),
                   CenaInputPasswordShow(
@@ -95,7 +95,7 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                           generalBloc
                               .add(OnShowOrHidePasswordEvent(isShowPassword));
                         }),
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                   ),
                   const SizedBox(height: 10.0),
                   ElevatedButton(
@@ -103,7 +103,7 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                     onPressed: () {
                       LogUtil2.debug(
                         'Register Page',
-                        'Register with pphone',
+                        'Register with phone',
                         "Pressed",
                       );
                       if (_keyForm.currentState!.validate()) {

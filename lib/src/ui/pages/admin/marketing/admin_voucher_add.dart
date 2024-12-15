@@ -14,7 +14,7 @@ class _VoucherAddNewState extends State<VoucherAddNew> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColorLight,
-        appBar: const CenaAppbarDefault(
+        appBar: const CenaAppBarDefault(
           title: "Thêm voucher",
           leading: CenaButtonDefaultBack(),
         ),

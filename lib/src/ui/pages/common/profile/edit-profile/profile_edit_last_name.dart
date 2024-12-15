@@ -62,7 +62,7 @@ class _EditLastNameProfilePageState extends State<EditLastNameProfilePage> {
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.profile_edit_lastName_title,
           leading: const CenaButtonDefaultBack(),
         ),

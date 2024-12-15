@@ -50,7 +50,7 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.store_avatar_title,
           leading: const CenaButtonDefaultBack(),
         ),
@@ -75,26 +75,43 @@ class _EditStoreImagePageState extends State<EditStoreImagePage> {
   void _changeStoreImages() {
     final userBloc = BlocProvider.of<StoreBloc>(context);
     final ImagePicker picker = ImagePicker();
+
+    // Store the initial StoreBloc state before async operations
+    final storeBlocState = userBloc.state;
     modalPictureRegister(
         ctx: context,
         onPressedChange: () async {
+          if (!Navigator.canPop(context)) {
+            return; // Check if the context is valid
+          }
           Navigator.pop(context);
           final XFile? imagePath = await picker.pickImage(
               source: ImageSource.gallery, imageQuality: 50);
           if (imagePath != null) {
-            userBloc.add(OnChangeImageStoreEvent(
-                BlocProvider.of<StoreBloc>(context).state.store!.id,
-                imagePath.path));
+            if (!mounted) return; // Ensure widget is still mounted after async
+            if (storeBlocState.store != null) {
+              userBloc.add(
+                OnChangeImageStoreEvent(
+                    storeBlocState.store!.id, imagePath.path),
+              );
+            }
           }
         },
         onPressedTake: () async {
+          if (!Navigator.canPop(context)) {
+            return;
+          }
           Navigator.pop(context);
           final XFile? photoPath = await picker.pickImage(
               source: ImageSource.camera, imageQuality: 50);
           if (photoPath != null) {
-            userBloc.add(OnChangeImageStoreEvent(
-                BlocProvider.of<StoreBloc>(context).state.store!.id,
-                photoPath.path));
+            if (!mounted) return; // Check if widget is still mounted
+            if (storeBlocState.store != null) {
+              userBloc.add(
+                OnChangeImageStoreEvent(
+                    storeBlocState.store!.id, photoPath.path),
+              );
+            }
           }
         });
   }

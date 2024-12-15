@@ -21,7 +21,7 @@ class ListOrdersDeliveryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         title: S.of(context).delivery_order_list_assigned,
         leading: const CenaButtonDefaultBack(),
       ),

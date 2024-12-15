@@ -20,7 +20,7 @@ class AdminMarketingPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: const CenaAppbarDefault(
+      appBar: const CenaAppBarDefault(
         leading: CenaButtonDefaultBack(),
         title: "Marketing Online",
       ),

@@ -31,7 +31,7 @@ class ClientOrdersPage extends StatelessWidget {
         length: payType.length,
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: CenaAppbarDefault(
+          appBar: CenaAppBarDefault(
             title: "Đơn hàng của tôi",
             centerTitle: true,
             preferredSizeInput: 80,

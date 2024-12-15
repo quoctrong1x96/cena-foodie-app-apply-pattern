@@ -67,7 +67,7 @@ class _UpdateCategoryAdminPageState extends State<UpdateCategoryAdminPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: S.of(context).admin_category_title_update,
           centerTitle: true,
           leading: const CenaButtonDefaultBack(),

@@ -1,6 +1,6 @@
 part of '../widgets.dart';
 
-class CenaAppbarDefault extends StatelessWidget implements PreferredSizeWidget {
+class CenaAppBarDefault extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? leading;
   final List<Widget>? actions;
@@ -8,7 +8,7 @@ class CenaAppbarDefault extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final PreferredSizeWidget? bottom;
   final double preferredSizeInput;
-  const CenaAppbarDefault(
+  const CenaAppBarDefault(
       {Key? key,
       this.title = AppConstants.appName,
       this.leading,

@@ -59,9 +59,7 @@ class _SearchClientPageState extends State<SearchClientPage> {
                       if (userBloc.state.address == null) {
                         userBloc.add(OnInitialCurrentAddressEvent(
                             userBloc.state.user!.id,
-                            userBloc.state.user!.firstName +
-                                " " +
-                                userBloc.state.user!.lastName,
+                            "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
                             userBloc.state.user!.phone));
                       }
                       Navigator.pushReplacement(

@@ -11,7 +11,7 @@ class VoucherManagerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColorLight,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: "Voucher của shop",
           leading: const CenaButtonDefaultBack(),
           actions: [

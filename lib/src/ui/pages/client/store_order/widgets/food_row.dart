@@ -112,8 +112,7 @@ class FoodRow extends StatelessWidget {
               style: CenaTextStyles.smallDescription,
             ),
             Text(
-              like.toString() +
-                  " ${S.of(context).client_store_food_row_liked} ",
+              "$like ${S.of(context).client_store_food_row_liked} ",
               textAlign: TextAlign.left,
               style: CenaTextStyles.smallDescription,
             ),
@@ -217,7 +216,7 @@ class FoodRow extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 26),
                   child: Text(
                       quantity < 10
-                          ? "0" + quantity.toString()
+                          ? "0$quantity"
                           : quantity.toString(),
                       style: CenaTextStyles.blackS18),
                 )
@@ -254,8 +253,8 @@ class FoodRow extends StatelessWidget {
   //       cartLineItem: cartLineItem!, storeId: cartLineItem.cartStoreId!);
   //   context.read<CartProvider>().changeCart(cartLineItem.productId!);
   //   showStatusAlert(context,
-  //       title: "Thành công",
-  //       subtitle: "Bạn đã thêm đơn hàng thành công vào giỏ",
+  //       title: "Success",
+  //       subtitle: "You have successfully added",
   //       duration: 1,
   //       icon: Icons.add_shopping_cart);
   // }
@@ -270,7 +269,7 @@ class DynamicallyCheckbox extends StatefulWidget {
 
 class DynamicallyCheckboxState extends State {
   Map<String, bool> list = {
-    'Thạnh dừa': false,
+    'Thạch dừa': false,
     'Sương sáo': false,
     'Trân châu trắng': false,
     'Bánh Flan': false,

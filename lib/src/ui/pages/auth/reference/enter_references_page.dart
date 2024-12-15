@@ -32,8 +32,8 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CenaAppbarDefault(
-        title: "Mã giới thiệu",
+      appBar: const CenaAppBarDefault(
+        title: "Invite code",
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -67,7 +67,7 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
                                   RouteConstants.get_current_address_of_user);
                         },
                         child: const CenaTextDescription(
-                            text: 'Bỏ qua, tôi sẽ nhập sau'))),
+                            text: 'Skip, I will fill later'))),
                 const SizedBox(height: 20.0),
               ],
             ),
@@ -83,60 +83,82 @@ class _EnterReferencePageState extends State<EnterReferencePage> {
       ),
     );
   }
+Container _buildInputReference(TextEditingController? textController,
+    FocusNode? focusText, BuildContext context) {
+  final userService = locator<IUserService>();
+  final userBloc = BlocProvider.of<UserBloc>(context);
 
-  Container _buildInputReference(TextEditingController? _textController,
-      FocusNode? _focusText, BuildContext context) {
-    final _userService = locator<IUserService>();
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CenaFormField(
-              controller: _textController!,
-              focusNode: _focusText,
-              width: MediaQuery.of(context).size.width - 110,
-              hintText: "MÃ GIỚI THIỆU",
-              maxLength: 10,
-              validator: RequiredValidator(
-                  errorText: "Bạn phải nhập mã hoặc nhấn bỏ qua").call,
-            ),
-            CenaIconButton(
-              width: 50.0,
-              backgroundColor: CenaColors.primary,
-              leadingIcon: const Icon(FontAwesomeIcons.arrowRight),
-              onPressed: () async {
-                var data = await _userService.enterReferenceCode(
-                    userId: BlocProvider.of<UserBloc>(context).state.user!.id,
-                    code: _textController.value.text);
-                if (!data.hasError) {
-                  final userBloc = BlocProvider.of<UserBloc>(context);
-                  userBloc.add(OnInitialCurrentAddressEvent(
-                      userBloc.state.user!.id,
-                      "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
-                      userBloc.state.user!.phone));
-                  NavigationUtils.clearStack(context,
-                      newRouteName: RouteConstants.get_current_address_of_user);
-                } else {
-                  cenaToastError(data.errorMessage!);
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CenaFormField(
+          controller: textController!,
+          focusNode: focusText,
+          width: MediaQuery.of(context).size.width - 110,
+          hintText: "INVITE CODE",
+          maxLength: 10,
+          validator: RequiredValidator(
+              errorText: "You must input code OR press skip button").call,
+        ),
+        CenaIconButton(
+          width: 50.0,
+          backgroundColor: CenaColors.primary,
+          leadingIcon: const Icon(FontAwesomeIcons.arrowRight),
+          onPressed: () async {
+            if (!mounted) return; // Ensure the widget is still mounted
+
+            final userId = userBloc.state.user!.id;
+
+            var data = await userService.enterReferenceCode(
+              userId: userId,
+              code: textController.value.text,
+            );
+
+            if (!mounted) return; // Check again after async operation
+
+            if (!data.hasError) {
+              userBloc.add(
+                OnInitialCurrentAddressEvent(
+                  userId,
+                  "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
+                  userBloc.state.user!.phone,
+                ),
+              );
+
+              // Use a post-frame callback to safely navigate after async operation
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  NavigationUtils.clearStack(
+                    context,
+                    newRouteName: RouteConstants.get_current_address_of_user,
+                  );
                 }
-              },
-            ),
-          ],
-        ));
-  }
+              });
+            } else {
+              cenaToastError(data.errorMessage!);
+            }
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+
 
   CenaTextDescription _buildDescription() {
     return const CenaTextDescription(
         text:
-            'Xem mã giới thiệu tại Menu "Thông tin cá nhân" -> mục "Mã giới thiệu"',
+            'Check your invite code at "Profiles" -> Menu "Invite code"',
         maxLine: 2,
         textAlign: TextAlign.center);
   }
 
   CenaTextDescription _buildTextMain() {
     return const CenaTextDescription(
-        text: 'Nhập mã giới thiệu',
+        text: 'Input your invite code',
         textAlign: TextAlign.center,
         fontSize: 32,
         fontWeight: FontWeight.w500);

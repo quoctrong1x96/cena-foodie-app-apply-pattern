@@ -82,7 +82,7 @@ class _EditStorePageState extends State<EditStorePage> {
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.store_info_title,
           leading: const CenaButtonDefaultBack(),
         ),
@@ -126,21 +126,19 @@ class _EditStorePageState extends State<EditStorePage> {
                                         source: ImageSource.gallery,
                                         imageQuality: 50);
                                 if (imagePath != null) {
-                                  storeBloc.add(OnSelectPictureStoreEvent(
-                                      BlocProvider.of<StoreBloc>(context)
-                                          .state
-                                          .store!
-                                          .id,
-                                      imagePath.path));
+                                  if (storeBloc.state.store != null) {
+                                    storeBloc.add(OnSelectPictureStoreEvent(
+                                        storeBloc.state.store!.id,
+                                        imagePath.path));
+                                  }
                                 }
                               },
                               onPressedTake: () async {
                                 Navigator.pop(context);
                                 final ImagePicker picker = ImagePicker();
-                                final XFile? photoPath =
-                                    await picker.pickImage(
-                                        source: ImageSource.camera,
-                                        imageQuality: 50);
+                                final XFile? photoPath = await picker.pickImage(
+                                    source: ImageSource.camera,
+                                    imageQuality: 50);
                                 if (photoPath != null) {
                                   storeBloc.add(OnChangeImageStoreEvent(
                                       storeBloc.state.store!.id,

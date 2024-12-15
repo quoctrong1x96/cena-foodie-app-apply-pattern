@@ -208,8 +208,8 @@ class _ClientHomeBodyState extends State<ClientHomeBody> {
         _isLoading = true;
       });
     }
-    final _storeService = locator<IStoreService>();
-    UiResponse<List<Store>> list = await _storeService.getNearby(
+    final storeService = locator<IStoreService>();
+    UiResponse<List<Store>> list = await storeService.getNearby(
         limit: storesPerLoading,
         offset: whatIsPaginationOf(stores) * storesPerLoading,
         lat: address.latitude!,

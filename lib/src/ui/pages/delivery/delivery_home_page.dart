@@ -134,9 +134,7 @@ class DeliveryHomePage extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   Center(
                       child: CenaTextDescription(
-                          text: authBloc.state.user!.firstName +
-                              ' ' +
-                              authBloc.state.user!.lastName,
+                          text: '${authBloc.state.user!.firstName} ${authBloc.state.user!.lastName}',
                           fontSize: 25,
                           fontWeight: FontWeight.w500)),
                   const SizedBox(height: 5.0),

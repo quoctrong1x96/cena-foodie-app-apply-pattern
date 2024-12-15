@@ -67,8 +67,13 @@ class _ClientGetCurrentAddressPageState
               });
             }
             await Future.delayed(const Duration(milliseconds: 1000));
-            NavigationUtils.clearStack(context,
+             WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  NavigationUtils.clearStack(context,
                 newRouteName: RouteConstants.client_home);
+                }
+              });
+            
           }
         },
         child: WillPopScope(
@@ -125,7 +130,7 @@ class _ClientGetCurrentAddressPageState
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
-      Fluttertoast.showToast(msg: "Nhấn lần nữa để thoát");
+      Fluttertoast.showToast(msg: "Press back to exit...");
       return Future.value(false);
     }
     return Future.value(true);

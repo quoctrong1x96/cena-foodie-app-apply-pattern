@@ -22,7 +22,7 @@ class _StoreOrderPageState extends State<StoreOrderPage> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: CenaColors.LIGHT_GREY,
-      // appBar: CenaAppbarDefault(
+      // appBar: CenaAppBarDefault(
       //   title: widget.store.storeName,
       //   leading: const CenaButtonDefaultBack(),
       // ),

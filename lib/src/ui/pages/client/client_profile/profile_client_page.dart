@@ -65,9 +65,7 @@ class ProfileClientPage extends StatelessWidget {
                       ),
                       Center(
                           child: CenaTextDescription(
-                              text: authBloc.state.user!.firstName +
-                                  ' ' +
-                                  authBloc.state.user!.lastName,
+                              text: '${authBloc.state.user!.firstName} ${authBloc.state.user!.lastName}',
                               fontSize: 20,
                               color: CenaColors.WHITE,
                               fontWeight: FontWeight.w500)),

@@ -18,7 +18,7 @@ class _ChangeLanguagesPageState extends State<ChangeLanguagesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CenaAppbarDefault(
+      appBar: const CenaAppBarDefault(
         title: "Change languages",
         leading: CenaButtonDefaultBack(),
       ),

@@ -10,7 +10,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: CenaAppbarDefault(
+//       appBar: CenaAppBarDefault(
 //         title: foodAndDrink.nameProduct,
 //         leading: const CenaButtonDefaultBack(),
 //       ),

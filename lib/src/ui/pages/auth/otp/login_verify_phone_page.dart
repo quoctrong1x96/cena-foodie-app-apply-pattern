@@ -79,39 +79,49 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
   StreamController<ErrorAnimationType>? errorController;
 
   void _verifyOTP(String otp) async {
-    try {
-      if (kDebugMode) {
-        final authBloc = BlocProvider.of<AuthBloc>(context);
-        authBloc.add(LoginPhoneEvent(widget.phoneNumber));
-        return;
-      }
-      await _auth
-          .signInWithCredential(PhoneAuthProvider.credential(
-              verificationId: _verificationId, smsCode: otp))
-          .then((value) async {
-        if (value.user != null) {
-          final authBloc = BlocProvider.of<AuthBloc>(context);
-          authBloc.add(LoginPhoneEvent(widget.phoneNumber));
-        }
-      });
-      // }
-    } on FirebaseAuthException catch (e) {
-      Future.delayed(Duration.zero, () {
-        final lang = S.of(context);
-        switch (e.code) {
-          case "invalid-verification-code":
-            cenaToastError(lang.auth_verify_phone_error_invalid_otp);
-            break;
-          case "session-expired":
-            cenaToastError(lang.auth_verify_phone_error_expired);
-            break;
-          default:
-            cenaToastError(lang.auth_verify_phone_error_server_otp);
-            break;
-        }
-      });
+  try {
+    // Prepare necessary dependencies before async operations
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+
+    if (kDebugMode) {
+      authBloc.add(LoginPhoneEvent(widget.phoneNumber));
+      return;
     }
+
+    // Perform the async operation
+    final userCredential = await _auth.signInWithCredential(
+      PhoneAuthProvider.credential(verificationId: _verificationId, smsCode: otp),
+    );
+
+    // Only proceed if the user is authenticated
+    if (userCredential.user != null) {
+      authBloc.add(LoginPhoneEvent(widget.phoneNumber));
+    }
+  } on FirebaseAuthException catch (e) {
+    // Handle the error without accessing context after async gaps
+    _handleAuthError(e);
   }
+}
+
+// Extracted error-handling logic into a separate method
+void _handleAuthError(FirebaseAuthException e) {
+  final lang = S.of(context);
+
+  // Show toast based on error type
+  switch (e.code) {
+    case "invalid-verification-code":
+      cenaToastError(lang.auth_verify_phone_error_invalid_otp);
+      break;
+    case "session-expired":
+      cenaToastError(lang.auth_verify_phone_error_expired);
+      break;
+    default:
+      cenaToastError(lang.auth_verify_phone_error_server_otp);
+      break;
+  }
+}
+
+
 
   Future<void> _verifyPhone() async {
     try {
@@ -125,6 +135,7 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
       await _auth.verifyPhoneNumber(
           phoneNumber: '+84${widget.phoneNumber}',
           verificationCompleted: (PhoneAuthCredential credential) async {
+            
             await _auth.signInWithCredential(credential).then((value) async {
               if (value.user != null) {
                 textEditingController.text = credential.smsCode!;
@@ -132,8 +143,8 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
             });
           },
           verificationFailed: (FirebaseAuthException e) {
-            Future.delayed(Duration.zero, () {
-              final lang = S.of(context);
+            final lang = S.of(context);
+            Future.delayed(Duration.zero, () {              
               if (e.code == 'invalid-phone-number') {
                 cenaToastError(lang.auth_verify_phone_error_invalid_phone);
               } else if (e.code == 'session-expired') {
@@ -204,7 +215,7 @@ class _LoginVerifyOtpPageState extends State<LoginVerifyOtpPage> {
         }
       },
       child: Scaffold(
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           leading: !_isLoading
               ? const CenaButtonDefaultBack()
               : const SizedBox(

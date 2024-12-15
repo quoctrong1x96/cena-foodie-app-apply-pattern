@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         }
       },
       child: Scaffold(
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.profile_edit_title,
           leading: const CenaButtonDefaultBack(),
         ),
@@ -111,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         context, RouteConstants.client_profile_lastname),
                   ),
                   CenaButtonLineText(
-                    label: lang.profile_edit_firtname,
+                    label: lang.profile_edit_firstname,
                     text: _nameController.value.text,
                     fontSize: 14,
                     onPressed: () => NavigationUtils.push(

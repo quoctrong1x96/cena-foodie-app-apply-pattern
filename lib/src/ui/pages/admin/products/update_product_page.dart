@@ -87,7 +87,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.store_product_update_title,
           centerTitle: true,
           leading: CenaButtonDefaultBack(action: () {

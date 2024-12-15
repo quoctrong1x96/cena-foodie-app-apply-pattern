@@ -61,7 +61,7 @@ class _EditFirstNameProfilePageState extends State<EditFirstNameProfilePage> {
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.profile_edit_firstName_title,
           leading: const CenaButtonDefaultBack(),
         ),

@@ -21,10 +21,10 @@ class SelectAddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
-    final _addressService = locator<IAddressService>();
+    final addressService = locator<IAddressService>();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         centerTitle: true,
         leading: const CenaButtonDefaultBack(),
         title: lang.client_address_title,
@@ -39,7 +39,7 @@ class SelectAddressPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<UiResponse<List<Address>?>>(
-          future: _addressService.fetchAll(
+          future: addressService.fetchAll(
               userId: BlocProvider.of<UserBloc>(context).state.user!.id),
           builder: (context, snapshot) => (!snapshot.hasData)
               ? const CenaShimmer()

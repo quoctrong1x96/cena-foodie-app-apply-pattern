@@ -82,7 +82,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.password_title,
           leading: const CenaButtonDefaultBack(),
         ),
@@ -103,6 +103,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       controller: _currentPasswordController,
                       isPassword: state.isShowPassword,
                       focusNode: _focusOldPassword,
+                      keyboardType: TextInputType.visiblePassword,
+                      hintText: "",
+                      readOnly: false,
+                      maxLine: 20,
                       suffixIcon: IconButton(
                           splashRadius: 20,
                           icon: !state.isShowPassword
@@ -114,7 +118,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             generalBloc
                                 .add(OnShowOrHidePasswordEvent(isShowPassword));
                           }),
-                      validator: passwordValidator,
+                      validator: passwordValidator.call,
                     ),
                     const SizedBox(height: 20.0),
                     CenaTextDescription(text: lang.password_new),
@@ -122,6 +126,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     _CenaFormFieldPassword(
                       controller: _newPasswordController,
                       isPassword: state.isNewPassword,
+                      keyboardType: TextInputType.visiblePassword,
+                      readOnly: false,
+                      hintText: "",
+                      maxLine: 20,
                       suffixIcon: IconButton(
                           splashRadius: 20,
                           icon: !state.isNewPassword
@@ -133,22 +141,26 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             generalBloc.add(
                                 OnShowOrHideNewPasswordEvent(isShowPassword));
                           }),
-                      validator: passwordValidator,
+                      validator: passwordValidator.call,
                     ),
                     const SizedBox(height: 20.0),
                     CenaTextDescription(text: lang.password_repeat),
                     const SizedBox(height: 5.0),
                     _CenaFormFieldPassword(
                       controller: _repeatPasswordController,
-                      isPassword: state.isRepeatpassword,
+                      isPassword: state.isRepeatPassword,
+                      keyboardType: TextInputType.visiblePassword,
+                      readOnly: false,
+                      hintText: "",
+                      maxLine: 20,
                       suffixIcon: IconButton(
                           splashRadius: 20,
-                          icon: !state.isRepeatpassword
+                          icon: !state.isRepeatPassword
                               ? const Icon(Icons.remove_red_eye_outlined)
                               : const Icon(Icons.visibility_off_rounded),
                           onPressed: () {
                             bool isShowPassword =
-                                !generalBloc.state.isRepeatpassword;
+                                !generalBloc.state.isRepeatPassword;
                             generalBloc.add(OnShowOrHideRepeatPasswordEvent(
                                 isShowPassword));
                           }),
@@ -200,14 +212,14 @@ class _CenaFormFieldPassword extends StatelessWidget {
 
   const _CenaFormFieldPassword(
       {this.controller,
-      this.hintText,
       this.isPassword = false,
-      this.keyboardType = TextInputType.text,
-      this.maxLine = 1,
-      this.readOnly = false,
       this.suffixIcon,
       this.focusNode,
-      this.validator});
+      this.validator,
+      required this.hintText,
+      required this.keyboardType,
+      required this.maxLine,
+      required this.readOnly});
 
   @override
   Widget build(BuildContext context) {

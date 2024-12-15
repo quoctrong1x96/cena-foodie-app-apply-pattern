@@ -53,7 +53,7 @@ class OrderDetailsPage extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: "${lang.admin_order_detail_title} #${order.id}",
           leading: const CenaButtonDefaultBack(),
         ),

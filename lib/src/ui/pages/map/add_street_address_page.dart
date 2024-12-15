@@ -194,12 +194,21 @@ class _AddStreetAddressPageState extends State<AddStreetAddressPage> {
   }
 
   void _openMap() async {
+    // Check GPS permission
     final permissionGPS = await Permission.location.isGranted;
+
+    // Check if location services are active
     final gpsActive = await Geolocator.isLocationServiceEnabled();
 
+    // Ensure widget is mounted before using context
+    if (!mounted) return;
+
+    // Navigate to the map if permissions and services are active
     if (permissionGPS && gpsActive) {
-      Navigator.push(context,
-          navigatorPageFadeInCena(context, const MapLocationAddressPage()));
+      Navigator.push(
+        context,
+        navigatorPageFadeInCena(context, const MapLocationAddressPage()),
+      );
     } else {
       Navigator.pop(context);
     }

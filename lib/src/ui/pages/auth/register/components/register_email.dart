@@ -57,7 +57,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
                     maxLength: 50,
                     controller: _emailController,
                     hintText: S.of(context).login_email,
-                    validator: validatedEmail,
+                    validator: validatedEmail.call,
                   ),
                   // const SizedBox(height: 5.0),
                   // CenaTextDescription(text: S.of(context).login_password),
@@ -77,7 +77,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
                           generalBloc
                               .add(OnShowOrHidePasswordEvent(isShowPassword));
                         }),
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                   ),
                   const SizedBox(height: 10.0),
                   CenaInputPasswordShow(
@@ -95,7 +95,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
                           generalBloc
                               .add(OnShowOrHidePasswordEvent(isShowPassword));
                         }),
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                   ),
                   const SizedBox(height: 10.0),
                   ElevatedButton(

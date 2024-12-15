@@ -22,19 +22,25 @@ import '../../../blocs/user/user_bloc.dart';
 import '../../../resources/generated/l10n.dart';
 import '../../../widgets/widgets.dart';
 
-class ClientDetailsOrderPage extends StatelessWidget {
+class ClientDetailsOrderPage extends StatefulWidget {
   final Order orderClient;
-  final _orderService = locator<IOrderService>();
-  final _addressService = locator<IAddressService>();
 
-  ClientDetailsOrderPage({Key? key, required this.orderClient})
+  const ClientDetailsOrderPage({Key? key, required this.orderClient})
       : super(key: key);
 
-  void accessGps(PermissionStatus status, BuildContext context) {
+  @override
+  State<ClientDetailsOrderPage> createState() => _ClientDetailsOrderPageState();
+}
+
+class _ClientDetailsOrderPageState extends State<ClientDetailsOrderPage> {
+  final _orderService = locator<IOrderService>();
+
+  final _addressService = locator<IAddressService>();
+
+  void accessGps(PermissionStatus status) {
     switch (status) {
       case PermissionStatus.granted:
-        NavigationUtils.replace(context, RouteConstants.client_map,
-            args: PageArguments(data: {'order-client': orderClient}));
+        // Return some indication of success instead of handling navigation here
         break;
       case PermissionStatus.denied:
       case PermissionStatus.restricted:
@@ -43,7 +49,6 @@ class ClientDetailsOrderPage extends StatelessWidget {
         openAppSettings();
         break;
       case PermissionStatus.provisional:
-        // TODO: Handle this case.
         break;
     }
   }
@@ -54,9 +59,9 @@ class ClientDetailsOrderPage extends StatelessWidget {
     final lang = S.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         centerTitle: true,
-        title: "${lang.client_orders_key} #${orderClient.id}",
+        title: "${lang.client_orders_key} #${widget.orderClient.id}",
         leading: const CenaButtonDefaultBack(),
         actions: [
           Container(
@@ -64,8 +69,8 @@ class ClientDetailsOrderPage extends StatelessWidget {
             margin: const EdgeInsets.only(right: 10.0),
             child: CenaTextDescription(
               text: Localizations.localeOf(context).toString() == "vi"
-                  ? payTypeVN[payType.indexOf(orderClient.status!)]
-                  : orderClient.status!,
+                  ? payTypeVN[payType.indexOf(widget.orderClient.status!)]
+                  : widget.orderClient.status!,
               fontSize: 16,
               fontWeight: FontWeight.w500,
               color: CenaColors.WHITE,
@@ -77,7 +82,8 @@ class ClientDetailsOrderPage extends StatelessWidget {
         children: [
           Expanded(
               child: FutureBuilder<UiResponse<List<OrderDetail>?>>(
-                  future: _orderService.getDetail(orderId: orderClient.id),
+                  future:
+                      _orderService.getDetail(orderId: widget.orderClient.id),
                   builder: (context, snapshot) => (!snapshot.hasData)
                       ? Column(
                           children: const [
@@ -104,7 +110,7 @@ class ClientDetailsOrderPage extends StatelessWidget {
                         color: CenaColors.primary),
                     CenaTextDescription(
                         text:
-                            '${numberFormat.format(orderClient.amount).toString()} vnđ',
+                            '${numberFormat.format(widget.orderClient.amount).toString()} vnđ',
                         fontWeight: FontWeight.w500),
                   ],
                 ),
@@ -125,17 +131,17 @@ class ClientDetailsOrderPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                      (orderClient.deliveryImage != null)
+                                      (widget.orderClient.deliveryImage != null)
                                           ? ImagesUtil.getImageApiUrl(
-                                              orderClient.deliveryImage)
+                                              widget.orderClient.deliveryImage)
                                           : ImagesUtil.getImageApiUrl(
                                               'without-image.jpg')))),
                         ),
                         const SizedBox(width: 10.0),
                         CenaTextDescription(
-                            text: (orderClient.deliveryId != 0)
-                                ? orderClient.deliveryName ??
-                                    "No name" //!TODO : Thêm tên của người giao hàng
+                            text: (widget.orderClient.deliveryId != 0)
+                                ? widget.orderClient.deliveryName ??
+                                    "No name" //!TODO : Add delivery man's name
                                 : lang.client_orders_unsigned,
                             fontSize: 17),
                       ],
@@ -153,7 +159,7 @@ class ClientDetailsOrderPage extends StatelessWidget {
                         fontSize: 17),
                     CenaTextDescription(
                         text: CenaDate.getDateOrder(
-                            orderClient.currentDate.toString()),
+                            widget.orderClient.currentDate.toString()),
                         fontSize: 16),
                   ],
                 ),
@@ -170,7 +176,7 @@ class ClientDetailsOrderPage extends StatelessWidget {
                       future: _addressService.byId(
                           userId:
                               BlocProvider.of<UserBloc>(context).state.user!.id,
-                          addressId: orderClient.addressId!),
+                          addressId: widget.orderClient.addressId!),
                       builder: (context, snapshot) => (snapshot.hasData)
                           ? CenaTextDescription(
                               text: snapshot.data!.data!.detail!,
@@ -180,8 +186,8 @@ class ClientDetailsOrderPage extends StatelessWidget {
                               textWidth: 292,
                             )
                           : const SizedBox(
-                              child: CenaShimmer(),
                               width: 200.0,
+                              child: CenaShimmer(),
                             ),
                     ),
                   ],
@@ -190,14 +196,30 @@ class ClientDetailsOrderPage extends StatelessWidget {
               ],
             ),
           ),
-          (orderClient.status == 'ON WAY')
+          (widget.orderClient.status == 'ON WAY')
               ? Container(
                   padding: const EdgeInsets.all(15.0),
                   child: CenaButton(
                     text: lang.client_orders_button_follow_shipper,
                     fontWeight: FontWeight.w500,
-                    onPressed: () async =>
-                        accessGps(await Permission.location.request(), context),
+                    onPressed: () async {
+                      final permissionStatus =
+                          await Permission.location.request();
+                      if (!mounted) {
+                        return; // Ensure widget is still active
+                      }
+
+                      accessGps(permissionStatus);
+
+                      if (permissionStatus.isGranted) {
+                        NavigationUtils.replace(
+                          context,
+                          RouteConstants.client_map,
+                          args: PageArguments(
+                              data: {'order-client': widget.orderClient}),
+                        );
+                      }
+                    },
                   ),
                 )
               : Container()

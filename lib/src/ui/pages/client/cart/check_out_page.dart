@@ -51,9 +51,7 @@ class CheckOutPage extends StatelessWidget {
           if (userBloc.state.address == null) {
             userBloc.add(OnInitialCurrentAddressEvent(
                 userBloc.state.user!.id,
-                userBloc.state.user!.firstName +
-                    " " +
-                    userBloc.state.user!.lastName,
+                "${userBloc.state.user!.firstName} ${userBloc.state.user!.lastName}",
                 userBloc.state.user!.phone));
           }
           Navigator.pushAndRemoveUntil(context,
@@ -67,7 +65,7 @@ class CheckOutPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
             title: lang.client_payment_title,
             leading: const CenaButtonDefaultBack()),
         backgroundColor: CenaColors.LIGHT_GREY,

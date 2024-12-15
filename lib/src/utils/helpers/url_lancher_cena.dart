@@ -2,15 +2,17 @@ part of 'helpers.dart';
 
 class UrlLauncherCena {
   Future<void> openMapLaunch(String latitude, String longitude) async {
-    var url = 'google.navigation:q=$latitude,$longitude&mode=d';
+    String url = 'google.navigation:q=$latitude,$longitude&mode=d';
     var urlGoogleMap =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
 
     try {
-      bool isLaunched =
-          await launch(url, forceSafariVC: false, forceWebView: false);
+      Uri uri = Uri.parse(url);
+      bool isLaunched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+          
       if (!isLaunched) {
-        await launch(urlGoogleMap, forceSafariVC: false, forceWebView: false);
+        Uri uriGoogleMap = Uri.parse(urlGoogleMap);
+        await launchUrl(uriGoogleMap, mode: LaunchMode.externalApplication);
       }
     } catch (e) {
       // ignore: avoid_print
@@ -19,8 +21,9 @@ class UrlLauncherCena {
   }
 
   Future<void> makePhoneCall(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $url';
     }

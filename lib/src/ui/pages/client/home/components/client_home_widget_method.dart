@@ -25,9 +25,7 @@ GestureDetector _buildAddress(BuildContext context, S lang) {
                 children: [
                   CenaTextDescription(
                     text: (state.address != null)
-                        ? state.address!.receiver!.name! +
-                            " - " +
-                            state.address!.receiver!.phoneNumber!
+                        ? "${state.address!.receiver!.name!} - ${state.address!.receiver!.phoneNumber!}"
                         : "No body",
                   ),
                   CenaTextDescription(

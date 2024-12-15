@@ -21,7 +21,7 @@ class OrderOnWayPage extends StatelessWidget {
     final lang = S.of(context);
     return Scaffold(
       backgroundColor: CenaColors.WHITE,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
           title: lang.delivery_detail_onway_title,
           leading: const CenaButtonDefaultBack()),
       body: FutureBuilder<UiResponse<List<Order>?>>(

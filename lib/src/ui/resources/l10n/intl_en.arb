@@ -258,7 +258,7 @@
   "profile_edit_phone":"Phone",
   "profile_edit_profile":"Profile",
   "profile_edit_lastname":"Last name",
-  "profile_edit_firtname":"First name",  
+  "profile_edit_firstname":"First name",  
   "profile_edit_lastname_title":"Change your last name",
   "profile_edit_lastname_success":"Your lastname has changed successfully!",
   "profile_edit_lastname_label":"Last name",

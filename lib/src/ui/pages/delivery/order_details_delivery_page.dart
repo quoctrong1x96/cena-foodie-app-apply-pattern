@@ -96,7 +96,7 @@ class _OrdersDetailsDeliveryPageState extends State<OrdersDetailsDeliveryPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
             title: '${lang.delivery_detail_order_id} #${widget.order.id}',
             leading: const CenaButtonDefaultBack()),
         body: Column(

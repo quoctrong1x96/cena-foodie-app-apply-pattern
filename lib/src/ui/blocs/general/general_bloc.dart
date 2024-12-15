@@ -12,7 +12,7 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
     on<OnSelectedNavigationBottom>( _onSelectedNavigationBottom );
     on<OnShowOrHidePasswordEvent>( _onShowOrHidePassword );
     on<OnShowOrHideNewPasswordEvent>( _onShowOrHideNewPassword );
-    on<OnShowOrHideRepeatPasswordEvent>( _onShowOrHideRepetPassword );
+    on<OnShowOrHideRepeatPasswordEvent>( _onShowOrHideRepeatPassword );
   }
 
   Future<void> _onSelectedNavigationBottom( OnSelectedNavigationBottom event, Emitter<GeneralState> emit ) async {
@@ -33,9 +33,9 @@ class GeneralBloc extends Bloc<GeneralEvent, GeneralState> {
 
   }
 
-  Future<void> _onShowOrHideRepetPassword( OnShowOrHideRepeatPasswordEvent event, Emitter<GeneralState> emit ) async {
+  Future<void> _onShowOrHideRepeatPassword( OnShowOrHideRepeatPasswordEvent event, Emitter<GeneralState> emit ) async {
 
-    emit( state.copyWith( isRepeatpassword: event.isRepeatPassword ) );
+    emit( state.copyWith( isRepeatPassword: event.isRepeatPassword ) );
 
   }
 

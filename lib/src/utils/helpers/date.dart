@@ -20,7 +20,7 @@ class CenaDate {
   }
 
   static String getDateOrder(String date) {
-    var newStr = date.substring(0, 10) + ' ' + date.substring(11, 23);
+    var newStr = '${date.substring(0, 10)} ${date.substring(11, 23)}';
 
     DateTime dt = DateTime.parse(newStr);
     return DateFormat("EEE, dd/MM/yyyy HH:mm:ss").format(dt);

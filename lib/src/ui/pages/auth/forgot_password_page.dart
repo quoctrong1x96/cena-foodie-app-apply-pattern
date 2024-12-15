@@ -74,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             children: [
               const CenaTextDescription(
                 text:
-                    'Enter the email associated with your account and well send an email with instruccions to reset your password.',
+                    'Enter the email associated with your account and well send an email with instructions to reset your password.',
                 maxLine: 4,
                 color: Color(0xff5B6589),
                 textAlign: TextAlign.justify,
@@ -85,7 +85,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               CenaFormField(
                 controller: _emailController,
                 hintText: 'example@frave.com',
-                validator: validatedEmail,
+                validator: validatedEmail.call,
               ),
               const SizedBox(height: 30.0),
               CenaButton(

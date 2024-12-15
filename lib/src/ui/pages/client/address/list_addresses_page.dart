@@ -41,12 +41,16 @@ class _ListAddressesPageState extends State<ListAddressesPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed) {
-      if (await Permission.location.isGranted) {
-        Navigator.push(context, routeCena(page: const AddStreetAddressPage()));
-      }
+  if (state == AppLifecycleState.resumed) {
+    if (await Permission.location.isGranted) {
+      if (!mounted) return; // Ensure the widget is still mounted before navigating
+      Navigator.push(
+        context,
+        routeCena(page: const AddStreetAddressPage()),
+      );
     }
   }
+}
 
   void accessLocation(PermissionStatus status) {
     switch (status) {
@@ -71,7 +75,7 @@ class _ListAddressesPageState extends State<ListAddressesPage>
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
-    final _addressService = locator<IAddressService>();
+    final addressService = locator<IAddressService>();
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is LoadingUserState) {
@@ -85,7 +89,7 @@ class _ListAddressesPageState extends State<ListAddressesPage>
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
             title: lang.client_address_title,
             leading: const CenaButtonDefaultBack(),
             actions: [
@@ -98,7 +102,7 @@ class _ListAddressesPageState extends State<ListAddressesPage>
                       fontSize: 17)),
             ]),
         body: FutureBuilder<UiResponse<List<Address>?>>(
-            future: _addressService.fetchAll(
+            future: addressService.fetchAll(
                 userId: BlocProvider.of<UserBloc>(context).state.user!.id),
             builder: (context, snapshot) => (!snapshot.hasData)
                 ? const CenaShimmer()
@@ -197,7 +201,7 @@ class _ListAddresses extends StatelessWidget {
         : _WithoutListAddress();
   }
 
-  Widget _buildAddressLine(bool isSelectAddres, Address address,
+  Widget _buildAddressLine(bool isSelectAddress, Address address,
       UserBloc userBloc, BuildContext context) {
     late Icon icon;
     late String text;
@@ -275,12 +279,12 @@ class _ListAddresses extends StatelessWidget {
                       child: Column(
                         children: [
                           Flexible(
+                            flex: 3,
                             child: CenaTextDescription(
                               text: address.detail!,
                               fontSize: 14,
                               maxLine: 2,
                             ),
-                            flex: 3,
                           ),
                         ],
                       ),
@@ -289,9 +293,7 @@ class _ListAddresses extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CenaTextDescription(
-                          text: address.receiver!.name! +
-                              " - " +
-                              address.receiver!.phoneNumber!,
+                          text: "${address.receiver!.name!} - ${address.receiver!.phoneNumber!}",
                           textAlign: TextAlign.left,
                           fontSize: 14,
                           color: CenaColors.dartGrey,

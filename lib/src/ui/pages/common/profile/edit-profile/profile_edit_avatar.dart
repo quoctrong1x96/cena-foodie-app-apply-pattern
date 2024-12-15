@@ -83,12 +83,12 @@ class _EditProfileImagePageState extends State<EditProfileImagePage> {
 
   void _changeProfileImages() {
     final userBloc = BlocProvider.of<UserBloc>(context);
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     modalPictureRegister(
         ctx: context,
         onPressedChange: () async {
           Navigator.pop(context);
-          final XFile? imagePath = await _picker.pickImage(
+          final XFile? imagePath = await picker.pickImage(
               source: ImageSource.gallery, imageQuality: 50);
           if (imagePath != null) {
             userBloc.add(OnChangeImageProfileEvent(
@@ -97,7 +97,7 @@ class _EditProfileImagePageState extends State<EditProfileImagePage> {
         },
         onPressedTake: () async {
           Navigator.pop(context);
-          final XFile? photoPath = await _picker.pickImage(
+          final XFile? photoPath = await picker.pickImage(
               source: ImageSource.camera, imageQuality: 50);
           if (photoPath != null) {
             userBloc.add(OnChangeImageProfileEvent(

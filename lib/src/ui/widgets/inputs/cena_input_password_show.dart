@@ -47,7 +47,7 @@ class _CenaInputPasswordShowState extends State<CenaInputPasswordShow> {
           filled: true,
           fillColor: Theme.of(context)
               .primaryColorDark
-              .withOpacity(AppConstants.textbox_opacity),
+              .withOpacity(AppConstants.text_box_opacity),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppConstants.border_radius),
               borderSide: BorderSide(

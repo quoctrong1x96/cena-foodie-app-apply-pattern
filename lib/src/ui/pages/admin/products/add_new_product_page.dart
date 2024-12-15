@@ -78,7 +78,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           leading: CenaButtonDefaultBack(action: () {
             Navigator.pop(context);
             productBloc.add(OnUnSelectCategoryEvent());

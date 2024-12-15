@@ -21,7 +21,7 @@ class OrderDeliveredPage extends StatelessWidget {
     final orderService = locator<IOrderService>();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         leading: const CenaButtonDefaultBack(),
         title: lang.delivery_detail_delivered_title,
       ),

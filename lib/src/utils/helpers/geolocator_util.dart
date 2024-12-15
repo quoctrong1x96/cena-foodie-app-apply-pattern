@@ -46,10 +46,10 @@ class GeolocatorUtil {
   }
 
   static Future<Address> getAddressFromLatLong(Position position) async {
-    List<Placemark> placemarks =
+    List<Placemark> placemark =
         await placemarkFromCoordinates(position.latitude, position.longitude);
-    //print(placemarks);
-    Placemark place = placemarks[0];
+    //print(placemark);
+    Placemark place = placemark[0];
     return Address(
         id: -1,
         type: '-1',

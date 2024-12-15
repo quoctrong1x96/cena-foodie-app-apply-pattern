@@ -22,7 +22,7 @@ class CenaPrivacyState extends State<CenaPrivacy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: S.of(context).admin_privacy_policy,
           leading: const CenaButtonDefaultBack(),
         ),

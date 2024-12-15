@@ -33,7 +33,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
 
   @override
   Widget build(BuildContext context) {
-    final _keyForm = GlobalKey<FormState>();
+    final keyForm = GlobalKey<FormState>();
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final generalBloc = BlocProvider.of<GeneralBloc>(context);
     final lang = S.of(context);
@@ -49,7 +49,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
     ]);
     return BlocBuilder<GeneralBloc, GeneralState>(
         builder: (context, state) => Form(
-              key: _keyForm,
+              key: keyForm,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -57,7 +57,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                     maxLength: 50,
                     controller: _emailController,
                     hintText: S.of(context).login_email,
-                    validator: validatedEmail,
+                    validator: validatedEmail.call,
                   ),
                   // const SizedBox(height: 5.0),
                   // CenaTextDescription(text: S.of(context).login_password),
@@ -77,7 +77,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                           generalBloc
                               .add(OnShowOrHidePasswordEvent(isShowPassword));
                         }),
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                   ),
                   const SizedBox(height: 10.0),
                   Align(
@@ -100,7 +100,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                         'Login Button Press',
                         "Pressed",
                       );
-                      if (_keyForm.currentState!.validate()) {
+                      if (keyForm.currentState!.validate()) {
                         authBloc.add(LoginEvent(
                             _emailController.text, _passwordController.text));
                       }

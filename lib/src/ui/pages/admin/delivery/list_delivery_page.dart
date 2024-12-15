@@ -45,7 +45,7 @@ class _ListDeliveriesPageState extends State<ListDeliveriesPage> {
       },
       child: Scaffold(
         backgroundColor: CenaColors.LIGHT_GREY,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: lang.admin_delivery_title,
           leading: const CenaButtonDefaultBack(),
           actions: [

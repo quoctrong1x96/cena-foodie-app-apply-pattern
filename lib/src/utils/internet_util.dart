@@ -32,6 +32,6 @@ class InternetUtils {
 
   static Future<bool> _isInternetConnected() async {
     final result = await (Connectivity().checkConnectivity());
-    return result != ConnectivityResult.none;
+    return result.first != ConnectivityResult.none;
   }
 }

@@ -66,7 +66,7 @@ class _AddCategoryAdminPageState extends State<AddCategoryAdminPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        appBar: CenaAppbarDefault(
+        appBar: CenaAppBarDefault(
           title: S.of(context).admin_category_add,
           leading: const CenaButtonDefaultBack(),
           actions: [

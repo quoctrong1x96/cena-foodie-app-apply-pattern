@@ -39,7 +39,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
       productName: "",
       price: 1,
       quantity: 1);
-  _getproductImages() async {
+  _getProductImages() async {
     imagesProducts = await _productService
         .getImages(
             storeId: BlocProvider.of<StoreBloc>(context).state.store!.id,
@@ -54,7 +54,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
 
   @override
   void initState() {
-    _getproductImages();
+    _getProductImages();
     super.initState();
   }
 
@@ -65,7 +65,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
     NumberFormat numberFormat = NumberFormat('###,###', 'en_US');
 
     return Scaffold(
-      appBar: CenaAppbarDefault(
+      appBar: CenaAppBarDefault(
         leading: CenaButtonDefaultBack(
           action: () {
             if (firstCount == "-1" || firstCount == "0") {
@@ -163,8 +163,8 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
                     ],
                   )
                 : const SizedBox(
-                    child: CenaShimmer(),
                     height: 220,
+                    child: CenaShimmer(),
                   ),
             const SizedBox(height: 20.0),
             Padding(
